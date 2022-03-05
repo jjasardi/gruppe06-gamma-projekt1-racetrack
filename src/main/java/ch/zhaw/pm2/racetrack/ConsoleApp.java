@@ -1,8 +1,9 @@
 package ch.zhaw.pm2.racetrack;
 
-public class ConsoleApp {
+import ch.zhaw.pm2.racetrack.Logic.RacetrackManager;
 
+public class ConsoleApp {
     public static void main(String[] args) {
-        System.out.println("Salut");
+         new RacetrackManager().startGame();
     }
 }

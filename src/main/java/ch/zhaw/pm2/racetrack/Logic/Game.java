@@ -1,5 +1,6 @@
-package ch.zhaw.pm2.racetrack;
+package ch.zhaw.pm2.racetrack.Logic;
 
+import ch.zhaw.pm2.racetrack.PositionVector;
 import ch.zhaw.pm2.racetrack.given.GameSpecification;
 
 import java.util.List;
