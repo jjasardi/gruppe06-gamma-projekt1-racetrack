@@ -1,8 +1,11 @@
-package ch.zhaw.pm2.racetrack.Logic;
+package ch.zhaw.pm2.racetrack.logic;
 
+import ch.zhaw.pm2.racetrack.Car;
+import ch.zhaw.pm2.racetrack.Player;
 import ch.zhaw.pm2.racetrack.PositionVector;
 import ch.zhaw.pm2.racetrack.given.GameSpecification;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static ch.zhaw.pm2.racetrack.PositionVector.Direction;
@@ -14,6 +17,26 @@ import static ch.zhaw.pm2.racetrack.PositionVector.Direction;
  */
 public class Game implements GameSpecification {
     public static final int NO_WINNER = -1;
+    private final List<Player> players = new ArrayList<>();
+
+    public Game(int amountOfPlayers) {
+        initializePlayers(amountOfPlayers);
+    }
+
+    /**
+     * @param amountOfPlayers
+     */
+    public void initializePlayers(int amountOfPlayers) {
+        for(int playerNumber = 1; playerNumber <= amountOfPlayers; playerNumber++) {
+            char carId = 1;
+            carId++;
+            players.add(new Player(playerNumber, new Car(carId, new PositionVector())));
+        }
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
 
     /**
      * Return the index of the current active car.
