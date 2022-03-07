@@ -1,10 +1,10 @@
 package ch.zhaw.pm2.racetrack.ui;
 
+import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
+import ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType;
+import ch.zhaw.pm2.racetrack.logic.Config;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
-
-import ch.zhaw.pm2.racetrack.Logic.Config;
-import ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType;
 
 import java.io.File;
 
@@ -16,26 +16,34 @@ import java.io.File;
  * @author Ardi
  */
 public class Input {
-    private TextIO textIO = TextIoFactory.getTextIO();
-    private Output output = new Output();
-    private Config config = new Config();
+    private final TextIO textIO = TextIoFactory.getTextIO();
+    private final Config config = new Config();
 
-    public File getSelectedTrackFile() {
-        output.outputTrackList(); // TODO hier aufrufen oder in ConsoleApp?
-        String[] trackList = config.getTrackDirectory().list();
-        assert trackList != null;
-        int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(trackList.length - 1).read();
-        return new File(config.getTrackDirectory(), trackList[selection]);
+    /**
+     * @param trackDirectory
+     * @return
+     * @throws TracklistEmptyException
+     */
+    public File getSelectedTrackFile(File trackDirectory) throws TracklistEmptyException {
+        String[] trackList = trackDirectory.list();
+        if (trackList != null) {
+            int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(trackList.length - 1).read();
+            return new File(config.getTrackDirectory(), trackList[selection]);
+        } else {
+            throw new TracklistEmptyException();
+        }
     }
 
     public StrategyType getSelectedStrategyType() {
-        output.outputStrategyTypes();
         StrategyType[] strategyTypes = StrategyType.values();
         int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(strategyTypes.length - 1).read();
         return strategyTypes[selection];
     }
 
-    public void playerCount() {
-        textIO.newIntInputReader().withMinVal(1).withMinVal(4).read();
+    /**
+     * @return
+     */
+    public int askPlayerAmount() {
+        return textIO.newIntInputReader().withMinVal(1).withMaxVal(4).read();
     }
 }

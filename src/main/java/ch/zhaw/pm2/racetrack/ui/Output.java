@@ -1,52 +1,71 @@
 package ch.zhaw.pm2.racetrack.ui;
 
-import ch.zhaw.pm2.racetrack.Exceptions.TracklistEmptyException;
+import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
+import ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
 
-import ch.zhaw.pm2.racetrack.Logic.Config;
-import ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType;
+import java.io.File;
+import java.util.Arrays;
 
 /**
  * This class is for all the output of the game. It uses the TextIO library to
  * print the output in the console.
- * 
+ *
  * @author Ardi
  */
 
 public class Output {
-    private Config config;
     private TextIO textIO = TextIoFactory.getTextIO();
     private TextTerminal<?> textTerminal = textIO.getTextTerminal();
 
+    /**
+     *
+     */
     public void welcomeToRacetrack() {
         textTerminal.println("Hello and welcome to RaceTrack");
         textTerminal.println("This game is fun for everybody!");
     }
+
+    /**
+     * @param trackDirectory
+     * @throws TracklistEmptyException
+     */
     // TODO Tracklist als parameter gut?
-    public void outputTrackList() throws TracklistEmptyException {
+    public void outputTrackList(File trackDirectory) throws TracklistEmptyException {
         textTerminal.println("Waehle einen Track aus!");
-        String[] trackList = config.getTrackDirectory().list();
+        String[] trackList = trackDirectory.list();
         if (trackList != null) {
-            for (int i = 0; i <= trackList.length; ++i) {
-                textTerminal.println(i + " : " + trackList[i]);
-            }
+            formatListPrinting(trackList);
         } else {
             throw new TracklistEmptyException();
         }
     }
 
+    /**
+     *
+     * @param strategyTypes
+     */
     // TODO code duplizierung?
-    public void outputStrategyTypes(){
+    public void outputStrategyTypes(StrategyType[] strategyTypes) {
         textTerminal.println("Welche Strategie willst du spielen?");
-        for ()
-        for (int i = 0; i <= StrategyType.values().length; ++i){
-            textTerminal.println(i + " : " + StrategyType.values()[i]);
+
+        //convert StrategyType enum values to Array
+        String[] strategies = Arrays.stream(strategyTypes).map(Enum::name).toArray(String[]::new);
+        formatListPrinting(strategies);
+    }
+
+    private void formatListPrinting(String[] list) {
+        for (int i = 0; i < list.length; ++i) {
+            textTerminal.println(i + " : " + list[i]);
         }
     }
 
-    public void playerCount() {
+    /**
+     *
+     */
+    public void askPlayerAmount() {
         textTerminal.println("Mit wie vielen Personen moechtest du spielen?");
     }
 }
