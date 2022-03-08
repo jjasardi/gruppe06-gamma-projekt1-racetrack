@@ -40,8 +40,7 @@ public class RacetrackManager {
         List<Car> cars = game.getCars();
         for (int i = 1; i <= cars.size(); i++) {
             output.outputStrategyTypes(ConfigSpecification.StrategyType.values());
-            input.getSelectedStrategyType();
-            cars.get(i).setMoveStrategy(input.getSelectedStrategyType());
+            cars.get(i).setMoveStrategy(input.getSelectedMoveStrategy());
         }
     }
 }
