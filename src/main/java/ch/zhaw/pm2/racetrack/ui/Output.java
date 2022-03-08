@@ -65,7 +65,7 @@ public class Output {
     /**
      *
      */
-    public void askPlayerAmount() {
+    public void askCarsAmount() {
         textTerminal.println("Mit wie vielen Personen moechtest du spielen?");
     }
 }
