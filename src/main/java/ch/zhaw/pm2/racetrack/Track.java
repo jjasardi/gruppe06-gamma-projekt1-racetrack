@@ -1,5 +1,6 @@
 package ch.zhaw.pm2.racetrack;
 
+import ch.zhaw.pm2.racetrack.logic.Config;
 import ch.zhaw.pm2.racetrack.given.TrackSpecification;
 
 import java.io.File;
