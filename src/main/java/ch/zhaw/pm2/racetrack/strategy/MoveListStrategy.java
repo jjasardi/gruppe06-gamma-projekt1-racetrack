@@ -6,8 +6,10 @@ import ch.zhaw.pm2.racetrack.ui.Input;
 import ch.zhaw.pm2.racetrack.ui.Output;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class MoveListStrategy implements MoveStrategy {
     private final Config config;
@@ -15,29 +17,41 @@ public class MoveListStrategy implements MoveStrategy {
     private final Input input;
     private final File moveFile;
 
-    private List<Direction> directions;
+    private List<Direction> movesList;
 
-    public MoveListStrategy(){
+    public MoveListStrategy() {
         config = new Config();
+        output = new Output();
+        input = new Input();
+        movesList = new ArrayList<>();
+
         moveFile = selectMoveListFile();
-        readAllDirections(moveFile);
+        readAllMoves(moveFile);
     }
 
-    private File selectMoveListFile(){
+    private File selectMoveListFile() {
         File moveDirectory = config.getMoveDirectory();
         output.outputMoveList(moveDirectory);
-        input.getSelectedMoveFile(moveDirectory);
+        return input.getSelectedMoveFile(moveDirectory);
     }
 
-    private void readAllDirections(){
-        
+    private void readAllMoves(File moveFile) {
+        try {
+            Scanner scanner = new Scanner(moveFile);
+            while (scanner.hasNext()) {
+                Direction direction = Direction.valueOf(scanner.nextLine());
+                movesList.add(direction);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override
     public Direction nextMove() {
         // TODO: implementation
-
-         directions = new ArrayList<>();
         throw new UnsupportedOperationException();
     }
 }
