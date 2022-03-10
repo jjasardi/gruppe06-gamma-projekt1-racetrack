@@ -15,17 +15,18 @@ public class MoveListStrategy implements MoveStrategy {
     private final Config config;
     private final Output output;
     private final Input input;
-    private final File moveFile;
 
     private List<Direction> movesList;
+    private int currentMoveIndex;
 
     public MoveListStrategy() {
         config = new Config();
         output = new Output();
         input = new Input();
         movesList = new ArrayList<>();
+        currentMoveIndex = 0;
 
-        moveFile = selectMoveListFile();
+        File moveFile = selectMoveListFile();
         readAllMoves(moveFile);
     }
 
@@ -51,6 +52,11 @@ public class MoveListStrategy implements MoveStrategy {
 
     @Override
     public Direction nextMove() {
+        if (currentMoveIndex < movesList.size()){
+            Direction currentMove = movesList.get(currentMoveIndex);
+            ++currentMoveIndex;
+            return currentMove;
+        }
         // TODO: implementation
         throw new UnsupportedOperationException();
     }
