@@ -19,10 +19,10 @@ public class MoveListStrategy implements MoveStrategy {
     private List<Direction> movesList;
     private int currentMoveIndex;
 
-    public MoveListStrategy() {
-        config = new Config();
-        output = new Output();
-        input = new Input();
+    public MoveListStrategy(Input input, Output output, Config config) {
+        this.config = config;
+        this.output = output;
+        this.input = input;
         movesList = new ArrayList<>();
         currentMoveIndex = 0;
 
@@ -57,7 +57,5 @@ public class MoveListStrategy implements MoveStrategy {
             ++currentMoveIndex;
             return currentMove;
         }
-        // TODO: implementation
-        throw new UnsupportedOperationException();
     }
 }
