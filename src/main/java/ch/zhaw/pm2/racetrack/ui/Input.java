@@ -1,5 +1,6 @@
 package ch.zhaw.pm2.racetrack.ui;
 
+import ch.zhaw.pm2.racetrack.InvalidTrackFormatException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType;
 import ch.zhaw.pm2.racetrack.logic.Config;
@@ -27,15 +28,14 @@ public class Input {
     /**
      * @param trackDirectory
      * @return
-     * @throws TracklistEmptyException
      */
-    public File getSelectedTrackFile(File trackDirectory) throws TracklistEmptyException {
+    public File getSelectedTrackFile(File trackDirectory) throws NullPointerException {
         String[] trackList = trackDirectory.list();
         if (trackList != null) {
             int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(trackList.length - 1).read();
             return new File(config.getTrackDirectory(), trackList[selection]);
         } else {
-            throw new TracklistEmptyException();
+            throw new NullPointerException();
         }
     }
 

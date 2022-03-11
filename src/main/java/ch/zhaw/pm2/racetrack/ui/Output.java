@@ -1,5 +1,6 @@
 package ch.zhaw.pm2.racetrack.ui;
 
+import ch.zhaw.pm2.racetrack.InvalidTrackFormatException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType;
 import org.beryx.textio.TextIO;
@@ -30,16 +31,15 @@ public class Output {
 
     /**
      * @param trackDirectory
-     * @throws TracklistEmptyException
      */
     // TODO Tracklist als parameter gut?
-    public void outputTrackList(File trackDirectory) throws TracklistEmptyException {
+    public void outputTrackList(File trackDirectory) throws NullPointerException {
         textTerminal.println("Waehle einen Track aus!");
         String[] trackList = trackDirectory.list();
         if (trackList != null) {
             formatListPrinting(trackList);
         } else {
-            throw new TracklistEmptyException();
+            throw new NullPointerException();
         }
     }
 
@@ -65,7 +65,7 @@ public class Output {
     /**
      *
      */
-    public void askCarsAmount() {
+    public void askPlayerAmount() {
         textTerminal.println("Mit wie vielen Personen moechtest du spielen?");
     }
 }
