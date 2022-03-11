@@ -56,6 +56,8 @@ public class MoveListStrategy implements MoveStrategy {
             Direction currentMove = movesList.get(currentMoveIndex);
             ++currentMoveIndex;
             return currentMove;
+        } else{
+            return Direction.NONE;
         }
     }
 }
