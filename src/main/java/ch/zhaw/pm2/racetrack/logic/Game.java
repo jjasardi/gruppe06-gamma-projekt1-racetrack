@@ -2,8 +2,10 @@ package ch.zhaw.pm2.racetrack.logic;
 
 import ch.zhaw.pm2.racetrack.Car;
 import ch.zhaw.pm2.racetrack.PositionVector;
+import ch.zhaw.pm2.racetrack.Track;
 import ch.zhaw.pm2.racetrack.given.GameSpecification;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +19,12 @@ import static ch.zhaw.pm2.racetrack.PositionVector.Direction;
 public class Game implements GameSpecification {
     public static final int NO_WINNER = -1;
     private final List<Car> cars = new ArrayList<>();
+    private final Track track;
+    private final BresenhamAlgorithmus bresenham;
 
-    public Game(int amountOfCars) {
+    public Game(Track track, int amountOfCars) {
+        this.track = track;
+        bresenham = new BresenhamAlgorithmus();
         initializeCars(amountOfCars);
     }
 
@@ -42,8 +48,12 @@ public class Game implements GameSpecification {
      */
     @Override
     public int getCurrentCarIndex() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        for(int i = 0; i < cars.size(); ++i){
+            if(cars.get(i).getActiveStatus()) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -53,8 +63,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public char getCarId(int carIndex) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return cars.get(carIndex).getId();
     }
 
     /**
@@ -64,8 +73,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public PositionVector getCarPosition(int carIndex) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return cars.get(carIndex).getPosition();
     }
 
     /**
@@ -75,8 +83,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public PositionVector getCarVelocity(int carIndex) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return cars.get(carIndex).getVelocity();
     }
 
     /**
@@ -85,8 +92,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public int getWinner() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return track.getWinnerId();
     }
 
     /**
@@ -144,8 +150,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public List<PositionVector> calculatePath(PositionVector startPosition, PositionVector endPosition) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return bresenham.calculatePath(startPosition, endPosition);
     }
 
     /**
@@ -156,7 +161,9 @@ public class Game implements GameSpecification {
      */
     @Override
     public boolean willCarCrash(int carIndex, PositionVector position) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        //if(bresenham.calculatePath(position.getX(), position.getY())) cars.get(carIndex).getMoveStrategy().nextMove();
+        return false;
     }
+
+
 }
