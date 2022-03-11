@@ -1,15 +1,15 @@
 package ch.zhaw.pm2.racetrack.strategy;
 
+import ch.zhaw.pm2.racetrack.PositionVector;
+
 import static ch.zhaw.pm2.racetrack.PositionVector.Direction;
 
 /**
  * Do not accelerate in any direction.
  */
 public class DoNotMoveStrategy implements MoveStrategy {
-
     @Override
     public Direction nextMove() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return Direction.NONE;
     }
 }
