@@ -21,6 +21,7 @@ public class Game implements GameSpecification {
     private final List<Car> cars = new ArrayList<>();
     private final Track track;
     private final BresenhamAlgorithmus bresenham;
+    private boolean gameHasWinner;
 
     public Game(Track track, int amountOfCars) {
         this.track = track;
@@ -123,8 +124,36 @@ public class Game implements GameSpecification {
      */
     @Override
     public void doCarTurn(Direction acceleration) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        for(int i = 0; i < cars.size(); ++i) {
+            if (cars.get(i).getActiveStatus()) {
+                Car activeCar = cars.get(i);
+                activeCar.accelerate(acceleration);
+                calculatePath(activeCar.getPosition(), activeCar.nextPosition());
+                switch (track.getCharAtPosition(activeCar.nextPosition().getX(), activeCar.nextPosition().getY(), track.getSpaceType(activeCar.nextPosition()))) {
+                    case '#':
+                        activeCar.crash();
+                        activeCar.setPosition(activeCar.nextPosition());
+                        break;
+                    case ' ':
+                        for (Car car : cars) {
+                            if(car.getPosition().equals(activeCar.nextPosition())){
+                                activeCar.crash();
+                            } else {
+                                activeCar.move();
+                            }
+                        }
+                        break;
+                    case '<','>','^','v':
+                        if(passedFinishLineInCorrectWay){
+                            gameHasWinner = true;
+                        } else {
+                            //Michael fragen was genau sonst passiert
+                        }
+                        break;
+                }
+
+            }
+        }
     }
 
     /**
