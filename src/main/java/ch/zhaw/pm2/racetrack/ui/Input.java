@@ -57,6 +57,17 @@ public class Input {
         return strategyMap.get(strategyTypes[selection]);
     }
 
+    // TODO Codeduplizierung mit getSelectedTrackFile
+    public File getSelectedMoveFile(File moveDirectory) throws MoveListEmptyException {
+        String[] moveList = moveDirectory.list();
+        if (moveList != null) {
+            int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(moveList.length - 1).read();
+            return new File(moveDirectory, moveList[selection]);
+        } else {
+            throw new MoveListEmptyException();
+        }
+    }
+
     /**
      * @return
      */
