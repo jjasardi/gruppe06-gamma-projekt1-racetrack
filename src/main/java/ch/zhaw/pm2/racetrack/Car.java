@@ -68,8 +68,7 @@ public class Car implements CarSpecification {
      */
     @Override
     public PositionVector nextPosition() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return PositionVector.add(this.position, this.velocity);
     }
 
     /**
@@ -125,5 +124,9 @@ public class Car implements CarSpecification {
      */
     public MoveStrategy getMoveStrategy() {
         return this.moveStrategy;
+    }
+
+    public char getId() {
+        return this.id;
     }
 }
