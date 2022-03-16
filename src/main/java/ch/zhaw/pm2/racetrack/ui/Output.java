@@ -26,7 +26,6 @@ public class Output {
      * @param trackDirectory
      * @throws TracklistEmptyException
      */
-    // TODO Tracklist als parameter gut?
     public void outputTrackList(File trackDirectory) throws TracklistEmptyException {
         consoleInterface.printTrackList(trackDirectory);
     }
