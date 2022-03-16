@@ -1,5 +1,6 @@
 package ch.zhaw.pm2.racetrack.ui;
 
+import ch.zhaw.pm2.racetrack.PositionVector;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType;
 import ch.zhaw.pm2.racetrack.logic.Config;
@@ -21,6 +22,17 @@ public class Input {
     private final ConsoleInterface consoleInterface = new ConsoleInterface();
 
     /**
+     *
+     */
+    public Input() {
+        textIO = TextIoFactory.getTextIO();
+        config = new Config();
+    }
+
+    public static TextIO getInputInstance() {
+        return textIO;
+    }
+    /**
      * @param trackDirectory
      * @return
      * @throws TracklistEmptyException
@@ -39,7 +51,7 @@ public class Input {
 
     private static MoveStrategy mapStrategyTypeToMoveStrategy(StrategyType strategyType) {
         DoNotMoveStrategy doNotMoveStrategy = new DoNotMoveStrategy();
-        UserMoveStrategy userMoveStrategy = new UserMoveStrategy();
+        UserMoveStrategy userMoveStrategy = new UserMoveStrategy(this);
         MoveListStrategy moveListStrategy = new MoveListStrategy();
         PathFollowerMoveStrategy pathFollowerMoveStrategy = new PathFollowerMoveStrategy();
 
