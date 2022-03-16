@@ -1,6 +1,4 @@
 package ch.zhaw.pm2.racetrack.ui;
-
-import ch.zhaw.pm2.racetrack.InvalidTrackFormatException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType;
 import ch.zhaw.pm2.racetrack.logic.Config;
@@ -22,9 +20,20 @@ import static ch.zhaw.pm2.racetrack.given.ConfigSpecification.MAX_CARS;
  * @author Ardi
  */
 public class Input {
-    private final TextIO textIO = TextIoFactory.getTextIO();
-    private final Config config = new Config();
+    private static TextIO textIO;
+    private final Config config;
 
+    /**
+     *
+     */
+    public Input() {
+        textIO = TextIoFactory.getTextIO();
+        config = new Config();
+    }
+
+    public static TextIO getInputInstance() {
+        return textIO;
+    }
     /**
      * @param trackDirectory
      * @return
@@ -44,7 +53,7 @@ public class Input {
         int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(strategyTypes.length - 1).read();
 
         DoNotMoveStrategy doNotMoveStrategy = new DoNotMoveStrategy();
-        UserMoveStrategy userMoveStrategy = new UserMoveStrategy();
+        UserMoveStrategy userMoveStrategy = new UserMoveStrategy(this);
         MoveListStrategy moveListStrategy = new MoveListStrategy();
         PathFollowerMoveStrategy pathFollowerMoveStrategy = new PathFollowerMoveStrategy();
 
@@ -57,10 +66,31 @@ public class Input {
         return strategyMap.get(strategyTypes[selection]);
     }
 
+    // TODO Codeduplizierung mit getSelectedTrackFile
+    public File getSelectedMoveFile(File moveDirectory) throws MoveListEmptyException {
+        String[] moveList = moveDirectory.list();
+        if (moveList != null) {
+            int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(moveList.length - 1).read();
+            return new File(moveDirectory, moveList[selection]);
+        } else {
+            throw new MoveListEmptyException();
+        }
+    }
+
     /**
      * @return
      */
-    public int askCarsAmount() {
-        return textIO.newIntInputReader().withMinVal(1).withMaxVal(MAX_CARS).read();
+    public int askPlayerAmount() {
+        final int MIN_PLAYER = 1;
+        final int MAX_PLAYERS = MAX_CARS;
+        return textIO.newIntInputReader().withMinVal(MIN_PLAYER).withMaxVal(MAX_PLAYERS).read();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public PositionVector.Direction askUserMoveDirection() {
+        return textIO.newEnumInputReader(PositionVector.Direction.class).read();
     }
 }

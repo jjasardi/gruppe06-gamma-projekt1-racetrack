@@ -43,6 +43,17 @@ public class Output {
         }
     }
 
+    // TODO MoveListEmptyException
+    public void outputMoveList(File moveDirectory) throws MoveListEmptyException {
+        textTerminal.println("Waehle eine Datei für deine Moves!");
+        String[] moveList = moveDirectory.list();
+        if (moveList != null) {
+            formatListPrinting(moveList);
+        } else {
+            throw new MoveListEmptyException();
+        }
+    }
+
     /**
      *
      * @param strategyTypes
