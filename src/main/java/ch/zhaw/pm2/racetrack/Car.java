@@ -57,8 +57,7 @@ public class Car implements CarSpecification {
      */
     @Override
     public void setPosition(final PositionVector position) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        this.position = position;
     }
 
     /**
@@ -83,8 +82,7 @@ public class Car implements CarSpecification {
      */
     @Override
     public void accelerate(PositionVector.Direction acceleration) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        this.velocity = PositionVector.add(this.velocity, acceleration.vector);
     }
 
     /**
@@ -92,8 +90,7 @@ public class Car implements CarSpecification {
      */
     @Override
     public void move() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        this.position = PositionVector.add(this.position, this.velocity);
     }
 
     /**
@@ -101,8 +98,7 @@ public class Car implements CarSpecification {
      */
     @Override
     public void crash() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        this.crashed = true;
     }
 
     /**
@@ -112,8 +108,7 @@ public class Car implements CarSpecification {
      */
     @Override
     public boolean isCrashed() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return crashed;
     }
 
     /**
