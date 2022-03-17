@@ -18,19 +18,6 @@ public class Game implements GameSpecification {
     public static final int NO_WINNER = -1;
     private final List<Car> cars = new ArrayList<>();
 
-    public Game(int amountOfCars) {
-        initializeCars(amountOfCars);
-    }
-
-    /**
-     * @param amountOfCars
-     */
-    public void initializeCars(int amountOfCars) {
-        for(char carId = 1; carId <= amountOfCars; carId++) {
-            cars.add(new Car(carId, new PositionVector()));
-        }
-    }
-
     public List<Car> getCars() {
         return cars;
     }
