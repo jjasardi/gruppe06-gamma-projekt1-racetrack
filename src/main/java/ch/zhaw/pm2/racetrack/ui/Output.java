@@ -1,5 +1,6 @@
 package ch.zhaw.pm2.racetrack.ui;
 
+import ch.zhaw.pm2.racetrack.InvalidTrackFormatException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType;
 
@@ -24,7 +25,6 @@ public class Output {
 
     /**
      * @param trackDirectory
-     * @throws TracklistEmptyException
      */
     public void outputTrackList(File trackDirectory) throws TracklistEmptyException {
         consoleInterface.printTrackList(trackDirectory);

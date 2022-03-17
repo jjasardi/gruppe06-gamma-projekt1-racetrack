@@ -1,6 +1,4 @@
 package ch.zhaw.pm2.racetrack.ui;
-
-import ch.zhaw.pm2.racetrack.PositionVector;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType;
 import ch.zhaw.pm2.racetrack.logic.Config;
@@ -35,9 +33,8 @@ public class Input {
     /**
      * @param trackDirectory
      * @return
-     * @throws TracklistEmptyException
      */
-    public File getSelectedTrackFile(File trackDirectory) throws TracklistEmptyException {
+    public File getSelectedTrackFile(File trackDirectory) throws NullPointerException {
         String[] trackList = trackDirectory.list();
         return consoleInterface.askTrackFile(trackList);
     }

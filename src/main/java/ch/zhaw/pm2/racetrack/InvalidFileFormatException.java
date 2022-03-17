@@ -1,5 +1,17 @@
 package ch.zhaw.pm2.racetrack;
 
+
+/**
+ * 
+ */
 public class InvalidFileFormatException extends Exception {
-    // TODO: implementation
+
+    private static final long serialVersionUID = 7421314400704183413L;
+
+    /**
+     * @param errorMessage
+     */
+    InvalidFileFormatException(String errorMessage) {
+        super(errorMessage);
+    }
 }
