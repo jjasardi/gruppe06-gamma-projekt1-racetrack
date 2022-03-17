@@ -26,16 +26,6 @@ public class Game implements GameSpecification {
     public Game(Track track, int amountOfCars) {
         this.track = track;
         bresenham = new BresenhamAlgorithmus();
-        initializeCars(amountOfCars);
-    }
-
-    /**
-     * @param amountOfCars
-     */
-    public void initializeCars(int amountOfCars) { //hier anstatt amountOfCar methode von track benutzen getCarCount()?
-        for(char carId = 1; carId <= amountOfCars; carId++) {
-            cars.add(new Car(carId, new PositionVector()));
-        }
     }
 
     public List<Car> getCars() {
