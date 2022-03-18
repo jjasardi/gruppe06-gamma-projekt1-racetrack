@@ -124,8 +124,13 @@ public class Game implements GameSpecification {
         }
         activeCar.accelerate(acceleration);
         List<PositionVector> possibleVectors = calculatePath(activeCar.getPosition(), activeCar.nextPosition());
+
+        int nextPositionX = activeCar.nextPosition().getX();
+        int nextPositionY = activeCar.nextPosition().getY();
+        ConfigSpecification.SpaceType spaceTypeOnNextPosition = track.getSpaceType(activeCar.nextPosition());
+
         for (PositionVector positionVector : possibleVectors) {
-            switch (track.getCharAtPosition(activeCar.nextPosition().getX(), activeCar.nextPosition().getY(), track.getSpaceType(activeCar.nextPosition()))) {
+            switch (track.getCharAtPosition(nextPositionX, nextPositionY, spaceTypeOnNextPosition)) {
                 case '#':
                     activeCar.crash();
                     activeCar.setPosition(activeCar.nextPosition());
@@ -152,10 +157,7 @@ public class Game implements GameSpecification {
     }
 
     private boolean passedFinishLineInCorrectWay() {
-        Car activeCar = cars.get(indexCurrentCar);
-        switch (
-
-        )
+        throw new RuntimeException();
     }
 
 
