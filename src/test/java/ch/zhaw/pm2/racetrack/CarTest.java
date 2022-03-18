@@ -47,5 +47,6 @@ public class CarTest {
     public void moveWithVelocity() {
         car.accelerate(Direction.RIGHT);
         car.move();
+        assertEquals(new PositionVector(1, 0), car.getPosition());
     }
 }
