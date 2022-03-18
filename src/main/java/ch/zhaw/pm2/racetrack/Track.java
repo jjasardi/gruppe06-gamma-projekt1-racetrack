@@ -2,9 +2,11 @@ package ch.zhaw.pm2.racetrack;
 
 import ch.zhaw.pm2.racetrack.logic.Config;
 import ch.zhaw.pm2.racetrack.given.TrackSpecification;
+import ch.zhaw.pm2.racetrack.logic.TrackReader;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents the racetrack board.
@@ -56,43 +58,42 @@ public class Track implements TrackSpecification {
 
     public static final char CRASH_INDICATOR = 'X';
 
-    // TODO: Add necessary variables
+    private TrackReader trackReader;
+    private List<Car> cars;
+    private List<Config.SpaceType> trackSpaceTypes;
+    private final Integer width;
+    private final Integer height;
 
     /**
      * Initialize a Track from the given track file.
      *
      * @param trackFile Reference to a file containing the track data
      * @throws FileNotFoundException       if the given track file could not be found
-     * @throws InvalidTrackFormatException if the track file contains invalid data (no tracklines, ...)
+     * @throws InvalidTrackFormatException if the track file contains invalid data (no tracklines, no
      */
     public Track(File trackFile) throws FileNotFoundException, InvalidTrackFormatException {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        cars = new ArrayList<>();
+        trackSpaceTypes = new ArrayList<>();
+        trackReader = new TrackReader(trackFile);
+        width = trackReader.getWidth();
+        height = trackReader.getHeight();
+        addCarAndSpaceTypeToArrayList();
+
+        System.out.println(trackReader.getTrackPositionVector());
     }
 
     /**
-     * Return the type of space at the given position.
-     * If the location is outside the track bounds, it is considered a wall.
+     * Returns the {@link Config.SpaceType} from a given {@link PositionVector}
      *
-     * @param position The coordinates of the position to examine
-     * @return The type of track position at the given location
+     * @param positionVector position to retrieve {@link Config.SpaceType} from
+     * @return {@link Config.SpaceType}
      */
     @Override
-    public Config.SpaceType getSpaceType(PositionVector position) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+    public Config.SpaceType getSpaceType(PositionVector positionVector) {
+        int index = trackReader.getTrackPositionVector().indexOf(positionVector);
+        return trackSpaceTypes.get(index);
     }
 
-    /**
-     * Return the number of cars.
-     *
-     * @return Number of cars
-     */
-    @Override
-    public int getCarCount() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
-    }
 
     /**
      * Get instance of specified car.
@@ -102,8 +103,17 @@ public class Track implements TrackSpecification {
      */
     @Override
     public Car getCar(int carIndex) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return cars.get(carIndex);
+    }
+
+    /**
+     * Return the number of cars.
+     *
+     * @return Number of cars
+     */
+    @Override
+    public int getCarCount() {
+        return cars.size();
     }
 
     /**
@@ -114,8 +124,7 @@ public class Track implements TrackSpecification {
      */
     @Override
     public char getCarId(int carIndex) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return cars.get(carIndex).getId();
     }
 
     /**
@@ -126,20 +135,16 @@ public class Track implements TrackSpecification {
      */
     @Override
     public PositionVector getCarPos(int carIndex) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return cars.get(carIndex).getPosition();
     }
 
-    /**
-     * Get the velocity of the specified car.
-     *
-     * @param carIndex The zero-based carIndex number
-     * @return A PositionVector containing the car's current velocity
-     */
     @Override
     public PositionVector getCarVelocity(int carIndex) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return cars.get(carIndex).getVelocity();
+    }
+
+    private PositionVector getPositionVectorFromIndex(int index) {
+        return trackReader.getTrackPositionVector().get(index);
     }
 
     /**
@@ -153,18 +158,54 @@ public class Track implements TrackSpecification {
      */
     @Override
     public char getCharAtPosition(int y, int x, Config.SpaceType currentSpace) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        for (Car car : cars) {
+            if (car.getPosition().getX() == x && car.getPosition().getY() == y) {
+                if (car.isCrashed()) {
+                    return CRASH_INDICATOR;
+                } else {
+                    return car.getId();
+                }
+            }
+        }
+        return currentSpace.getValue();
     }
 
     /**
-     * Return a String representation of the track, including the car locations.
+     * Returns a String representation of the given track
      *
-     * @return A String representation of the track
+     * @return string of the given track
      */
     @Override
     public String toString() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        StringBuilder track = new StringBuilder();
+        int lengthOfRow = width - 1;
+        for (int lengthOfTrack = 0; lengthOfTrack < trackReader.getTrackCharacters().size(); lengthOfTrack++) {
+            if (lengthOfTrack == lengthOfRow && lengthOfRow != trackReader.getTrackCharacters().size() - 1) {
+                track.append(trackReader.getTrackCharacters().get(lengthOfTrack)).append("\n");
+                lengthOfRow += width;
+            } else {
+                track.append(trackReader.getTrackCharacters().get(lengthOfTrack));
+            }
+        }
+        return track.toString();
+    }
+
+    private void addCarAndSpaceTypeToArrayList() throws InvalidTrackFormatException {
+        for (Character character : trackReader.getTrackCharacters()) {
+            if (isCar(character)) {
+                initializeAndAddValidCarToList(character, getPositionVectorFromIndex(trackReader.getTrackCharacters().indexOf(character)));
+            } else {
+                trackSpaceTypes.add(trackReader.getSpaceTypeOfCharacter(character));
+            }
+        }
+    }
+
+    private static Boolean isCar(Character character) {
+        return character.toString().matches("([^# <>v^])+");
+    }
+
+    private void initializeAndAddValidCarToList(Character character, PositionVector position) throws InvalidTrackFormatException {
+        Car car = new Car(character, new PositionVector(position.getX(), position.getY()));
+        cars.add(car);
     }
 }
