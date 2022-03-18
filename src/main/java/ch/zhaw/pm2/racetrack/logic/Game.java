@@ -2,6 +2,8 @@ package ch.zhaw.pm2.racetrack.logic;
 
 import ch.zhaw.pm2.racetrack.Car;
 import ch.zhaw.pm2.racetrack.PositionVector;
+import ch.zhaw.pm2.racetrack.Track;
+import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
 import ch.zhaw.pm2.racetrack.given.GameSpecification;
 
 import java.util.ArrayList;
@@ -17,6 +19,14 @@ import static ch.zhaw.pm2.racetrack.PositionVector.Direction;
 public class Game implements GameSpecification {
     public static final int NO_WINNER = -1;
     private final List<Car> cars = new ArrayList<>();
+    private final Track track;
+    private final BresenhamAlgorithmus bresenham;
+    private boolean gameHasWinner;
+
+    public Game(Track track, int amountOfCars) {
+        this.track = track;
+        bresenham = new BresenhamAlgorithmus();
+    }
 
     public List<Car> getCars() {
         return cars;
@@ -29,8 +39,12 @@ public class Game implements GameSpecification {
      */
     @Override
     public int getCurrentCarIndex() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        for(int i = 0; i < track.getCarCount(); ++i){
+            if(cars.get(i).getActiveStatus()) {
+                return i;
+            }
+        }
+        throw new RuntimeException();
     }
 
     /**
@@ -40,8 +54,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public char getCarId(int carIndex) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return cars.get(carIndex).getId();
     }
 
     /**
@@ -51,8 +64,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public PositionVector getCarPosition(int carIndex) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return cars.get(carIndex).getPosition();
     }
 
     /**
@@ -62,8 +74,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public PositionVector getCarVelocity(int carIndex) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return cars.get(carIndex).getVelocity();
     }
 
     /**
@@ -72,8 +83,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public int getWinner() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return track.getWinnerIndex();
     }
 
     /**
@@ -104,17 +114,57 @@ public class Game implements GameSpecification {
      */
     @Override
     public void doCarTurn(Direction acceleration) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        Car activeCar = getActiveCar(cars);
+        if(getWinner() == -1 || activeCar.isCrashed()) {
+            return;
+        }
+        activeCar.accelerate(acceleration);
+        List<PositionVector> possibleVectors = calculatePath(activeCar.getPosition(), activeCar.nextPosition());
+        for (PositionVector positionVector : possibleVectors) {
+            switch (track.getCharAtPosition(activeCar.nextPosition().getX(), activeCar.nextPosition().getY(), track.getSpaceType(activeCar.nextPosition()))) {
+                case '#':
+                    activeCar.crash();
+                    activeCar.setPosition(activeCar.nextPosition());
+                    break;
+                case ' ':
+                    for (Car car : cars) {
+                        if (car.getPosition().equals(activeCar.nextPosition())) {
+                            activeCar.crash();
+                        } else {
+                            activeCar.move();
+                        }
+                    }
+                    break;
+                case '<', '>', '^', 'v':
+                    if (passedFinishLineInCorrectWay()) {
+                        gameHasWinner = true;
+                    } else {
+                        activeCar.crash();
+                    }
+                    break;
+            }
+        }
     }
+
+    private boolean passedFinishLineInCorrectWay() {
+        Car activeCar = getActiveCar(cars);
+        switch (
+
+        )
+    }
+
 
     /**
      * Switches to the next car who is still in the game. Skips crashed cars.
      */
     @Override
     public void switchToNextActiveCar() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        int currentActiveCarIndex = getCurrentCarIndex();
+        if (currentActiveCarIndex + 1 < cars.size()) {
+            cars.get(currentActiveCarIndex + 1).setActiveStatus(true);
+        } else {
+            cars.get(0).setActiveStatus(true);
+        }
     }
 
     /**
@@ -131,8 +181,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public List<PositionVector> calculatePath(PositionVector startPosition, PositionVector endPosition) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return bresenham.calculatePath(startPosition, endPosition);
     }
 
     /**
@@ -143,7 +192,24 @@ public class Game implements GameSpecification {
      */
     @Override
     public boolean willCarCrash(int carIndex, PositionVector position) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        Car activeCar = getActiveCar(cars);
+        int xPosition = activeCar.nextPosition().getX();
+        int yPosition = activeCar.nextPosition().getY();
+        Config.SpaceType spaceType = track.getSpaceType(new PositionVector(xPosition, yPosition));
+        char noCarOnPosition = track.getCharAtPosition(xPosition, yPosition, returnValueVMethode);
+        if(spaceType == ConfigSpecification.SpaceType.WALL || noCarOnPosition == returnValueVMethode){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private Car getActiveCar(List<Car> cars) {
+        for (Car car : cars) {
+            if (car.getActiveStatus()) {
+                return car;
+            }
+        }
+        throw new RuntimeException();
     }
 }
