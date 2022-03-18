@@ -68,4 +68,3 @@ public class BresenhamAlgorithmus {
         return path;
     }
 }
-}

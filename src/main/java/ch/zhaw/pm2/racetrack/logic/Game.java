@@ -136,14 +136,21 @@ public class Game implements GameSpecification {
                     }
                     break;
                 case '<', '>', '^', 'v':
-                    if (passedFinishLineInCorrectWay) {
+                    if (passedFinishLineInCorrectWay()) {
                         gameHasWinner = true;
                     } else {
-                        //Michael fragen was genau sonst passiert
+                        activeCar.crash();
                     }
                     break;
             }
         }
+    }
+
+    private boolean passedFinishLineInCorrectWay() {
+        Car activeCar = getActiveCar(cars);
+        switch (
+
+        )
     }
 
 
