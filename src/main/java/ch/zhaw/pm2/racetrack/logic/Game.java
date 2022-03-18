@@ -18,14 +18,20 @@ import static ch.zhaw.pm2.racetrack.PositionVector.Direction;
  */
 public class Game implements GameSpecification {
     public static final int NO_WINNER = -1;
+    private static final int FIRST_CAR_INDEX = 0;
     private final List<Car> cars = new ArrayList<>();
     private final Track track;
     private final BresenhamAlgorithmus bresenham;
     private boolean gameHasWinner;
+    private int indexCurrentCar;
+    private Car currentCar;
+    private int winningCarIndex = -1;
 
     public Game(Track track, int amountOfCars) {
         this.track = track;
         bresenham = new BresenhamAlgorithmus();
+        indexCurrentCar = FIRST_CAR_INDEX;
+        currentCar = cars.get(FIRST_CAR_INDEX);
     }
 
     public List<Car> getCars() {
@@ -39,12 +45,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public int getCurrentCarIndex() {
-        for(int i = 0; i < track.getCarCount(); ++i){
-            if(cars.get(i).getActiveStatus()) {
-                return i;
-            }
-        }
-        throw new RuntimeException();
+        return indexCurrentCar;
     }
 
     /**
@@ -83,7 +84,10 @@ public class Game implements GameSpecification {
      */
     @Override
     public int getWinner() {
-        return track.getWinnerIndex();
+        if(gameHasWinner){
+            return winningCarIndex;
+        }
+            return NO_WINNER;
     }
 
     /**
@@ -114,7 +118,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public void doCarTurn(Direction acceleration) {
-        Car activeCar = getActiveCar(cars);
+        Car activeCar = cars.get(indexCurrentCar);
         if(getWinner() == -1 || activeCar.isCrashed()) {
             return;
         }
@@ -144,10 +148,11 @@ public class Game implements GameSpecification {
                     break;
             }
         }
+        switchToNextActiveCar();
     }
 
     private boolean passedFinishLineInCorrectWay() {
-        Car activeCar = getActiveCar(cars);
+        Car activeCar = cars.get(indexCurrentCar);
         switch (
 
         )
@@ -159,12 +164,17 @@ public class Game implements GameSpecification {
      */
     @Override
     public void switchToNextActiveCar() {
-        int currentActiveCarIndex = getCurrentCarIndex();
-        if (currentActiveCarIndex + 1 < cars.size()) {
-            cars.get(currentActiveCarIndex + 1).setActiveStatus(true);
-        } else {
-            cars.get(0).setActiveStatus(true);
+        int testIndex = ++indexCurrentCar;
+        if (testIndex > track.getCarCount()) {
+            testIndex = FIRST_CAR_INDEX;
         }
+        for(int i = testIndex; i < track.getCarCount(); i++){
+            if (i < track.getCarCount() && !cars.get(i).isCrashed()) {
+                indexCurrentCar = i;
+                return;
+            }
+        }
+
     }
 
     /**
@@ -192,24 +202,15 @@ public class Game implements GameSpecification {
      */
     @Override
     public boolean willCarCrash(int carIndex, PositionVector position) {
-        Car activeCar = getActiveCar(cars);
-        int xPosition = activeCar.nextPosition().getX();
-        int yPosition = activeCar.nextPosition().getY();
+        Car car = cars.get(carIndex);
+        int xPosition = car.nextPosition().getX();
+        int yPosition = car.nextPosition().getY();
         Config.SpaceType spaceType = track.getSpaceType(new PositionVector(xPosition, yPosition));
-        char noCarOnPosition = track.getCharAtPosition(xPosition, yPosition, returnValueVMethode);
-        if(spaceType == ConfigSpecification.SpaceType.WALL || noCarOnPosition == returnValueVMethode){
+        char noCarOnPosition = track.getCharAtPosition(xPosition, yPosition, track.getSpaceType(position));
+        if(spaceType == ConfigSpecification.SpaceType.WALL || track.getSpaceType(position).equals(noCarOnPosition)){
             return true;
         } else {
             return false;
         }
-    }
-
-    private Car getActiveCar(List<Car> cars) {
-        for (Car car : cars) {
-            if (car.getActiveStatus()) {
-                return car;
-            }
-        }
-        throw new RuntimeException();
     }
 }
