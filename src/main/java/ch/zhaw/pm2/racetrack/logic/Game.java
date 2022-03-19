@@ -135,6 +135,7 @@ public class Game implements GameSpecification {
                     activeCar.crash();
                     activeCar.setPosition(activeCar.nextPosition());
                     break;
+
                 case ' ':
                     for (Car car : cars) {
                         if (car.getPosition().equals(activeCar.nextPosition())) {
@@ -144,6 +145,7 @@ public class Game implements GameSpecification {
                         }
                     }
                     break;
+
                 case '<', '>', '^', 'v':
                     PositionVector currentPositionCar = activeCar.getPosition();
                     PositionVector positionSpaceType =  activeCar.nextPosition();
