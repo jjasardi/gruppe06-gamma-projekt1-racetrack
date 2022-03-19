@@ -150,13 +150,16 @@ public class Game implements GameSpecification {
                     ConfigSpecification.SpaceType spaceType = spaceTypeOnNextPosition;
                     if (passedFinishLineInCorrectWay(currentPositionCar,spaceType, positionSpaceType)) {
                         gameHasWinner = true;
+                        activeCar.setPosition(activeCar.nextPosition());
                     } else {
                         activeCar.crash();
+                        activeCar.setPosition(activeCar.nextPosition());
                     }
                     break;
 
                 case 'X':
                     activeCar.crash();
+                    activeCar.setPosition(activeCar.nextPosition());
             }
         }
         switchToNextActiveCar();
