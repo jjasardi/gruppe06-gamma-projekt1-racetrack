@@ -145,19 +145,49 @@ public class Game implements GameSpecification {
                     }
                     break;
                 case '<', '>', '^', 'v':
-                    if (passedFinishLineInCorrectWay()) {
+                    PositionVector currentPositionCar = activeCar.getPosition();
+                    PositionVector positionSpaceType =  activeCar.nextPosition();
+                    ConfigSpecification.SpaceType spaceType = spaceTypeOnNextPosition;
+                    if (passedFinishLineInCorrectWay(currentPositionCar,spaceType, positionSpaceType)) {
                         gameHasWinner = true;
                     } else {
                         activeCar.crash();
                     }
                     break;
+
+                case 'X':
+                    activeCar.crash();
             }
         }
         switchToNextActiveCar();
     }
 
-    private boolean passedFinishLineInCorrectWay() {
-        throw new RuntimeException();
+    private boolean passedFinishLineInCorrectWay(PositionVector currentPositionCar, ConfigSpecification.SpaceType spaceType, PositionVector positionSpaceType) {
+        int currentPositionCarX = currentPositionCar.getX();
+        int currentPositionCarY = currentPositionCar.getY();
+        int positionSpaceTypeX = positionSpaceType.getX();
+        int positionSpaceTypeY = positionSpaceType.getY();
+
+        switch (spaceType.value) {
+            case '<':
+                if (currentPositionCarX > positionSpaceTypeX) {
+                    return true;
+                }
+
+            case '>':
+                if (currentPositionCarX < positionSpaceTypeX) {
+                    return true;
+                }
+            case '^':
+                if (currentPositionCarY > positionSpaceTypeY) {
+                    return true;
+                }
+            case 'v':
+                if (currentPositionCarY < positionSpaceTypeY) {
+                    return true;
+                }
+        }
+        return false;
     }
 
 
@@ -166,15 +196,13 @@ public class Game implements GameSpecification {
      */
     @Override
     public void switchToNextActiveCar() {
-        int testIndex = ++indexCurrentCar;
-        if (testIndex > track.getCarCount()) {
-            testIndex = FIRST_CAR_INDEX;
-        }
-        for(int i = testIndex; i < track.getCarCount(); i++){
-            if (i < track.getCarCount() && !cars.get(i).isCrashed()) {
-                indexCurrentCar = i;
-                return;
-            }
+        int maxIndex = track.getCarCount();
+        int testIndex = (indexCurrentCar + 1) % maxIndex;
+
+        if (cars.get(testIndex).isCrashed()) {
+            switchToNextActiveCar();
+        } else {
+            indexCurrentCar = testIndex;
         }
 
     }
