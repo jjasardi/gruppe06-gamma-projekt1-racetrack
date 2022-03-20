@@ -1,5 +1,7 @@
 package ch.zhaw.pm2.racetrack.ui;
 
+import ch.zhaw.pm2.racetrack.PositionVector;
+import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
 import ch.zhaw.pm2.racetrack.logic.Config;
@@ -67,6 +69,51 @@ public class ConsoleInterface implements UserInterface{
         //convert StrategyType enum values to Array
         String[] strategies = Arrays.stream(strategyTypes).map(Enum::name).toArray(String[]::new);
         formatListPrinting(strategies);
+    }
+
+    @Override
+    public PositionVector.Direction askUserMoveDirection() {
+        return textIO.newEnumInputReader(PositionVector.Direction.class).read();
+    }
+
+    /**
+     * @param moveDirectory
+     * @return
+     * @throws MoveListEmptyException
+     */
+    @Override
+    public File askSelectedMoveFile(String[] moveDirectory) throws MoveListEmptyException {
+        if (moveDirectory != null) {
+            int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(moveDirectory.length - 1).read();
+            return new File(config.getTrackDirectory(), moveDirectory[selection]);
+        } else {
+            throw new MoveListEmptyException();
+        }
+    }
+
+    /**
+     * @param moveDirectory
+     * @throws MoveListEmptyException
+     */
+    public void printMoveList(File moveDirectory) throws MoveListEmptyException {
+        textTerminal.println("Waehle eine Datei für deine Moves aus!");
+        String[] moveList = moveDirectory.list();
+        if (moveList != null) {
+            formatListPrinting(moveList);
+        } else {
+            throw new MoveListEmptyException();
+        }
+    }
+
+    /**
+     * @param moveDirections
+     */
+    public void printNextMoveList(PositionVector.Direction[] moveDirections) {
+        //TODO text verbessern
+        textTerminal.println("Welche Richtung willst du fahren?");
+
+        String[] directions = Arrays.stream(moveDirections).map(Enum::name).toArray(String[]::new);
+        formatListPrinting(directions);
     }
 
     private void formatListPrinting(String[] list) {

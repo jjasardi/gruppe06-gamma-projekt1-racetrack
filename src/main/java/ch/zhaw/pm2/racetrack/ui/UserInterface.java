@@ -1,5 +1,7 @@
 package ch.zhaw.pm2.racetrack.ui;
 
+import ch.zhaw.pm2.racetrack.PositionVector;
+import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
 
@@ -15,28 +17,39 @@ public interface UserInterface {
      * @return
      * @throws TracklistEmptyException
      */
-    public File askTrackFile(String[] trackList) throws TracklistEmptyException;
+    File askTrackFile(String[] trackList) throws TracklistEmptyException;
 
     /**
      * @param strategyTypes
      * @return
      */
-    public int askStrategy(ConfigSpecification.StrategyType[] strategyTypes);
+    int askStrategy(ConfigSpecification.StrategyType[] strategyTypes);
 
     /**
      *
      */
-    public void printWelcomeText();
+    void printWelcomeText();
 
     /**
      * @param trackDirectory
      * @throws TracklistEmptyException
      */
-    public void printTrackList(File trackDirectory) throws TracklistEmptyException;
+    void printTrackList(File trackDirectory) throws TracklistEmptyException;
 
     /**
      * @param strategyTypes
      */
-    public void printStrategyTypes(ConfigSpecification.StrategyType[] strategyTypes);
+    void printStrategyTypes(ConfigSpecification.StrategyType[] strategyTypes);
+
+    /**
+     * @return
+     */
+    PositionVector.Direction askUserMoveDirection();
+
+    /**
+     * @param moveDirectory
+     * @return
+     */
+    File askSelectedMoveFile(String[] moveDirectory) throws MoveListEmptyException;
 
 }
