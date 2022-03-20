@@ -1,6 +1,7 @@
 package ch.zhaw.pm2.racetrack.strategy;
 
 import ch.zhaw.pm2.racetrack.PositionVector.Direction;
+import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
 import ch.zhaw.pm2.racetrack.logic.Config;
 import ch.zhaw.pm2.racetrack.ui.Input;
 import ch.zhaw.pm2.racetrack.ui.Output;
@@ -11,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ *
+ */
 public class MoveListStrategy implements MoveStrategy {
     private final Config config;
     private final Output output;
@@ -19,7 +23,12 @@ public class MoveListStrategy implements MoveStrategy {
     private List<Direction> movesList;
     private int currentMoveIndex;
 
-    public MoveListStrategy(Input input, Output output, Config config) {
+    /**
+     * @param input
+     * @param output
+     * @param config
+     */
+    public MoveListStrategy(Input input, Output output, Config config) throws MoveListEmptyException {
         this.config = config;
         this.output = output;
         this.input = input;
@@ -30,7 +39,8 @@ public class MoveListStrategy implements MoveStrategy {
         readAllMoves(moveFile);
     }
 
-    private File selectMoveListFile() {
+    //TODO ev. output entfernen und in RacetrackFlow aufrufen
+    private File selectMoveListFile() throws MoveListEmptyException {
         File moveDirectory = config.getMoveDirectory();
         output.outputMoveList(moveDirectory);
         return input.getSelectedMoveFile(moveDirectory);

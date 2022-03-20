@@ -17,10 +17,13 @@ public class RacetrackFlow {
     private final Input input;
     private Game game;
 
+    /**
+     *
+     */
     public RacetrackFlow() {
         config = new Config();
-        input = new Input();
         output = new Output();
+        input = new Input(output, config);
     }
 
 
