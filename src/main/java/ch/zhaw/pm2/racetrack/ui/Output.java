@@ -4,6 +4,7 @@ import ch.zhaw.pm2.racetrack.PositionVector;
 import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType;
+import ch.zhaw.pm2.racetrack.logic.Config;
 
 import java.io.File;
 
@@ -51,6 +52,10 @@ public class Output {
      */
     public void outputNextMove(PositionVector.Direction[] moveDirections) {
         consoleInterface.printNextMoveList(moveDirections);
+    }
+
+    public void outputUserDialogFeatures(Config.DialogFeature dialogFeature){
+        consoleInterface.printUserDialogFeatures();
     }
 
 }

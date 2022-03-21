@@ -91,6 +91,18 @@ public class ConsoleInterface implements UserInterface{
         }
     }
 
+    @Override
+    public Config.DialogFeature askForDialogFeature() {
+        return textIO.newEnumInputReader(Config.DialogFeature.class).read();
+    }
+
+    @Override
+    public void printUserDialogFeatures() {
+        for (Config.DialogFeature dialogFeature : Config.DialogFeature.values()) {
+            textTerminal.println(String.valueOf(dialogFeature));
+        }
+    }
+
     /**
      * @param moveDirectory
      * @throws MoveListEmptyException
