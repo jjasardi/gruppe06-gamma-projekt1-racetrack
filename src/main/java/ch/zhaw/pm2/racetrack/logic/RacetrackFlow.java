@@ -1,7 +1,10 @@
 package ch.zhaw.pm2.racetrack.logic;
 
+import ch.zhaw.pm2.racetrack.Car;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
+import ch.zhaw.pm2.racetrack.strategy.MoveListStrategy;
+import ch.zhaw.pm2.racetrack.strategy.MoveStrategy;
 import ch.zhaw.pm2.racetrack.ui.Input;
 import ch.zhaw.pm2.racetrack.ui.Output;
 
@@ -31,8 +34,14 @@ public class RacetrackFlow {
         output.welcomeToRacetrack();
         output.outputTrackList(config.getTrackDirectory());
         File selectedTrackFile = input.getSelectedTrackFile(config.getTrackDirectory());
-        //game = new Game();
 
-        output.outputStrategyTypes(ConfigSpecification.StrategyType.values());
+        for(Car car : game.getCars()) {
+            output.outputStrategyTypes(ConfigSpecification.StrategyType.values());
+            MoveStrategy moveStrategy = input.getSelectedMoveStrategy();
+            car.setMoveStrategy(moveStrategy);
+        }
+
+
+        //game = new Game();
     }
 }
