@@ -20,12 +20,14 @@ public class Game implements GameSpecification {
     private static final int FIRST_CAR_INDEX = 0;
     private final List<Car> cars;
     private final Track track;
-    private final BresenhamAlgorithmus bresenham;
     private boolean gameHasWinner;
     private int indexCurrentCar;
     private boolean switchedFromCrashedCar = false;
 
-    public Game(Track track, int amountOfCars) {
+    /**
+     * @param track
+     */
+    public Game(Track track) {
         this.track = track;
         indexCurrentCar = FIRST_CAR_INDEX;
         cars = track.getCars();
@@ -77,10 +79,10 @@ public class Game implements GameSpecification {
      */
     @Override
     public int getWinner() {
-        if(gameHasWinner){
-            return winningCarIndex;
+        if (gameHasWinner){
+            return getCurrentCarIndex();
         }
-            return NO_WINNER;
+        return NO_WINNER;
     }
 
     /**
@@ -112,7 +114,7 @@ public class Game implements GameSpecification {
     @Override
     public void doCarTurn(Direction acceleration) {
         Car activeCar = cars.get(indexCurrentCar);
-        if(getWinner() == -1 || activeCar.isCrashed()) {
+        if (getWinner() == NO_WINNER || activeCar.isCrashed()) {
             return;
         }
         activeCar.accelerate(acceleration);
@@ -123,8 +125,8 @@ public class Game implements GameSpecification {
         ConfigSpecification.SpaceType spaceTypeOnNextPosition = track.getSpaceType(activeCar.nextPosition());
 
         for (PositionVector positionVector : possibleVectors) {
-            switch (track.getCharAtPosition(nextPositionX, nextPositionY, spaceTypeOnNextPosition)) {
-                case '#':
+            switch (track.getCharAtPosition(nextPositionY, nextPositionX, spaceTypeOnNextPosition)) {
+                case '#', 'X':
                     activeCar.crash();
                     activeCar.setPosition(activeCar.nextPosition());
                     break;
@@ -147,13 +149,9 @@ public class Game implements GameSpecification {
                         gameHasWinner = true;
                     } else {
                         activeCar.crash();
-                        activeCar.setPosition(activeCar.nextPosition());
                     }
-                    break;
-
-                case 'X':
-                    activeCar.crash();
                     activeCar.setPosition(activeCar.nextPosition());
+                    break;
             }
         }
         switchToNextActiveCar();
@@ -221,7 +219,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public List<PositionVector> calculatePath(PositionVector startPosition, PositionVector endPosition) {
-        return bresenham.calculatePath(startPosition, endPosition);
+        return BresenhamAlgorithmus.calculatePath(startPosition, endPosition);
     }
 
     /**
