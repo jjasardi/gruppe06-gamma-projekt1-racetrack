@@ -131,12 +131,12 @@ public class Game implements GameSpecification {
                     break;
 
                 case ' ':
-                    for (Car car : cars) {
-                        if (car.getPosition().equals(activeCar.nextPosition())) {
-                            activeCar.crash();
-                        } else {
-                            activeCar.move();
-                        }
+                    //TODO: collision-überprüfung ev. unnötig, weil ID von Car von Methode getCharAtPosition zurückgegeben wird, falls Car dort
+                    if (willCarCrashWithAnotherCar(activeCar)) {
+                        activeCar.crash();
+                        activeCar.setPosition(activeCar.nextPosition());
+                    } else {
+                        activeCar.move();
                     }
                     break;
 
@@ -230,12 +230,12 @@ public class Game implements GameSpecification {
      */
     @Override
     public boolean willCarCrash(int carIndex, PositionVector position) {
-        Car car = cars.get(carIndex);
-        int xPosition = car.nextPosition().getX();
-        int yPosition = car.nextPosition().getY();
+        Car activeCar = cars.get(carIndex);
+        int xPosition = activeCar.nextPosition().getX();
+        int yPosition = activeCar.nextPosition().getY();
         Config.SpaceType spaceType = track.getSpaceType(new PositionVector(xPosition, yPosition));
-        char noCarOnPosition = track.getCharAtPosition(xPosition, yPosition, track.getSpaceType(position));
-        if(spaceType == ConfigSpecification.SpaceType.WALL || track.getSpaceType(position).equals(noCarOnPosition)){
+
+        if (spaceType == ConfigSpecification.SpaceType.WALL){
             return true;
         } else {
             return willCarCrashWithAnotherCar(activeCar);
