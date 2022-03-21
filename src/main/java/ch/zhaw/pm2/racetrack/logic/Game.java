@@ -23,8 +23,7 @@ public class Game implements GameSpecification {
     private final BresenhamAlgorithmus bresenham;
     private boolean gameHasWinner;
     private int indexCurrentCar;
-    private Car currentCar;
-    private int winningCarIndex = -1;
+    private boolean switchedFromCrashedCar = false;
 
     public Game(Track track, int amountOfCars) {
         this.track = track;
@@ -195,11 +194,14 @@ public class Game implements GameSpecification {
     @Override
     public void switchToNextActiveCar() {
         int maxIndex = track.getCarCount();
-        int testIndex = (indexCurrentCar + 1) % maxIndex;
+        int testIndex = (indexCurrentCar + 1) % maxIndex; // result always --> (indexCurrentCar + 1) except when last car --> 0 (return first one)
+        if (switchedFromCrashedCar) testIndex++;
 
         if (cars.get(testIndex).isCrashed()) {
+            switchedFromCrashedCar = true;
             switchToNextActiveCar();
         } else {
+            switchedFromCrashedCar = false;
             indexCurrentCar = testIndex;
         }
 
