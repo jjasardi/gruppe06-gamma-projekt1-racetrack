@@ -32,7 +32,6 @@ public class GameTest {
 
     @BeforeEach
     public void restartGame() {
-        int i = track.getCarCount();
         game = new Game(track, track.getCarCount());
     }
 
@@ -78,6 +77,20 @@ public class GameTest {
     }
 
     @Test
+    public void carCrashesIntoCarOnThePath() {
+        Car firstCar = game.getCars().get(0);
+        Car secondCar = game.getCars().get(1);
+        Car thirdCar = game.getCars().get(2);
+        game.doCarTurn(Direction.DOWN);
+        skipThreeCars();
+        game.doCarTurn(Direction.DOWN);
+        assertTrue(firstCar.isCrashed());
+        assertFalse(secondCar.isCrashed());
+        assertFalse(thirdCar.isCrashed());
+        assertEquals(secondCar.getPosition(), firstCar.getPosition());
+    }
+
+    @Test
     public void carCrashesIntoCrashedCar() {
         Car thirdCar = game.getCars().get(2);
         thirdCar.crash();
@@ -99,11 +112,11 @@ public class GameTest {
 
     @Test
     public void carPassesFinishLineInCorrectWay() {
-        skipFirstThreeCars();
+        skipThreeCars();
         game.doCarTurn(Direction.DOWN_LEFT);
-        skipFirstThreeCars();
+        skipThreeCars();
         game.doCarTurn(Direction.UP_LEFT);
-        skipFirstThreeCars();
+        skipThreeCars();
         game.doCarTurn(Direction.RIGHT);
         assertEquals(3, game.getWinner());
     }
@@ -112,14 +125,14 @@ public class GameTest {
     public void carPassesFinishLineInWrongWay() {
         Car firstCar = game.getCars().get(0);
         game.doCarTurn(Direction.LEFT);
-        skipFirstThreeCars();
+        skipThreeCars();
         game.doCarTurn(Direction.LEFT);
         assertTrue(firstCar.isCrashed());
         assertEquals(Game.NO_WINNER, game.getWinner());
         assertEquals(new PositionVector(17, 1), firstCar.getPosition());
     }
 
-    private void skipFirstThreeCars() {
+    private void skipThreeCars() {
         for (int i = 0; i < 3; ++i) {
             game.switchToNextActiveCar();
         }
