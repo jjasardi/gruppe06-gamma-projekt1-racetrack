@@ -6,7 +6,6 @@ import ch.zhaw.pm2.racetrack.Track;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
 import ch.zhaw.pm2.racetrack.given.GameSpecification;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static ch.zhaw.pm2.racetrack.PositionVector.Direction;
@@ -19,7 +18,7 @@ import static ch.zhaw.pm2.racetrack.PositionVector.Direction;
 public class Game implements GameSpecification {
     public static final int NO_WINNER = -1;
     private static final int FIRST_CAR_INDEX = 0;
-    private final List<Car> cars = new ArrayList<>();
+    private final List<Car> cars;
     private final Track track;
     private final BresenhamAlgorithmus bresenham;
     private boolean gameHasWinner;
@@ -29,13 +28,8 @@ public class Game implements GameSpecification {
 
     public Game(Track track, int amountOfCars) {
         this.track = track;
-        bresenham = new BresenhamAlgorithmus();
         indexCurrentCar = FIRST_CAR_INDEX;
-        currentCar = cars.get(FIRST_CAR_INDEX);
-    }
-
-    public List<Car> getCars() {
-        return cars;
+        cars = track.getCars();
     }
 
     /**
