@@ -146,7 +146,6 @@ public class Game implements GameSpecification {
                     ConfigSpecification.SpaceType spaceType = spaceTypeOnNextPosition;
                     if (passedFinishLineInCorrectWay(currentPositionCar,spaceType, positionSpaceType)) {
                         gameHasWinner = true;
-                        activeCar.setPosition(activeCar.nextPosition());
                     } else {
                         activeCar.crash();
                         activeCar.setPosition(activeCar.nextPosition());
@@ -239,7 +238,14 @@ public class Game implements GameSpecification {
         if(spaceType == ConfigSpecification.SpaceType.WALL || track.getSpaceType(position).equals(noCarOnPosition)){
             return true;
         } else {
-            return false;
+            return willCarCrashWithAnotherCar(activeCar);
         }
+    }
+
+    private boolean willCarCrashWithAnotherCar(Car activeCar) {
+        for (Car car : cars) {
+            return car.getPosition().equals(activeCar.nextPosition());
+        }
+        return false;
     }
 }
