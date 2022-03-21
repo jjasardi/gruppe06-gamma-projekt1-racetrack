@@ -8,6 +8,6 @@ import ch.zhaw.pm2.racetrack.logic.RacetrackFlow;
  */
 public class ConsoleApp {
     public static void main(String[] args) throws TracklistEmptyException {
-         new RacetrackFlow().startGame();
+         new RacetrackFlow();
     }
 }
