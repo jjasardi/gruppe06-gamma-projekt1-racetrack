@@ -73,6 +73,10 @@ public class Game implements GameSpecification {
         return cars.get(carIndex).getVelocity();
     }
 
+    public Track getTrack() {
+        return track;
+    }
+
     /**
      * Return the winner of the game. If the game is still in progress, returns NO_WINNER.
      * @return The winning car's index (zero-based, see getCurrentCar()), or NO_WINNER if the game is still in progress
@@ -154,7 +158,6 @@ public class Game implements GameSpecification {
                     break;
             }
         }
-        switchToNextActiveCar();
     }
 
     private boolean passedFinishLineInCorrectWay(PositionVector currentPositionCar, ConfigSpecification.SpaceType spaceType, PositionVector positionSpaceType) {
