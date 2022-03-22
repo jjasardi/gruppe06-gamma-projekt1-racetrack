@@ -15,8 +15,9 @@ import java.io.ObjectInputFilter;
 public interface UserInterface {
 
     /**
-     * @param trackList
-     * @return
+     * Asks the player which @{@link ch.zhaw.pm2.racetrack.Track} he wants to play with
+     * @param trackList available track files
+     * @return the @{@link File} he choosed 
      * @throws TracklistEmptyException
      */
     File askTrackFile(String[] trackList) throws TracklistEmptyException;
