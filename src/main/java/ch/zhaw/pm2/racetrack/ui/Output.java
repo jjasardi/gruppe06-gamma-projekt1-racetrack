@@ -56,8 +56,8 @@ public class Output {
         consoleInterface.printNextMoveList(moveDirections);
     }
 
-    public void outputWinner(char carID){
-        consoleInterface.printWinnerText(carID);
+    public void outputUserDialogFeatures(Config.DialogFeature dialogFeature){
+        consoleInterface.printUserDialogFeatures();
     }
 
 }

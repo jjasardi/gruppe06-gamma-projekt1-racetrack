@@ -4,8 +4,10 @@ import ch.zhaw.pm2.racetrack.PositionVector;
 import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
+import ch.zhaw.pm2.racetrack.logic.Config;
 
 import java.io.File;
+import java.io.ObjectInputFilter;
 
 /**
  *
@@ -52,5 +54,7 @@ public interface UserInterface {
      */
     File askSelectedMoveFile(String[] moveDirectory) throws MoveListEmptyException;
 
-    void printWinnerText(char carID);
+    Config.DialogFeature askForDialogFeature();
+
+    void printUserDialogFeatures();
 }

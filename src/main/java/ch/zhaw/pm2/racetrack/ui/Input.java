@@ -72,4 +72,8 @@ public class Input {
         String[] moveList = moveDirectory.list();
         return consoleInterface.askSelectedMoveFile(moveList);
     }
+
+    public Config.DialogFeature getDialogFeature(){
+        return consoleInterface.askForDialogFeature();
+    }
 }

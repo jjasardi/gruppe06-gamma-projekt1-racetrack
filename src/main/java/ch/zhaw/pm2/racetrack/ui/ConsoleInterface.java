@@ -92,10 +92,15 @@ public class ConsoleInterface implements UserInterface{
     }
 
     @Override
-    public void printWinnerText(char carID) {
+    public Config.DialogFeature askForDialogFeature() {
+        return textIO.newEnumInputReader(Config.DialogFeature.class).read();
+    }
 
-        textTerminal.print("Das Auto " + carID + " hat das Spiel gewonnen!");
-        textTerminal.print("Gut gemacht! Gratuliere!");
+    @Override
+    public void printUserDialogFeatures() {
+        for (Config.DialogFeature dialogFeature : Config.DialogFeature.values()) {
+            textTerminal.println(String.valueOf(dialogFeature));
+        }
     }
 
     /**
