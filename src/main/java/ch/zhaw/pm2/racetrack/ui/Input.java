@@ -20,8 +20,9 @@ public class Input {
     Output output;
 
     /**
-     * @param output
-     * @param config
+     * Creats an object of the class @{@link Input}
+     * @param output    current @{@link Output} object
+     * @param config    current @{@link Config} object
      */
     public Input(Output output, Config config) {
         this.output = output;
@@ -29,8 +30,9 @@ public class Input {
     }
 
     /**
-     * @param trackDirectory
-     * @return
+     * Provides the by the player selected @{@link File} of @{@link ch.zhaw.pm2.racetrack.Track}
+     * @param trackDirectory    directory of the @{@link ch.zhaw.pm2.racetrack.Track}
+     * @return  the accutal file of @{@link ch.zhaw.pm2.racetrack.Track}
      * @throws TracklistEmptyException
      */
     public File getSelectedTrackFile(File trackDirectory) throws TracklistEmptyException {
@@ -38,6 +40,11 @@ public class Input {
         return consoleInterface.askTrackFile(trackList);
     }
 
+    /**
+     * Provides the by the player selected @{@link MoveStrategy}
+     * @return  accutal @{@link MoveStrategy}
+     * @throws MoveListEmptyException
+     */
     public MoveStrategy getSelectedMoveStrategy() throws MoveListEmptyException {
         StrategyType[] strategyTypes = StrategyType.values();
         int selection = consoleInterface.askStrategy(strategyTypes);
@@ -60,11 +67,17 @@ public class Input {
         return strategyMap.get(strategyType);
     }
 
+    /**
+     * Provides the by the player selected @{@link Direction}
+     * @return  choosed @{@link Direction}
+     */
     public Direction getUserMoveDirection() {
         return consoleInterface.askUserMoveDirection();
     }
 
+    //TODO finish javadoc
     /**
+     *
      * @param moveDirectory
      * @return
      */
@@ -73,6 +86,10 @@ public class Input {
         return consoleInterface.askSelectedMoveFile(moveList);
     }
 
+    /**
+     * Provides by the player selected @{@link Config.DialogFeature}
+     * @return choosed @{@link Config.DialogFeature}
+     */
     public Config.DialogFeature getDialogFeature(){
         return consoleInterface.askForDialogFeature();
     }
