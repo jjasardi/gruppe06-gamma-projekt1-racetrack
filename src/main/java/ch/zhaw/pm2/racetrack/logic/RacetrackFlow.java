@@ -52,7 +52,7 @@ public class RacetrackFlow {
     }
 
     private void setStrategies() {
-        for (Car car : game.getTrack().getCars()) {
+        for (Car car : game.getCars()) {
             output.outputStrategyTypes(ConfigSpecification.StrategyType.values());
             car.setMoveStrategy(input.getSelectedMoveStrategy());
         }

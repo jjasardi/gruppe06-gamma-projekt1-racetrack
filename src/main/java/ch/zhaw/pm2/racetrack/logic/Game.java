@@ -75,6 +75,10 @@ public class Game implements GameSpecification {
         return track;
     }
 
+    public List<Car> getCars() {
+        return track.getCars();
+    }
+
     /**
      * Return the winner of the game. If the game is still in progress, returns NO_WINNER.
      * @return The winning car's index (zero-based, see getCurrentCar()), or NO_WINNER if the game is still in progress

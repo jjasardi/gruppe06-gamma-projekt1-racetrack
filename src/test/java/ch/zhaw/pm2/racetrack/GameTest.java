@@ -32,7 +32,7 @@ public class GameTest {
 
     @BeforeEach
     public void restartGame() {
-        game = new Game(track, track.getCarCount());
+        game = new Game(track);
     }
 
     @Test
