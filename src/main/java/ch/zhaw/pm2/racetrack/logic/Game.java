@@ -24,14 +24,12 @@ public class Game implements GameSpecification {
     private final BresenhamAlgorithmus bresenham;
     private boolean gameHasWinner;
     private int indexCurrentCar;
-    private Car currentCar;
     private int winningCarIndex = -1;
 
-    public Game(Track track, int amountOfCars) {
+    public Game(Track track) {
         this.track = track;
         bresenham = new BresenhamAlgorithmus();
         indexCurrentCar = FIRST_CAR_INDEX;
-        currentCar = cars.get(FIRST_CAR_INDEX);
     }
 
     public List<Car> getCars() {
@@ -76,6 +74,10 @@ public class Game implements GameSpecification {
     @Override
     public PositionVector getCarVelocity(int carIndex) {
         return cars.get(carIndex).getVelocity();
+    }
+
+    public Track getTrack() {
+        return track;
     }
 
     /**
@@ -164,7 +166,6 @@ public class Game implements GameSpecification {
                     activeCar.setPosition(activeCar.nextPosition());
             }
         }
-        switchToNextActiveCar();
     }
 
     private boolean passedFinishLineInCorrectWay(PositionVector currentPositionCar, ConfigSpecification.SpaceType spaceType, PositionVector positionSpaceType) {
