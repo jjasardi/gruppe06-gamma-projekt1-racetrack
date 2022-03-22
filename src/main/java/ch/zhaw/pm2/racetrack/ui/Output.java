@@ -56,9 +56,8 @@ public class Output {
         consoleInterface.printNextMoveList(moveDirections);
     }
 
-    public void outputWinner(ConfigSpecification.SpaceType spaceType){
-        consoleInterface.printWinnerText(spaceType);
-
+    public void outputWinner(char carID){
+        consoleInterface.printWinnerText(carID);
     }
 
 }

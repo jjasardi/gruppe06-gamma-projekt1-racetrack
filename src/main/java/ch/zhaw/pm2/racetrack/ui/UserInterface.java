@@ -52,5 +52,5 @@ public interface UserInterface {
      */
     File askSelectedMoveFile(String[] moveDirectory) throws MoveListEmptyException;
 
-    void printWinnerText(ConfigSpecification.SpaceType spaceType);
+    void printWinnerText(char carID);
 }
