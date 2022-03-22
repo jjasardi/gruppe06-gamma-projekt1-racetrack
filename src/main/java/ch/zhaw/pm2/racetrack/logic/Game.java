@@ -6,7 +6,6 @@ import ch.zhaw.pm2.racetrack.Track;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
 import ch.zhaw.pm2.racetrack.given.GameSpecification;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static ch.zhaw.pm2.racetrack.PositionVector.Direction;
@@ -19,21 +18,19 @@ import static ch.zhaw.pm2.racetrack.PositionVector.Direction;
 public class Game implements GameSpecification {
     public static final int NO_WINNER = -1;
     private static final int FIRST_CAR_INDEX = 0;
-    private final List<Car> cars = new ArrayList<>();
+    private final List<Car> cars;
     private final Track track;
-    private final BresenhamAlgorithmus bresenham;
     private boolean gameHasWinner;
     private int indexCurrentCar;
-    private int winningCarIndex = -1;
+    private boolean switchedFromCrashedCar = false;
 
+    /**
+     * @param track
+     */
     public Game(Track track) {
         this.track = track;
-        bresenham = new BresenhamAlgorithmus();
         indexCurrentCar = FIRST_CAR_INDEX;
-    }
-
-    public List<Car> getCars() {
-        return cars;
+        cars = track.getCars();
     }
 
     /**
@@ -86,10 +83,10 @@ public class Game implements GameSpecification {
      */
     @Override
     public int getWinner() {
-        if(gameHasWinner){
-            return winningCarIndex;
+        if (gameHasWinner){
+            return getCurrentCarIndex();
         }
-            return NO_WINNER;
+        return NO_WINNER;
     }
 
     /**
@@ -121,7 +118,7 @@ public class Game implements GameSpecification {
     @Override
     public void doCarTurn(Direction acceleration) {
         Car activeCar = cars.get(indexCurrentCar);
-        if(getWinner() == -1 || activeCar.isCrashed()) {
+        if (getWinner() == NO_WINNER || activeCar.isCrashed()) {
             return;
         }
         activeCar.accelerate(acceleration);
@@ -132,19 +129,19 @@ public class Game implements GameSpecification {
         ConfigSpecification.SpaceType spaceTypeOnNextPosition = track.getSpaceType(activeCar.nextPosition());
 
         for (PositionVector positionVector : possibleVectors) {
-            switch (track.getCharAtPosition(nextPositionX, nextPositionY, spaceTypeOnNextPosition)) {
-                case '#':
+            switch (track.getCharAtPosition(nextPositionY, nextPositionX, spaceTypeOnNextPosition)) {
+                case '#', 'X':
                     activeCar.crash();
                     activeCar.setPosition(activeCar.nextPosition());
                     break;
 
                 case ' ':
-                    for (Car car : cars) {
-                        if (car.getPosition().equals(activeCar.nextPosition())) {
-                            activeCar.crash();
-                        } else {
-                            activeCar.move();
-                        }
+                    //TODO: collision-überprüfung ev. unnötig, weil ID von Car von Methode getCharAtPosition zurückgegeben wird, falls Car dort
+                    if (willCarCrashWithAnotherCar(activeCar)) {
+                        activeCar.crash();
+                        activeCar.setPosition(activeCar.nextPosition());
+                    } else {
+                        activeCar.move();
                     }
                     break;
 
@@ -154,16 +151,11 @@ public class Game implements GameSpecification {
                     ConfigSpecification.SpaceType spaceType = spaceTypeOnNextPosition;
                     if (passedFinishLineInCorrectWay(currentPositionCar,spaceType, positionSpaceType)) {
                         gameHasWinner = true;
-                        activeCar.setPosition(activeCar.nextPosition());
                     } else {
                         activeCar.crash();
-                        activeCar.setPosition(activeCar.nextPosition());
                     }
-                    break;
-
-                case 'X':
-                    activeCar.crash();
                     activeCar.setPosition(activeCar.nextPosition());
+                    break;
             }
         }
     }
@@ -203,11 +195,14 @@ public class Game implements GameSpecification {
     @Override
     public void switchToNextActiveCar() {
         int maxIndex = track.getCarCount();
-        int testIndex = (indexCurrentCar + 1) % maxIndex;
+        int testIndex = (indexCurrentCar + 1) % maxIndex; // result always --> (indexCurrentCar + 1) except when last car --> 0 (return first one)
+        if (switchedFromCrashedCar) testIndex++;
 
         if (cars.get(testIndex).isCrashed()) {
+            switchedFromCrashedCar = true;
             switchToNextActiveCar();
         } else {
+            switchedFromCrashedCar = false;
             indexCurrentCar = testIndex;
         }
 
@@ -227,7 +222,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public List<PositionVector> calculatePath(PositionVector startPosition, PositionVector endPosition) {
-        return bresenham.calculatePath(startPosition, endPosition);
+        return BresenhamAlgorithmus.calculatePath(startPosition, endPosition);
     }
 
     /**
@@ -238,15 +233,22 @@ public class Game implements GameSpecification {
      */
     @Override
     public boolean willCarCrash(int carIndex, PositionVector position) {
-        Car car = cars.get(carIndex);
-        int xPosition = car.nextPosition().getX();
-        int yPosition = car.nextPosition().getY();
+        Car activeCar = cars.get(carIndex);
+        int xPosition = activeCar.nextPosition().getX();
+        int yPosition = activeCar.nextPosition().getY();
         Config.SpaceType spaceType = track.getSpaceType(new PositionVector(xPosition, yPosition));
-        char noCarOnPosition = track.getCharAtPosition(xPosition, yPosition, track.getSpaceType(position));
-        if(spaceType == ConfigSpecification.SpaceType.WALL || track.getSpaceType(position).equals(noCarOnPosition)){
+
+        if (spaceType == ConfigSpecification.SpaceType.WALL){
             return true;
         } else {
-            return false;
+            return willCarCrashWithAnotherCar(activeCar);
         }
+    }
+
+    private boolean willCarCrashWithAnotherCar(Car activeCar) {
+        for (Car car : cars) {
+            return car.getPosition().equals(activeCar.nextPosition());
+        }
+        return false;
     }
 }

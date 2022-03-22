@@ -82,6 +82,10 @@ public class Track implements TrackSpecification {
         System.out.println(trackReader.getTrackPositionVector());
     }
 
+    public List<Car> getCars() {
+        return cars;
+    }
+
     /**
      * Returns the {@link Config.SpaceType} from a given {@link PositionVector}
      *
