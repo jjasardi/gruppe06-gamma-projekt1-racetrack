@@ -60,4 +60,7 @@ public class Output {
         consoleInterface.printUserDialogFeatures();
     }
 
+    public void outputWinner(char carID){
+        consoleInterface.printWinnerText(carID);
+    }
 }

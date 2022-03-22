@@ -103,6 +103,13 @@ public class ConsoleInterface implements UserInterface{
         }
     }
 
+    @Override
+    public void printWinnerText(char carID) {
+
+        textTerminal.print("Das Auto " + carID + " hat das Spiel gewonnen!");
+        textTerminal.print("Gut gemacht! Gratuliere!");
+    }
+
     /**
      * @param moveDirectory
      * @throws MoveListEmptyException

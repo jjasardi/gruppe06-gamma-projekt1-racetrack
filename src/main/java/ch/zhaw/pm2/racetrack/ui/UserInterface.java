@@ -57,4 +57,6 @@ public interface UserInterface {
     Config.DialogFeature askForDialogFeature();
 
     void printUserDialogFeatures();
+
+    void printWinnerText(char carID);
 }
