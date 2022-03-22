@@ -59,4 +59,6 @@ public interface UserInterface {
     void printUserDialogFeatures();
 
     void printWinnerText(char carID);
+
+    void printGameState(String track);
 }

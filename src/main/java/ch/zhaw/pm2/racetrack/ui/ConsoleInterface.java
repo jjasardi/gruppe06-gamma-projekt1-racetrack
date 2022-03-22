@@ -15,7 +15,7 @@ import java.util.Arrays;
 /**
  *
  */
-public class ConsoleInterface implements UserInterface{
+public class ConsoleInterface implements UserInterface {
 
     private final TextIO textIO;
     private final Config config;
@@ -105,9 +105,13 @@ public class ConsoleInterface implements UserInterface{
 
     @Override
     public void printWinnerText(char carID) {
-
         textTerminal.print("Das Auto " + carID + " hat das Spiel gewonnen!");
         textTerminal.print("Gut gemacht! Gratuliere!");
+    }
+
+    @Override
+    public void printGameState(String track) {
+        textTerminal.print(track);
     }
 
     /**
