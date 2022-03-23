@@ -19,7 +19,7 @@ public interface UserInterface {
      * @return
      * @throws TracklistEmptyException
      */
-    File askTrackFile(String[] trackList) throws TracklistEmptyException;
+    File askTrackFile(File trackDirectory) throws TracklistEmptyException;
 
     /**
      * @return
@@ -51,7 +51,7 @@ public interface UserInterface {
      * @param moveDirectory
      * @return
      */
-    File askSelectedMoveFile(String[] moveDirectory) throws MoveListEmptyException;
+    File askSelectedMoveFile(File moveDirectory) throws MoveListEmptyException;
 
     Config.DialogFeature askForDialogFeature();
 
@@ -64,4 +64,6 @@ public interface UserInterface {
      *
      */
     void printTrack(Track track);
+
+    void printWinnerText(char carID);
 }

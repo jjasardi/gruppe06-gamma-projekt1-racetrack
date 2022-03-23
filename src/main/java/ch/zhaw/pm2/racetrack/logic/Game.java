@@ -18,7 +18,6 @@ import static ch.zhaw.pm2.racetrack.PositionVector.Direction;
 public class Game implements GameSpecification {
     public static final int NO_WINNER = -1;
     private static final int FIRST_CAR_INDEX = 0;
-    private final List<Car> cars;
     private final Track track;
     private boolean gameHasWinner;
     private int indexCurrentCar;
@@ -30,7 +29,6 @@ public class Game implements GameSpecification {
     public Game(Track track) {
         this.track = track;
         indexCurrentCar = FIRST_CAR_INDEX;
-        cars = track.getCars();
     }
 
     /**
@@ -50,7 +48,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public char getCarId(int carIndex) {
-        return cars.get(carIndex).getId();
+        return track.getCarId(carIndex);
     }
 
     /**
@@ -60,7 +58,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public PositionVector getCarPosition(int carIndex) {
-        return cars.get(carIndex).getPosition();
+        return track.getCarPos(carIndex);
     }
 
     /**
@@ -70,11 +68,15 @@ public class Game implements GameSpecification {
      */
     @Override
     public PositionVector getCarVelocity(int carIndex) {
-        return cars.get(carIndex).getVelocity();
+        return track.getCarVelocity(carIndex);
     }
 
     public Track getTrack() {
         return track;
+    }
+
+    public List<Car> getCars() {
+        return track.getCars();
     }
 
     /**
@@ -117,7 +119,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public void doCarTurn(Direction acceleration) {
-        Car activeCar = cars.get(indexCurrentCar);
+        Car activeCar = track.getCar(indexCurrentCar);
         if (getWinner() != NO_WINNER || activeCar.isCrashed()) {
             return;
         }
@@ -198,7 +200,7 @@ public class Game implements GameSpecification {
         int testIndex = (indexCurrentCar + 1) % maxIndex; // result always --> (indexCurrentCar + 1) except when last car --> 0 (return first one)
         if (switchedFromCrashedCar) testIndex++;
 
-        if (cars.get(testIndex).isCrashed()) {
+        if (track.getCar(testIndex).isCrashed()) {
             switchedFromCrashedCar = true;
             switchToNextActiveCar();
         } else {
@@ -233,7 +235,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public boolean willCarCrash(int carIndex, PositionVector position) {
-        Car activeCar = cars.get(carIndex);
+        Car activeCar = track.getCar(carIndex);
         int xPosition = activeCar.nextPosition().getX();
         int yPosition = activeCar.nextPosition().getY();
         Config.SpaceType spaceType = track.getSpaceType(new PositionVector(xPosition, yPosition));
@@ -246,7 +248,7 @@ public class Game implements GameSpecification {
     }
 
     private boolean willCarCrashWithAnotherCar(Car activeCar) {
-        for (Car car : cars) {
+        for (Car car : track.getCars()) {
             return car.getPosition().equals(activeCar.nextPosition());
         }
         return false;

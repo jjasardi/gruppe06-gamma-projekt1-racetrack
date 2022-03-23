@@ -62,4 +62,11 @@ public class Output {
         consoleInterface.printUserDialogFeatures();
     }
 
+    public void outputWinner(char carID){
+        consoleInterface.printWinnerText(carID);
+    }
+
+    public void outputGameState(String track){
+        consoleInterface.printGameState(track);
+    }
 }
