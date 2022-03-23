@@ -71,6 +71,6 @@ public class RacetrackFlow {
             game.doCarTurn(carStrategy.nextMove());
             game.switchToNextActiveCar();
         }
-//        output.outputWinner(game.getCarId(game.getWinner()));
+        output.outputWinner(game.getCarId(game.getWinner()));
     }
 }
