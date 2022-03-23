@@ -24,14 +24,14 @@ public class GameTest {
     private Track track;
 
     @BeforeAll
-    public void setUp() throws FileNotFoundException, InvalidTrackFormatException {
+    public void setUp() {
         config = new Config();
         trackFile = new File(config.getTrackDirectory(), "testing-track.txt");
-        track = new Track(trackFile);
     }
 
     @BeforeEach
-    public void restartGame() {
+    public void restartGame() throws FileNotFoundException, InvalidTrackFormatException {
+        track = new Track(trackFile);
         game = new Game(track);
     }
 
