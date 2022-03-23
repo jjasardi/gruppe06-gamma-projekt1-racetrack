@@ -21,7 +21,6 @@ public class Game implements GameSpecification {
     private final Track track;
     private boolean gameHasWinner;
     private int indexCurrentCar;
-    private boolean switchedFromCrashedCar = false;
 
     /**
      * @param track
@@ -197,17 +196,14 @@ public class Game implements GameSpecification {
     @Override
     public void switchToNextActiveCar() {
         int maxIndex = track.getCarCount();
-        int testIndex = (indexCurrentCar + 1) % maxIndex; // result always --> (indexCurrentCar + 1) except when last car --> 0 (return first one)
-        if (switchedFromCrashedCar) testIndex++;
+        int carIndexTemp = (indexCurrentCar + 1) % maxIndex; // result always --> (indexCurrentCar + 1) except when last car --> 0 (return first one)
 
-        if (track.getCar(testIndex).isCrashed()) {
-            switchedFromCrashedCar = true;
-            switchToNextActiveCar();
-        } else {
-            switchedFromCrashedCar = false;
-            indexCurrentCar = testIndex;
+        while(track.getCar(carIndexTemp).isCrashed()) {
+            carIndexTemp++;
+            if (carIndexTemp == track.getCarCount()) carIndexTemp = 0;
         }
 
+        indexCurrentCar = carIndexTemp;
     }
 
     /**
