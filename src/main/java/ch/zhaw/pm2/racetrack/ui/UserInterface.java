@@ -19,7 +19,7 @@ public interface UserInterface {
      * @return
      * @throws TracklistEmptyException
      */
-    File askTrackFile(String[] trackList) throws TracklistEmptyException;
+    File askTrackFile(File trackDirectory) throws TracklistEmptyException;
 
     /**
      * @param strategyTypes
@@ -52,7 +52,7 @@ public interface UserInterface {
      * @param moveDirectory
      * @return
      */
-    File askSelectedMoveFile(String[] moveDirectory) throws MoveListEmptyException;
+    File askSelectedMoveFile(File moveDirectory) throws MoveListEmptyException;
 
     Config.DialogFeature askForDialogFeature();
 

@@ -34,8 +34,7 @@ public class Input {
      * @throws TracklistEmptyException
      */
     public File getSelectedTrackFile(File trackDirectory) throws TracklistEmptyException {
-        String[] trackList = trackDirectory.list();
-        return consoleInterface.askTrackFile(trackList);
+        return consoleInterface.askTrackFile(trackDirectory);
     }
 
     public MoveStrategy getSelectedMoveStrategy() throws MoveListEmptyException {
@@ -69,8 +68,7 @@ public class Input {
      * @return
      */
     public File getSelectedMoveFile(File moveDirectory) throws MoveListEmptyException {
-        String[] moveList = moveDirectory.list();
-        return consoleInterface.askSelectedMoveFile(moveList);
+        return consoleInterface.askSelectedMoveFile(moveDirectory);
     }
 
     public Config.DialogFeature getDialogFeature(){
