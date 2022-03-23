@@ -1,6 +1,7 @@
 package ch.zhaw.pm2.racetrack.ui;
 
 import ch.zhaw.pm2.racetrack.PositionVector;
+import ch.zhaw.pm2.racetrack.Track;
 import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
@@ -10,7 +11,6 @@ import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
 
 import java.io.File;
-import java.util.Arrays;
 
 /**
  *
@@ -41,8 +41,8 @@ public class ConsoleInterface implements UserInterface{
     }
 
     @Override
-    public int askStrategy(ConfigSpecification.StrategyType[] strategyTypes) {
-        return textIO.newIntInputReader().withMinVal(0).withMaxVal(strategyTypes.length - 1).read();
+    public ConfigSpecification.StrategyType askStrategy() {
+        return textIO.newEnumInputReader(ConfigSpecification.StrategyType.class).read();
     }
 
     @Override
@@ -67,8 +67,8 @@ public class ConsoleInterface implements UserInterface{
         textTerminal.println("Welche Strategie willst du spielen?");
 
         //convert StrategyType enum values to Array
-        String[] strategies = Arrays.stream(strategyTypes).map(Enum::name).toArray(String[]::new);
-        formatListPrinting(strategies);
+//        String[] strategies = Arrays.stream(strategyTypes).map(Enum::name).toArray(String[]::new);
+//        formatListPrinting(strategies);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class ConsoleInterface implements UserInterface{
     public File askSelectedMoveFile(String[] moveDirectory) throws MoveListEmptyException {
         if (moveDirectory != null) {
             int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(moveDirectory.length - 1).read();
-            return new File(config.getTrackDirectory(), moveDirectory[selection]);
+            return new File(config.getMoveDirectory(), moveDirectory[selection]);
         } else {
             throw new MoveListEmptyException();
         }
@@ -124,13 +124,18 @@ public class ConsoleInterface implements UserInterface{
         //TODO text verbessern
         textTerminal.println("Welche Richtung willst du fahren?");
 
-        String[] directions = Arrays.stream(moveDirections).map(Enum::name).toArray(String[]::new);
-        formatListPrinting(directions);
+//        String[] directions = Arrays.stream(moveDirections).map(Enum::name).toArray(String[]::new);
+//        formatListPrinting(directions);
     }
 
     private void formatListPrinting(String[] list) {
         for (int i = 0; i < list.length; ++i) {
             textTerminal.println(i + " : " + list[i]);
         }
+    }
+
+    @Override
+    public void printTrack(Track track) {
+        textTerminal.println(track.toString());
     }
 }

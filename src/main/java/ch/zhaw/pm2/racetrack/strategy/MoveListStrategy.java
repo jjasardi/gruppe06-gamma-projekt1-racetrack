@@ -41,9 +41,16 @@ public class MoveListStrategy implements MoveStrategy {
 
     //TODO ev. output entfernen und in RacetrackFlow aufrufen
     private File selectMoveListFile() throws MoveListEmptyException {
-        File moveDirectory = config.getMoveDirectory();
-        output.outputMoveList(moveDirectory);
-        return input.getSelectedMoveFile(moveDirectory);
+        try {
+
+            File moveDirectory = config.getMoveDirectory();
+            output.outputMoveList(moveDirectory);
+            return input.getSelectedMoveFile(moveDirectory);
+
+        } catch (MoveListEmptyException exception) {
+            exception.printStackTrace();
+        }
+        return null;
     }
 
     private void readAllMoves(File moveFile) {

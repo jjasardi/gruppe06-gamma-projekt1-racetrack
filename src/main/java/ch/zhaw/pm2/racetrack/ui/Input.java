@@ -8,8 +8,6 @@ import ch.zhaw.pm2.racetrack.logic.Config;
 import ch.zhaw.pm2.racetrack.strategy.*;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This class is for all the input of the game.
@@ -39,25 +37,17 @@ public class Input {
     }
 
     public MoveStrategy getSelectedMoveStrategy() throws MoveListEmptyException {
-        StrategyType[] strategyTypes = StrategyType.values();
-        int selection = consoleInterface.askStrategy(strategyTypes);
-
-        return mapStrategyTypeToMoveStrategy(strategyTypes[selection]);
+        StrategyType strategyType = consoleInterface.askStrategy();
+        return mapStrategyTypeToMoveStrategy(strategyType);
     }
 
     private MoveStrategy mapStrategyTypeToMoveStrategy(StrategyType strategyType) throws MoveListEmptyException {
-        DoNotMoveStrategy doNotMoveStrategy = new DoNotMoveStrategy();
-        UserMoveStrategy userMoveStrategy = new UserMoveStrategy(this);
-        MoveListStrategy moveListStrategy = new MoveListStrategy(this, output, config);
-        PathFollowerMoveStrategy pathFollowerMoveStrategy = new PathFollowerMoveStrategy();
-
-        Map<StrategyType, MoveStrategy> strategyMap = new HashMap<>();
-        strategyMap.put(StrategyType.DO_NOT_MOVE, doNotMoveStrategy);
-        strategyMap.put(StrategyType.USER, userMoveStrategy);
-        strategyMap.put(StrategyType.MOVE_LIST, moveListStrategy);
-        strategyMap.put(StrategyType.PATH_FOLLOWER, pathFollowerMoveStrategy);
-
-        return strategyMap.get(strategyType);
+        return switch (strategyType) {
+            case DO_NOT_MOVE -> new DoNotMoveStrategy();
+            case USER -> new UserMoveStrategy(this, output);
+            case MOVE_LIST -> new MoveListStrategy(this, output, config);
+            case PATH_FOLLOWER -> new PathFollowerMoveStrategy();
+        };
     }
 
     public Direction getUserMoveDirection() {

@@ -118,7 +118,7 @@ public class Game implements GameSpecification {
     @Override
     public void doCarTurn(Direction acceleration) {
         Car activeCar = cars.get(indexCurrentCar);
-        if (getWinner() == NO_WINNER || activeCar.isCrashed()) {
+        if (getWinner() != NO_WINNER || activeCar.isCrashed()) {
             return;
         }
         activeCar.accelerate(acceleration);
