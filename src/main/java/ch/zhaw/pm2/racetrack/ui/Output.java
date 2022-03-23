@@ -53,8 +53,8 @@ public class Output {
     }
 
     /**
-     * Executes the
-     * @param moveDirections
+     * Executes the print of all possibles @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction}
+     * @param moveDirections    array of all @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction}
      */
     public void outputNextMove(PositionVector.Direction[] moveDirections) {
         consoleInterface.printNextMoveList(moveDirections);
