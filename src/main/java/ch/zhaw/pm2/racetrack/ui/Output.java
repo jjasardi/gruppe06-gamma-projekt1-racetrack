@@ -54,19 +54,24 @@ public class Output {
         consoleInterface.printNextMoveList(moveDirections);
     }
 
-    public void outputTrack(Track track) {
-        consoleInterface.printTrack(track);
+    /**
+     * @param track
+     */
+    public void outputGameState(String track) {
+        consoleInterface.printGameState(track);
     }
 
+    /**
+     *
+     */
     public void outputUserDialogFeatures(){
         consoleInterface.printUserDialogFeatures();
     }
 
+    /**
+     * @param carID
+     */
     public void outputWinner(char carID){
         consoleInterface.printWinnerText(carID);
-    }
-
-    public void outputGameState(String track){
-        consoleInterface.printGameState(track);
     }
 }

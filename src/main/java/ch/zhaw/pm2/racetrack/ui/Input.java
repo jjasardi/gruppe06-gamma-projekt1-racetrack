@@ -36,8 +36,10 @@ public class Input {
     }
 
     public MoveStrategy getSelectedMoveStrategy() throws MoveListEmptyException {
-        StrategyType strategyType = consoleInterface.askStrategy();
-        return mapStrategyTypeToMoveStrategy(strategyType);
+        StrategyType[] strategyTypes = StrategyType.values();
+        int selection = consoleInterface.askStrategy(strategyTypes);
+
+        return mapStrategyTypeToMoveStrategy(strategyTypes[selection]);
     }
 
     private MoveStrategy mapStrategyTypeToMoveStrategy(StrategyType strategyType) throws MoveListEmptyException {

@@ -1,13 +1,13 @@
 package ch.zhaw.pm2.racetrack.ui;
 
 import ch.zhaw.pm2.racetrack.PositionVector;
-import ch.zhaw.pm2.racetrack.Track;
 import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
 import ch.zhaw.pm2.racetrack.logic.Config;
 
 import java.io.File;
+import java.io.ObjectInputFilter;
 
 /**
  *
@@ -22,9 +22,10 @@ public interface UserInterface {
     File askTrackFile(File trackDirectory) throws TracklistEmptyException;
 
     /**
+     * @param strategyTypes
      * @return
      */
-    ConfigSpecification.StrategyType askStrategy();
+    int askStrategy(ConfigSpecification.StrategyType[] strategyTypes);
 
     /**
      *
@@ -61,9 +62,12 @@ public interface UserInterface {
     void printUserDialogFeatures();
 
     /**
-     *
+     * @param carID
      */
-    void printTrack(Track track);
-
     void printWinnerText(char carID);
+
+    /**
+     * @param track
+     */
+    void printGameState(String track);
 }

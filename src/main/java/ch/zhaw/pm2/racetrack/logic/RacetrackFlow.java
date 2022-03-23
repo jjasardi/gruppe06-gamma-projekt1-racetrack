@@ -65,7 +65,7 @@ public class RacetrackFlow {
     private void run() {
         Track gameTrack = game.getTrack();
         while (game.getWinner() == Game.NO_WINNER) {
-            output.outputTrack(gameTrack);
+            output.outputGameState(gameTrack.toString());
             Car currentCar = gameTrack.getCar(game.getCurrentCarIndex());
             MoveStrategy carStrategy = currentCar.getMoveStrategy();
             game.doCarTurn(carStrategy.nextMove());
