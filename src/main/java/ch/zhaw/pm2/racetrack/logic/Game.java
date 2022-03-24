@@ -123,20 +123,16 @@ public class Game implements GameSpecification {
             return;
         }
         activeCar.accelerate(acceleration);
-        List<PositionVector> possibleVectors = calculatePath(activeCar.getPosition(), activeCar.nextPosition());
 
-        int nextPositionX = activeCar.nextPosition().getX();
-        int nextPositionY = activeCar.nextPosition().getY();
         ConfigSpecification.SpaceType spaceTypeOnNextPosition = track.getSpaceType(activeCar.nextPosition());
 
-        for (PositionVector positionVector : possibleVectors) {
-            switch (track.getCharAtPosition(nextPositionY, nextPositionX, spaceTypeOnNextPosition)) {
-                case '#', 'X':
+            switch (spaceTypeOnNextPosition) {
+                case WALL:
                     activeCar.crash();
                     activeCar.setPosition(activeCar.nextPosition());
                     break;
 
-                case ' ':
+                case TRACK:
                     //TODO: collision-überprüfung ev. unnötig, weil ID von Car von Methode getCharAtPosition zurückgegeben wird, falls Car dort
                     if (willCarCrashWithAnotherCar(activeCar)) {
                         activeCar.crash();
@@ -146,7 +142,7 @@ public class Game implements GameSpecification {
                     }
                     break;
 
-                case '<', '>', '^', 'v':
+                case FINISH_LEFT, FINISH_RIGHT, FINISH_DOWN, FINISH_UP:
                     PositionVector currentPositionCar = activeCar.getPosition();
                     PositionVector positionSpaceType =  activeCar.nextPosition();
                     ConfigSpecification.SpaceType spaceType = spaceTypeOnNextPosition;
@@ -158,7 +154,6 @@ public class Game implements GameSpecification {
                     activeCar.setPosition(activeCar.nextPosition());
                     break;
             }
-        }
     }
 
     private boolean passedFinishLineInCorrectWay(PositionVector currentPositionCar, ConfigSpecification.SpaceType spaceType, PositionVector positionSpaceType) {
