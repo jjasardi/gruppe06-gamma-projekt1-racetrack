@@ -5,7 +5,7 @@ import ch.zhaw.pm2.racetrack.ui.Input;
 import ch.zhaw.pm2.racetrack.ui.Output;
 
 /**
- * Let the user decide the next move.
+ *  This class lets the user decide the next move.
  */
 public class UserMoveStrategy implements MoveStrategy {
 
@@ -13,7 +13,8 @@ public class UserMoveStrategy implements MoveStrategy {
     private Output output;
 
     /**
-     * @param input
+     * Creates an object of class @{@link UserMoveStrategy}
+     * @param input the current @{@link Input} object
      */
     public UserMoveStrategy(Input input, Output output) {
         this.input = input;

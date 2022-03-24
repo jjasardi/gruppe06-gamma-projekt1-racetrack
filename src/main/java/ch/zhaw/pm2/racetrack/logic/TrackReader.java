@@ -20,7 +20,8 @@ public class TrackReader {
     private List<PositionVector> trackPositionVectors;
 
     /**
-     * @param trackFile
+     * Creates an object of class {@link TrackReader}
+     * @param trackFile the @{@link File} of the game track
      */
     public TrackReader(File trackFile) throws FileNotFoundException, InvalidTrackFormatException {
         trackLines = new ArrayList<>();
@@ -88,8 +89,9 @@ public class TrackReader {
     }
 
     /**
-     * @param character
-     * @return
+     * Return the @{@link Config.SpaceType} with the given Charakter
+     * @param character represents the value of the @{@link Config.SpaceType} as a Charakter
+     * @return the value of @{@link Config.SpaceType}
      */
     public Config.SpaceType getSpaceTypeOfCharacter(Character character) {
         return switch (character) {

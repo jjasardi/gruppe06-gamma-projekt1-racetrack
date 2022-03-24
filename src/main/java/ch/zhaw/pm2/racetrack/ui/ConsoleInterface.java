@@ -23,7 +23,8 @@ public class ConsoleInterface implements UserInterface {
     private final TextTerminal<?> textTerminal;
 
     /**
-     *
+     * Creates an object of class @{@link ConsoleInterface}
+     * which implements all the methods of the @{@link Input} and @{@link Output}
      */
     public ConsoleInterface() {
         textIO = TextIoFactory.getTextIO();
@@ -78,11 +79,6 @@ public class ConsoleInterface implements UserInterface {
         return textIO.newEnumInputReader(PositionVector.Direction.class).read();
     }
 
-    /**
-     * @param moveDirectory
-     * @return
-     * @throws MoveListEmptyException
-     */
     @Override
     public File askSelectedMoveFile(File moveDirectory) throws MoveListEmptyException {
         String[] moveList = moveDirectory.list(txtFilter);
@@ -118,7 +114,9 @@ public class ConsoleInterface implements UserInterface {
     }
 
     /**
-     * @param moveDirectory
+     * Prints the appeal for the player to choose a @{@link File} for
+     * the @{@link ch.zhaw.pm2.racetrack.strategy.MoveListStrategy}
+     * @param moveDirectory directory of the @{@link File}
      * @throws MoveListEmptyException
      */
     public void printMoveList(File moveDirectory) throws MoveListEmptyException {
@@ -132,7 +130,8 @@ public class ConsoleInterface implements UserInterface {
     }
 
     /**
-     * @param moveDirections
+     * Prints the appeal for the player to choose a @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction}
+     * @param moveDirections    Array of all @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction
      */
     public void printNextMoveList(PositionVector.Direction[] moveDirections) {
         //TODO text verbessern
