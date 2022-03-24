@@ -4,9 +4,7 @@ import ch.zhaw.pm2.racetrack.PositionVector;
 import ch.zhaw.pm2.racetrack.Track;
 import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
-import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType;
-import ch.zhaw.pm2.racetrack.logic.Config;
 
 import java.io.File;
 
@@ -60,8 +58,24 @@ public class Output {
         consoleInterface.printNextMoveList(moveDirections);
     }
 
-    public void outputUserDialogFeatures(Config.DialogFeature dialogFeature){
+    /**
+     * @param track
+     */
+    public void outputGameState(String track) {
+        consoleInterface.printGameState(track);
+    }
+
+    /**
+     *
+     */
+    public void outputUserDialogFeatures(){
         consoleInterface.printUserDialogFeatures();
     }
 
+    /**
+     * @param carID
+     */
+    public void outputWinner(char carID){
+        consoleInterface.printWinnerText(carID);
+    }
 }

@@ -24,15 +24,15 @@ public class GameTest {
     private Track track;
 
     @BeforeAll
-    public void setUp() throws FileNotFoundException, InvalidTrackFormatException {
+    public void setUp() {
         config = new Config();
         trackFile = new File(config.getTrackDirectory(), "testing-track.txt");
-        track = new Track(trackFile);
     }
 
     @BeforeEach
-    public void restartGame() {
-        game = new Game(track, track.getCarCount());
+    public void restartGame() throws FileNotFoundException, InvalidTrackFormatException {
+        track = new Track(trackFile);
+        game = new Game(track);
     }
 
     @Test
@@ -66,16 +66,23 @@ public class GameTest {
 
     @Test
     public void carCrashesIntoRunningCar() {
+        Car firstCar = game.getCars().get(0);
         Car secondCar = game.getCars().get(1);
         Car thirdCar = game.getCars().get(2);
+
         game.doCarTurn(Direction.NONE);
+        game.switchToNextActiveCar();
         game.doCarTurn(Direction.NONE);
+        game.switchToNextActiveCar();
         game.doCarTurn(Direction.UP);
+
+        assertFalse(firstCar.isCrashed());
         assertTrue(thirdCar.isCrashed());
         assertFalse(secondCar.isCrashed());
         assertEquals(secondCar.getPosition(), thirdCar.getPosition());
     }
 
+    //???
     @Test
     public void carCrashesIntoCarOnThePath() {
         Car firstCar = game.getCars().get(0);
@@ -96,7 +103,9 @@ public class GameTest {
         thirdCar.crash();
         Car secondCar = game.getCars().get(1);
         game.doCarTurn(Direction.NONE);
+        game.switchToNextActiveCar();
         game.doCarTurn(Direction.DOWN);
+
         assertTrue(secondCar.isCrashed());
         assertEquals(thirdCar.getPosition(), secondCar.getPosition());
     }
@@ -104,9 +113,14 @@ public class GameTest {
     @Test
     public void allCarsCrashedExceptOne() {
         game.doCarTurn(Direction.NONE);
+        game.switchToNextActiveCar();
         game.doCarTurn(Direction.DOWN);
+        game.switchToNextActiveCar();
+        game.doCarTurn(Direction.DOWN);
+        game.switchToNextActiveCar();
         game.doCarTurn(Direction.UP);
-        game.doCarTurn(Direction.UP);
+        game.switchToNextActiveCar();
+
         assertEquals(game.getCurrentCarIndex(), game.getWinner());
     }
 

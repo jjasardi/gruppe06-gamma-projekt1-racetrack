@@ -20,7 +20,7 @@ public interface UserInterface {
      * @return the @{@link File} he choosed
      * @throws TracklistEmptyException
      */
-    File askTrackFile(String[] trackList) throws TracklistEmptyException;
+    File askTrackFile(File trackDirectory) throws TracklistEmptyException;
 
     /**
      * Asks the player which @{@link ch.zhaw.pm2.racetrack.strategy.MoveStrategy} he wants to play with
@@ -59,7 +59,7 @@ public interface UserInterface {
      * @param moveDirectory array of all @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction}
      * @return
      */
-    File askSelectedMoveFile(String[] moveDirectory) throws MoveListEmptyException;
+    File askSelectedMoveFile(File moveDirectory) throws MoveListEmptyException;
 
     /**
      * Asks the player to choose a optinal @{@link Config.DialogFeature}
@@ -71,4 +71,14 @@ public interface UserInterface {
      * Prints all the @{@link ch.zhaw.pm2.racetrack.logic.Config.DialogFeature}
      */
     void printUserDialogFeatures();
+
+    /**
+     * @param carID
+     */
+    void printWinnerText(char carID);
+
+    /**
+     * @param track
+     */
+    void printGameState(String track);
 }

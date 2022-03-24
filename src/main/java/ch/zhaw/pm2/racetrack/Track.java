@@ -1,10 +1,11 @@
 package ch.zhaw.pm2.racetrack;
 
-import ch.zhaw.pm2.racetrack.logic.Config;
 import ch.zhaw.pm2.racetrack.given.TrackSpecification;
+import ch.zhaw.pm2.racetrack.logic.Config;
 import ch.zhaw.pm2.racetrack.logic.TrackReader;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,8 +79,6 @@ public class Track implements TrackSpecification {
         width = trackReader.getWidth();
         height = trackReader.getHeight();
         addCarAndSpaceTypeToArrayList();
-
-        System.out.println(trackReader.getTrackPositionVector());
     }
 
     public List<Car> getCars() {

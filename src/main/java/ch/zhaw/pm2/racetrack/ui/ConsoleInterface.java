@@ -10,12 +10,13 @@ import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.Arrays;
 
 /**
  *
  */
-public class ConsoleInterface implements UserInterface{
+public class ConsoleInterface implements UserInterface {
 
     private final TextIO textIO;
     private final Config config;
@@ -32,7 +33,8 @@ public class ConsoleInterface implements UserInterface{
     }
 
     @Override
-    public File askTrackFile(String[] trackList) throws TracklistEmptyException {
+    public File askTrackFile(File trackDirectory) throws TracklistEmptyException {
+        String[] trackList = trackDirectory.list(txtFilter);
         if (trackList != null) {
             int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(trackList.length - 1).read();
             return new File(config.getTrackDirectory(), trackList[selection]);
@@ -55,7 +57,7 @@ public class ConsoleInterface implements UserInterface{
     @Override
     public void printTrackList(File trackDirectory) throws TracklistEmptyException {
         textTerminal.println("Waehle einen Track aus!");
-        String[] trackList = trackDirectory.list();
+        String[] trackList = trackDirectory.list(txtFilter);
         if (trackList != null) {
             formatListPrinting(trackList);
         } else {
@@ -78,10 +80,11 @@ public class ConsoleInterface implements UserInterface{
     }
 
     @Override
-    public File askSelectedMoveFile(String[] moveDirectory) throws MoveListEmptyException {
-        if (moveDirectory != null) {
-            int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(moveDirectory.length - 1).read();
-            return new File(config.getTrackDirectory(), moveDirectory[selection]);
+    public File askSelectedMoveFile(File moveDirectory) throws MoveListEmptyException {
+        String[] moveList = moveDirectory.list(txtFilter);
+        if (moveList != null) {
+            int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(moveList.length - 1).read();
+            return new File(config.getTrackDirectory(), moveList[selection]);
         } else {
             throw new MoveListEmptyException();
         }
@@ -99,6 +102,17 @@ public class ConsoleInterface implements UserInterface{
         }
     }
 
+    @Override
+    public void printWinnerText(char carID) {
+        textTerminal.print("Das Auto " + carID + " hat das Spiel gewonnen!");
+        textTerminal.print("Gut gemacht! Gratuliere!");
+    }
+
+    @Override
+    public void printGameState(String track) {
+        textTerminal.print(track);
+    }
+
     /**
      * Prints the appeal for the player to choose a @{@link File} for
      * the @{@link ch.zhaw.pm2.racetrack.strategy.MoveListStrategy}
@@ -107,7 +121,7 @@ public class ConsoleInterface implements UserInterface{
      */
     public void printMoveList(File moveDirectory) throws MoveListEmptyException {
         textTerminal.println("Waehle eine Datei für deine Moves aus!");
-        String[] moveList = moveDirectory.list();
+        String[] moveList = moveDirectory.list(txtFilter);
         if (moveList != null) {
             formatListPrinting(moveList);
         } else {
@@ -132,4 +146,12 @@ public class ConsoleInterface implements UserInterface{
             textTerminal.println(i + " : " + list[i]);
         }
     }
+
+    FilenameFilter txtFilter = new FilenameFilter() {
+
+        public boolean accept(File f, String name)
+        {
+            return name.endsWith("txt");
+        }
+    };
 }
