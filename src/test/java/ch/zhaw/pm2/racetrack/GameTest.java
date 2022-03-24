@@ -1,32 +1,26 @@
 package ch.zhaw.pm2.racetrack;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-
+import ch.zhaw.pm2.racetrack.PositionVector.Direction;
+import ch.zhaw.pm2.racetrack.logic.Game;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import ch.zhaw.pm2.racetrack.PositionVector.Direction;
-import ch.zhaw.pm2.racetrack.logic.Config;
-import ch.zhaw.pm2.racetrack.logic.Game;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GameTest {
     private Game game;
-    private Config config;
     private File trackFile;
     private Track track;
 
     @BeforeAll
     public void setUp() {
-        config = new Config();
-        trackFile = new File(config.getTrackDirectory(), "testing-track.txt");
+        trackFile = new File("src/test/java/ch/zhaw/pm2/racetrack/test-tracks", "testing-track.txt");
     }
 
     @BeforeEach
@@ -60,6 +54,7 @@ public class GameTest {
     public void carCrashesToWall() {
         Car firstCar = game.getCars().get(0);
         game.doCarTurn(Direction.UP);
+
         assertTrue(firstCar.isCrashed());
         assertEquals(new PositionVector(19, 0), firstCar.getPosition());
     }
@@ -77,8 +72,8 @@ public class GameTest {
         game.doCarTurn(Direction.UP);
 
         assertFalse(firstCar.isCrashed());
-        assertTrue(thirdCar.isCrashed());
         assertFalse(secondCar.isCrashed());
+        assertTrue(thirdCar.isCrashed());
         assertEquals(secondCar.getPosition(), thirdCar.getPosition());
     }
 
@@ -89,6 +84,7 @@ public class GameTest {
         Car thirdCar = game.getCars().get(2);
         game.doCarTurn(Direction.DOWN);
         game.doCarTurn(Direction.DOWN);
+
         assertTrue(firstCar.isCrashed());
         assertFalse(secondCar.isCrashed());
         assertFalse(thirdCar.isCrashed());
@@ -125,9 +121,13 @@ public class GameTest {
     @Test
     public void carPassesFinishLineInCorrectWay() {
         skipToCar(3);
+        Car thirdCar = game.getTrack().getCar(3);
+        thirdCar.setPosition(new PositionVector(16, 5));
+        game.doCarTurn(Direction.RIGHT);
         game.doCarTurn(Direction.DOWN_LEFT);
         game.doCarTurn(Direction.UP_LEFT);
         game.doCarTurn(Direction.RIGHT);
+
         assertEquals(3, game.getWinner());
     }
 
@@ -136,6 +136,7 @@ public class GameTest {
         Car firstCar = game.getCars().get(0);
         game.doCarTurn(Direction.LEFT);
         game.doCarTurn(Direction.LEFT);
+
         assertTrue(firstCar.isCrashed());
         assertEquals(Game.NO_WINNER, game.getWinner());
         assertEquals(new PositionVector(17, 1), firstCar.getPosition());
