@@ -13,7 +13,7 @@ import java.io.File;
  * This class is for all the input of the game.
  */
 public class Input {
-    private final ConsoleInterface consoleInterface = new ConsoleInterface();
+    private final ConsoleView consoleView = new ConsoleView();
     Config config;
     Output output;
 
@@ -34,7 +34,7 @@ public class Input {
      * @throws TracklistEmptyException
      */
     public File getSelectedTrackFile(File trackDirectory) throws TracklistEmptyException {
-        return consoleInterface.askTrackFile(trackDirectory);
+        return consoleView.askTrackFile(trackDirectory);
     }
 
     /**
@@ -44,7 +44,7 @@ public class Input {
      */
     public MoveStrategy getSelectedMoveStrategy() throws MoveListEmptyException {
         StrategyType[] strategyTypes = StrategyType.values();
-        int selection = consoleInterface.askStrategy(strategyTypes);
+        int selection = consoleView.askMoveStrategy(strategyTypes);
 
         return mapStrategyTypeToMoveStrategy(strategyTypes[selection]);
     }
@@ -59,28 +59,19 @@ public class Input {
     }
 
     /**
-     * Provides the by the player selected @{@link Direction}
-     * @return  choosed @{@link Direction}
-     */
-    public Direction getUserMoveDirection() {
-        return consoleInterface.askUserMoveDirection();
-    }
-
-    //TODO finish javadoc
-    /**
      *
      * @param moveDirectory
      * @return
      */
     public File getSelectedMoveFile(File moveDirectory) throws MoveListEmptyException {
-        return consoleInterface.askSelectedMoveFile(moveDirectory);
+        return consoleView.askMoveFile(moveDirectory);
     }
 
-    /**
-     * Provides by the player selected @{@link Config.DialogFeature}
-     * @return choosed @{@link Config.DialogFeature}
-     */
-    public Config.DialogFeature getDialogFeature(){
-        return consoleInterface.askForDialogFeature();
+    public char getChoosedOption(){
+        return consoleView.askOption();
+    }
+
+    public Direction getChoosedDirection(){
+        return consoleView.askDirection();
     }
 }

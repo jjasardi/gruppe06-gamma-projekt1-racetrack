@@ -42,10 +42,9 @@ public class Config implements ConfigSpecification {
         this.trackDirectory = trackDirectory;
     }
 
-    //eventuell diese enum Klasse in ConfigSpecifications?
     public enum DialogFeature{
         HELP ('h'),
-        SHOW_TRACK ('s'),
+        SHOW_TRACK ('t'),
         QUIT ('q');
 
         private final char sign;

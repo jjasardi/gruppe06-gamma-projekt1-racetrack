@@ -4,10 +4,8 @@ import ch.zhaw.pm2.racetrack.PositionVector;
 import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
-import ch.zhaw.pm2.racetrack.logic.Config;
 
 import java.io.File;
-import java.io.ObjectInputFilter;
 
 /**
  * Interface which contains all the User Interface methods
@@ -15,22 +13,7 @@ import java.io.ObjectInputFilter;
 public interface UserInterface {
 
     /**
-     * Asks the player which @{@link ch.zhaw.pm2.racetrack.Track} he wants to play with
-     * @param trackList available track files
-     * @return the @{@link File} he choosed
-     * @throws TracklistEmptyException
-     */
-    File askTrackFile(File trackDirectory) throws TracklistEmptyException;
-
-    /**
-     * Asks the player which @{@link ch.zhaw.pm2.racetrack.strategy.MoveStrategy} he wants to play with
-     * @param strategyTypes
-     * @return
-     */
-    int askStrategy(ConfigSpecification.StrategyType[] strategyTypes);
-
-    /**
-     * Prints the welcome text for the game
+     *
      */
     void printWelcomeText();
 
@@ -48,24 +31,31 @@ public interface UserInterface {
     void printStrategyTypes(ConfigSpecification.StrategyType[] strategyTypes);
 
     /**
-     * Asks player to choose a @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction}
-     * @return
+     *
      */
-    PositionVector.Direction askUserMoveDirection();
+    void printMoveList(File moveDirectory) throws MoveListEmptyException ;
 
     //TODO finish javadoc
     /**
-     * Asks player to choose a @{@link File} for the @{@link ch.zhaw.pm2.racetrack.strategy.MoveStrategy}
-     * @param moveDirectory array of all @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction}
-     * @return
+     * @param track
      */
-    File askSelectedMoveFile(File moveDirectory) throws MoveListEmptyException;
+    void printGameState(String track);
 
     /**
-     * Asks the player to choose a optinal @{@link Config.DialogFeature}
-     * @return  choosed @{@link ch.zhaw.pm2.racetrack.logic.Config.DialogFeature}
+     *
+     * @param carID
      */
-    Config.DialogFeature askForDialogFeature();
+    void printCurrentCarID(char carID);
+
+    /**
+     *
+     */
+    void printNextCommand();
+
+    /**
+     *
+     */
+    void printDirectionAppeal();
 
     /**
      * Prints all the @{@link ch.zhaw.pm2.racetrack.logic.Config.DialogFeature}
@@ -78,7 +68,33 @@ public interface UserInterface {
     void printWinnerText(char carID);
 
     /**
-     * @param track
+     * @param trackList
+     * @return
+     * @throws TracklistEmptyException
      */
-    void printGameState(String track);
+    File askTrackFile(File trackDirectory) throws TracklistEmptyException;
+
+    /**
+     * @param strategyTypes
+     * @return
+     */
+    int askMoveStrategy(ConfigSpecification.StrategyType[] strategyTypes);
+
+    /**
+     * @param moveDirectory
+     * @return
+     */
+    File askMoveFile(File moveDirectory) throws MoveListEmptyException;
+
+    /**
+     *
+     * @return
+     */
+    char askOption();
+
+    /**
+     *
+     * @return
+     */
+    PositionVector.Direction askDirection();
 }

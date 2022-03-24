@@ -1,7 +1,5 @@
 package ch.zhaw.pm2.racetrack.ui;
 
-import ch.zhaw.pm2.racetrack.PositionVector;
-import ch.zhaw.pm2.racetrack.Track;
 import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType;
@@ -14,13 +12,13 @@ import java.io.File;
  */
 
 public class Output {
-    private final ConsoleInterface consoleInterface = new ConsoleInterface();
+    private final ConsoleView consoleView = new ConsoleView();
 
     /**
      * Prints the welcome text for the game
      */
-    public void welcomeToRacetrack() {
-        consoleInterface.printWelcomeText();
+    public void outputWelcomeText() {
+        consoleView.printWelcomeText();
     }
 
     /**
@@ -29,17 +27,7 @@ public class Output {
      * @throws TracklistEmptyException
      */
     public void outputTrackList(File trackDirectory) throws TracklistEmptyException {
-        consoleInterface.printTrackList(trackDirectory);
-    }
-
-    /**
-     * Executes the appeal for the player to choose a @{@link File} for
-     * the @{@link ch.zhaw.pm2.racetrack.strategy.MoveListStrategy}
-     * @param moveDirectory directory of the @{@link File}
-     * @throws MoveListEmptyException
-     */
-    public void outputMoveList(File moveDirectory) throws MoveListEmptyException {
-        consoleInterface.printMoveList(moveDirectory);
+        consoleView.printTrackList(trackDirectory);
     }
 
     /**
@@ -47,35 +35,42 @@ public class Output {
      * @param strategyTypes array of all @{@link ch.zhaw.pm2.racetrack.strategy.MoveStrategy}
      */
     public void outputStrategyTypes(StrategyType[] strategyTypes) {
-        consoleInterface.printStrategyTypes(strategyTypes);
+        consoleView.printStrategyTypes(strategyTypes);
+    }
+
+    /**
+     * @param moveDirectory
+     * @throws MoveListEmptyException
+     */
+    public void outputMoveList(File moveDirectory) throws MoveListEmptyException {
+        consoleView.printMoveList(moveDirectory);
+    }
+
+    public void outputGameState(String track){
+        consoleView.printGameState(track);
+    }
+
+    public void outputCurrentCarID(char carID){
+        consoleView.printCurrentCarID(carID);
     }
 
     /**
      * Executes the print of all possibles @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction}
      * @param moveDirections    array of all @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction}
      */
-    public void outputNextMove(PositionVector.Direction[] moveDirections) {
-        consoleInterface.printNextMoveList(moveDirections);
+    public void outputNextCommand() {
+        consoleView.printNextCommand();
     }
 
-    /**
-     * @param track
-     */
-    public void outputGameState(String track) {
-        consoleInterface.printGameState(track);
+    public void outputDirectionAppeal(){
+        consoleView.printDirectionAppeal();
     }
 
-    /**
-     *
-     */
     public void outputUserDialogFeatures(){
-        consoleInterface.printUserDialogFeatures();
+        consoleView.printUserDialogFeatures();
     }
 
-    /**
-     * @param carID
-     */
-    public void outputWinner(char carID){
-        consoleInterface.printWinnerText(carID);
+    public void outputWinnerText(char carID){
+        consoleView.printWinnerText(carID);
     }
 }
