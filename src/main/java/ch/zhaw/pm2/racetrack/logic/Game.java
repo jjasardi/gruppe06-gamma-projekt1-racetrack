@@ -84,6 +84,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public int getWinner() {
+        checkIfGameHasWinner();
         if (gameHasWinner){
             return getCurrentCarIndex();
         }
@@ -239,9 +240,21 @@ public class Game implements GameSpecification {
     }
 
     private boolean willCarCrashWithAnotherCar(Car activeCar) {
+        boolean willCrash;
         for (Car car : track.getCars()) {
-            return car.getPosition().equals(activeCar.nextPosition());
+            willCrash = (activeCar.getId() != car.getId() && car.getPosition().equals(activeCar.nextPosition()));
+            if (willCrash) return willCrash;
         }
         return false;
+    }
+
+    private void checkIfGameHasWinner() {
+        int crashCountTemp = 0;
+        for (Car car : getCars()) {
+            if (car.isCrashed()) {
+                crashCountTemp++;
+            }
+        }
+        if ((getCars().size() - crashCountTemp) == 1) gameHasWinner = true;
     }
 }
