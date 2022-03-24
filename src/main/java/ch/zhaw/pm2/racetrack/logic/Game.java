@@ -21,6 +21,7 @@ public class Game implements GameSpecification {
     private final Track track;
     private boolean gameHasWinner;
     private int indexCurrentCar;
+    private int indexWinner = NO_WINNER;
 
     /**
      * @param track
@@ -84,9 +85,9 @@ public class Game implements GameSpecification {
      */
     @Override
     public int getWinner() {
-        checkIfGameHasWinner();
+        checkIfOnlyOneCarNotCrashed();
         if (gameHasWinner){
-            return getCurrentCarIndex();
+            return indexWinner;
         }
         return NO_WINNER;
     }
@@ -148,7 +149,7 @@ public class Game implements GameSpecification {
                     PositionVector positionSpaceType =  activeCar.nextPosition();
                     ConfigSpecification.SpaceType spaceType = spaceTypeOnNextPosition;
                     if (passedFinishLineInCorrectWay(currentPositionCar,spaceType, positionSpaceType)) {
-                        gameHasWinner = true;
+                        setWinner();
                     } else {
                         activeCar.crash();
                     }
@@ -248,13 +249,20 @@ public class Game implements GameSpecification {
         return false;
     }
 
-    private void checkIfGameHasWinner() {
+    private void checkIfOnlyOneCarNotCrashed() {
         int crashCountTemp = 0;
         for (Car car : getCars()) {
             if (car.isCrashed()) {
                 crashCountTemp++;
             }
         }
-        if ((getCars().size() - crashCountTemp) == 1) gameHasWinner = true;
+        if ((getCars().size() - crashCountTemp) == 1) {
+            setWinner();
+        }
+    }
+
+    private void setWinner() {
+        gameHasWinner = true;
+        indexWinner = getCurrentCarIndex();
     }
 }
