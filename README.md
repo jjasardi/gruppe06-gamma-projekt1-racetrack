@@ -14,5 +14,5 @@ The project is build with Gradle and available on GitHub through the link above.
 
 
 ## 🚀 About Us
-We are a small team of three persons calles 'Gamma'. We are studing 
-computer science students at the Zurich University of Applied Science.
+We are a small team of three persons called 'Gamma'. Studying 
+computer science at the Zurich University of Applied Science.
