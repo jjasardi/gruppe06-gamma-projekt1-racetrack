@@ -82,7 +82,6 @@ public class GameTest {
         assertEquals(secondCar.getPosition(), thirdCar.getPosition());
     }
 
-    //???
     @Test
     public void carCrashesIntoCarOnThePath() {
         Car firstCar = game.getCars().get(0);
