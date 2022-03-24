@@ -1,13 +1,17 @@
 package ch.zhaw.pm2.racetrack;
 
+import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
+import ch.zhaw.pm2.racetrack.given.ConfigSpecification.SpaceType;
 import ch.zhaw.pm2.racetrack.given.TrackSpecification;
 import ch.zhaw.pm2.racetrack.logic.Config;
-import ch.zhaw.pm2.racetrack.logic.TrackReader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * This class represents the racetrack board.
@@ -59,11 +63,13 @@ public class Track implements TrackSpecification {
 
     public static final char CRASH_INDICATOR = 'X';
 
-    private TrackReader trackReader;
     private List<Car> cars;
-    private List<Config.SpaceType> trackSpaceTypes;
-    private final Integer width;
-    private final Integer height;
+    private int sizeX = 0;
+    private int sizeY = 0;
+    private final SpaceType[][] raceTrackGrid;
+    private final List<String> trackStringList = new ArrayList<>();
+    private static List<PositionVector> waypoints = new ArrayList<>();
+    private boolean showWaypoints = true;
 
     /**
      * Initialize a Track from the given track file.
@@ -74,27 +80,127 @@ public class Track implements TrackSpecification {
      */
     public Track(File trackFile) throws FileNotFoundException, InvalidTrackFormatException {
         cars = new ArrayList<>();
-        trackSpaceTypes = new ArrayList<>();
-        trackReader = new TrackReader(trackFile);
-        width = trackReader.getWidth();
-        height = trackReader.getHeight();
-        addCarAndSpaceTypeToArrayList();
+        if (!trackFile.exists())
+            throw new FileNotFoundException();
+        try {
+            scanFile(trackFile);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+        if (!isValidTrack()) ;
+        raceTrackGrid = new SpaceType[sizeX][sizeY];
+        convertStringToTrack();
     }
 
     public List<Car> getCars() {
         return cars;
     }
 
+    private boolean isValidTrack() throws InvalidTrackFormatException {
+        return isRectangular() && hasValidCharacters() && hasFinishLines() && validCarID();
+    }
+
+    private void scanFile(File trackFile) throws IOException {
+        Scanner scanner = new Scanner(trackFile, StandardCharsets.UTF_8);
+        while (scanner.hasNext()) {
+            trackStringList.add(scanner.nextLine());
+        }
+    }
+
+    private boolean isRectangular() throws InvalidTrackFormatException {
+        boolean isRectangle = true;
+        sizeX = trackStringList.get(sizeY).length();
+        sizeY++;
+        while (sizeY < trackStringList.size() && isRectangle) {
+            isRectangle = trackStringList.get(sizeY).length() == sizeX;
+            sizeY++;
+        }
+        if (!isRectangle) throw new InvalidTrackFormatException("Track is not a rectangle.");
+        return isRectangle;
+    }
+
+    private boolean hasValidCharacters() throws InvalidTrackFormatException {
+        int nonTrackChars = 0;
+        for (String line : trackStringList) {
+            for (char c : line.toCharArray()) {
+                if (!(isTrackChar(c) || c == '*')) nonTrackChars++;
+            }
+        }
+        if (!(nonTrackChars > 0)) throw new InvalidTrackFormatException("Track has no cars.");
+        if (!(nonTrackChars <= Config.MAX_CARS)) throw new InvalidTrackFormatException("Track has nto many cars.");
+        return nonTrackChars > 0 && nonTrackChars <= ConfigSpecification.MAX_CARS;
+    }
+
+    private boolean hasFinishLines() throws InvalidTrackFormatException {
+        boolean hasfinishLine = false;
+        char finishLineDirection = 'N';
+        for (String line : trackStringList) {
+            for (char c : line.toCharArray()) {
+                if (isFinishLine(c)) {
+                    if (finishLineDirection == 'N') {
+                        finishLineDirection = c;
+                        hasfinishLine = true;
+                    }
+                    hasfinishLine = hasfinishLine && finishLineDirection == c;
+                }
+            }
+        }
+        if (finishLineDirection == 'N') throw new InvalidTrackFormatException("Track has no finishline.");
+        if (!hasfinishLine) throw new InvalidTrackFormatException("Track has multiple finishlines.");
+        return hasfinishLine;
+    }
+
+    private boolean validCarID() throws InvalidTrackFormatException {
+        List<Character> chars = new ArrayList<>();
+        chars.add(CRASH_INDICATOR);
+        for (String line : trackStringList) {
+            for (char c : line.toCharArray()) {
+                if (!(isTrackChar(c) || c == '*')) {
+                    for (Character takenCarIDs : chars) {
+                        if (c == takenCarIDs) {
+                            throw new InvalidTrackFormatException("Car :" + c + " has a invalid ID.");
+                        }
+                    }
+                    chars.add(c);
+                }
+            }
+        }
+        return true;
+    }
+
+    private void convertStringToTrack() {
+        int x = 0, y = 0;
+        for (String line : trackStringList) {
+            for (char c : line.toCharArray()) {
+                if (isTrackChar(c)) {
+                    raceTrackGrid[x][y] = charToSpaceType(c);
+                } else if (c == '*') {
+                    raceTrackGrid[x][y] = SpaceType.TRACK;
+                } else {
+                    raceTrackGrid[x][y] = SpaceType.TRACK;
+                    cars.add(new Car(c, new PositionVector(x, y)));
+                }
+                x++;
+            }
+            x = 0;
+            y++;
+        }
+    }
+
+
     /**
      * Returns the {@link Config.SpaceType} from a given {@link PositionVector}
      *
-     * @param positionVector position to retrieve {@link Config.SpaceType} from
+     * @param position position to retrieve {@link Config.SpaceType} from
      * @return {@link Config.SpaceType}
      */
     @Override
-    public Config.SpaceType getSpaceType(PositionVector positionVector) {
-        int index = trackReader.getTrackPositionVector().indexOf(positionVector);
-        return trackSpaceTypes.get(index);
+    public Config.SpaceType getSpaceType(PositionVector position) {
+        if (position.getX() >= 0 && position.getX() <= sizeX && position.getY() >= 0 && position.getY() <= sizeY) {
+            return raceTrackGrid[position.getX()][position.getY()];
+        } else {
+            return SpaceType.WALL;
+        }
     }
 
 
@@ -146,10 +252,6 @@ public class Track implements TrackSpecification {
         return cars.get(carIndex).getVelocity();
     }
 
-    private PositionVector getPositionVectorFromIndex(int index) {
-        return trackReader.getTrackPositionVector().get(index);
-    }
-
     /**
      * Gets character at the given position.
      * If there is a crashed car at the position, {@link #CRASH_INDICATOR} is returned.
@@ -161,16 +263,29 @@ public class Track implements TrackSpecification {
      */
     @Override
     public char getCharAtPosition(int y, int x, Config.SpaceType currentSpace) {
-        for (Car car : cars) {
-            if (car.getPosition().getX() == x && car.getPosition().getY() == y) {
-                if (car.isCrashed()) {
-                    return CRASH_INDICATOR;
-                } else {
-                    return car.getId();
+        if (x > sizeX || y > sizeY) {
+            System.err.println("Parameter Value out of Bound");
+            throw new UnsupportedOperationException();
+        }
+        char charAtPos = currentSpace.value;
+        if (showWaypoints) {
+            for (PositionVector position : waypoints) {
+                if (position.getX() == x && position.getY() == y) {
+                    charAtPos = '*';
+                    break;
                 }
             }
         }
-        return currentSpace.getValue();
+        for (Car car : cars) {
+            if (car.getPosition().getY() == y && car.getPosition().getX() == x) {
+                if (car.isCrashed()) {
+                    charAtPos = CRASH_INDICATOR;
+                } else {
+                    charAtPos = car.getId();
+                }
+            }
+        }
+        return charAtPos;
     }
 
     /**
@@ -180,35 +295,76 @@ public class Track implements TrackSpecification {
      */
     @Override
     public String toString() {
-        StringBuilder track = new StringBuilder();
-        int lengthOfRow = width - 1;
-        for (int lengthOfTrack = 0; lengthOfTrack < trackReader.getTrackCharacters().size(); lengthOfTrack++) {
-            if (lengthOfTrack == lengthOfRow && lengthOfRow != trackReader.getTrackCharacters().size() - 1) {
-                track.append(trackReader.getTrackCharacters().get(lengthOfTrack)).append("\n");
-                lengthOfRow += width;
-            } else {
-                track.append(trackReader.getTrackCharacters().get(lengthOfTrack));
+        StringBuilder string = new StringBuilder();
+        for (int currentY = 0; currentY < sizeY; currentY++) {
+            for (int currentX = 0; currentX < sizeX; currentX++) {
+                string.append(getCharAtPosition(currentY, currentX, getSpaceType(new PositionVector(currentX, currentY))));
             }
+            string.append("\n");
         }
-        return track.toString();
+        return string.toString();
     }
 
-    private void addCarAndSpaceTypeToArrayList() throws InvalidTrackFormatException {
-        for (Character character : trackReader.getTrackCharacters()) {
-            if (isCar(character)) {
-                initializeAndAddValidCarToList(character, getPositionVectorFromIndex(trackReader.getTrackCharacters().indexOf(character)));
-            } else {
-                trackSpaceTypes.add(trackReader.getSpaceTypeOfCharacter(character));
-            }
+    /**
+     * @param c
+     * @return
+     */
+    public static SpaceType charToSpaceType(char c) {
+        SpaceType returnValue = null;
+        for (SpaceType space : SpaceType.values()) {
+            if (space.value == c) returnValue = space;
         }
+        return returnValue;
     }
 
-    private static Boolean isCar(Character character) {
-        return character.toString().matches("([^# <>v^])+");
+    /**
+     * @param charAtPos
+     * @return
+     */
+    public static boolean isTrackChar(char charAtPos) {
+        return isFinishLine(charAtPos) || charAtPos == SpaceType.TRACK.getValue() || charAtPos == SpaceType.WALL.getValue();
     }
 
-    private void initializeAndAddValidCarToList(Character character, PositionVector position) throws InvalidTrackFormatException {
-        Car car = new Car(character, new PositionVector(position.getX(), position.getY()));
-        cars.add(car);
+    /**
+     * @param charAtPos
+     * @return
+     */
+    public static boolean isFinishLine(char charAtPos) {
+        return isFinishLineDown(charAtPos) ||
+                isFinishLineUp(charAtPos) ||
+                isFinishLineLeft(charAtPos) ||
+                isFinishLineRight(charAtPos);
+    }
+
+    /**
+     * @param spaceType
+     * @return
+     */
+    public static boolean isFinishLineDown(char spaceType) {
+        return spaceType == SpaceType.FINISH_DOWN.getValue();
+    }
+
+    /**
+     * @param spaceType
+     * @return
+     */
+    public static boolean isFinishLineUp(char spaceType) {
+        return spaceType == SpaceType.FINISH_UP.getValue();
+    }
+
+    /**
+     * @param spaceType
+     * @return
+     */
+    public static boolean isFinishLineLeft(char spaceType) {
+        return spaceType == SpaceType.FINISH_LEFT.getValue();
+    }
+
+    /**
+     * @param spaceType
+     * @return
+     */
+    public static boolean isFinishLineRight(char spaceType) {
+        return spaceType == SpaceType.FINISH_RIGHT.getValue();
     }
 }
