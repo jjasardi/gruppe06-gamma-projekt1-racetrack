@@ -141,18 +141,4 @@ public class Car implements CarSpecification {
     public PositionVector getVelocity() {
         return velocity;
     }
-
-    // Methods used for testing
-
-    /**
-     * Get current Position
-     * @return PositionVector
-     */
-    PositionVector getPosition() {
-        return this.position;
-    }
-
-    PositionVector getVelocity() {
-        return this.velocity;
-    }
 }
