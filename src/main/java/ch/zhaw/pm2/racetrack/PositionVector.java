@@ -10,6 +10,19 @@ public final class PositionVector {
     private int x; // horizontal component (position / velocity)
     private int y; // vertical component (position / velocity)
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void addTo(PositionVector other) {
+        this.x += other.getX();
+        this.y += other.getY();
+    }
+
     /**
      * Enum representing a direction on the track grid.
      * Also representing the possible acceleration values.

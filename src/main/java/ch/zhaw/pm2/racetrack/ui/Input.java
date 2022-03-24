@@ -1,63 +1,77 @@
 package ch.zhaw.pm2.racetrack.ui;
+
+import ch.zhaw.pm2.racetrack.PositionVector.Direction;
+import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType;
 import ch.zhaw.pm2.racetrack.logic.Config;
 import ch.zhaw.pm2.racetrack.strategy.*;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * This class is for all the input of the game. It uses the TextIO library
- * to read the input
- * from the console.
- * 
- * @author Ardi
+ * This class is for all the input of the game.
  */
 public class Input {
-    private final Config config = new Config();
-    private final ConsoleInterface consoleInterface = new ConsoleInterface();
+    private final ConsoleView consoleView = new ConsoleView();
+    Config config;
+    Output output;
 
     /**
-     *
+     * Creats an object of the class @{@link Input}
+     * @param output    current @{@link Output} object
+     * @param config    current @{@link Config} object
      */
-    public Input() {
-        textIO = TextIoFactory.getTextIO();
-        config = new Config();
+    public Input(Output output, Config config) {
+        this.output = output;
+        this.config = config;
     }
 
-    public static TextIO getInputInstance() {
-        return textIO;
-    }
     /**
-     * @param trackDirectory
-     * @return
+     * Provides the by the player selected @{@link File} of @{@link ch.zhaw.pm2.racetrack.Track}
+     * @param trackDirectory    directory of the @{@link ch.zhaw.pm2.racetrack.Track}
+     * @return  the accutal file of @{@link ch.zhaw.pm2.racetrack.Track}
+     * @throws TracklistEmptyException
      */
-    public File getSelectedTrackFile(File trackDirectory) throws NullPointerException {
-        String[] trackList = trackDirectory.list();
-        return consoleInterface.askTrackFile(trackList);
+    public File getSelectedTrackFile(File trackDirectory) throws TracklistEmptyException {
+        return consoleView.askTrackFile(trackDirectory);
     }
 
-    public MoveStrategy getSelectedMoveStrategy() {
+    /**
+     * Provides the by the player selected @{@link MoveStrategy}
+     * @return  accutal @{@link MoveStrategy}
+     * @throws MoveListEmptyException
+     */
+    public MoveStrategy getSelectedMoveStrategy() throws MoveListEmptyException {
         StrategyType[] strategyTypes = StrategyType.values();
-        int selection = consoleInterface.askStrategy(strategyTypes);
+        int selection = consoleView.askMoveStrategy(strategyTypes);
 
         return mapStrategyTypeToMoveStrategy(strategyTypes[selection]);
     }
 
-    private static MoveStrategy mapStrategyTypeToMoveStrategy(StrategyType strategyType) {
-        DoNotMoveStrategy doNotMoveStrategy = new DoNotMoveStrategy();
-        UserMoveStrategy userMoveStrategy = new UserMoveStrategy(this);
-        MoveListStrategy moveListStrategy = new MoveListStrategy();
-        PathFollowerMoveStrategy pathFollowerMoveStrategy = new PathFollowerMoveStrategy();
+    private MoveStrategy mapStrategyTypeToMoveStrategy(StrategyType strategyType) throws MoveListEmptyException {
+        return switch (strategyType) {
+            case DO_NOT_MOVE -> new DoNotMoveStrategy();
+            case USER -> new UserMoveStrategy(this, output);
+            case MOVE_LIST -> new MoveListStrategy(this, output, config);
+            case PATH_FOLLOWER -> new PathFollowerMoveStrategy();
+        };
+    }
 
-        Map<StrategyType, MoveStrategy> strategyMap = new HashMap<>();
-        strategyMap.put(StrategyType.DO_NOT_MOVE, doNotMoveStrategy);
-        strategyMap.put(StrategyType.USER, userMoveStrategy);
-        strategyMap.put(StrategyType.MOVE_LIST, moveListStrategy);
-        strategyMap.put(StrategyType.PATH_FOLLOWER, pathFollowerMoveStrategy);
+    /**
+     *
+     * @param moveDirectory
+     * @return
+     */
+    public File getSelectedMoveFile(File moveDirectory) throws MoveListEmptyException {
+        return consoleView.askMoveFile(moveDirectory);
+    }
 
-        return strategyMap.get(strategyType);
+    public char getChoosedOption(){
+        return consoleView.askOption();
+    }
+
+    public Direction getChoosedDirection(){
+        return consoleView.askDirection();
     }
 }

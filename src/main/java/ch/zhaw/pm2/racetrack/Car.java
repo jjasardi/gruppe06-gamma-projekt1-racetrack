@@ -126,8 +126,20 @@ public class Car implements CarSpecification {
         return this.moveStrategy;
     }
 
+    public boolean getActiveStatus() {
+        return false;
+    }
+
     public char getId() {
-        return this.id;
+        return id;
+    }
+
+    public PositionVector getPosition() {
+        return position;
+    }
+
+    public PositionVector getVelocity() {
+        return velocity;
     }
 
     // Methods used for testing
