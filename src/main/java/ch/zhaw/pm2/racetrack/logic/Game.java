@@ -21,6 +21,7 @@ public class Game implements GameSpecification {
     private final Track track;
     private boolean gameHasWinner;
     private int indexCurrentCar;
+    private int indexWinner = NO_WINNER;
 
     /**
      * @param track
@@ -84,8 +85,9 @@ public class Game implements GameSpecification {
      */
     @Override
     public int getWinner() {
+        checkIfOnlyOneCarNotCrashed();
         if (gameHasWinner){
-            return getCurrentCarIndex();
+            return indexWinner;
         }
         return NO_WINNER;
     }
@@ -123,41 +125,44 @@ public class Game implements GameSpecification {
             return;
         }
         activeCar.accelerate(acceleration);
-        List<PositionVector> possibleVectors = calculatePath(activeCar.getPosition(), activeCar.nextPosition());
 
-        int nextPositionX = activeCar.nextPosition().getX();
-        int nextPositionY = activeCar.nextPosition().getY();
-        ConfigSpecification.SpaceType spaceTypeOnNextPosition = track.getSpaceType(activeCar.nextPosition());
+        List<PositionVector> calculatedPaths = calculatePath(activeCar.getPosition(), activeCar.nextPosition());
+        PositionVector stopPosition = activeCar.nextPosition();
 
-        for (PositionVector positionVector : possibleVectors) {
-            switch (track.getCharAtPosition(nextPositionY, nextPositionX, spaceTypeOnNextPosition)) {
-                case '#', 'X':
+        loop: for (PositionVector calculatedPath : calculatedPaths) {
+            ConfigSpecification.SpaceType spaceTypeOnNextPosition = track.getSpaceType(calculatedPath);
+            switch (spaceTypeOnNextPosition) {
+                case WALL:
                     activeCar.crash();
-                    activeCar.setPosition(activeCar.nextPosition());
-                    break;
+                    stopPosition = calculatedPath;
+                    break loop;
 
-                case ' ':
-                    //TODO: collision-überprüfung ev. unnötig, weil ID von Car von Methode getCharAtPosition zurückgegeben wird, falls Car dort
-                    if (willCarCrashWithAnotherCar(activeCar)) {
+                case TRACK:
+                    if (willCarCrash(indexCurrentCar, calculatedPath)) {
                         activeCar.crash();
-                        activeCar.setPosition(activeCar.nextPosition());
-                    } else {
-                        activeCar.move();
+                        stopPosition = calculatedPath;
+                        break loop;
                     }
                     break;
 
-                case '<', '>', '^', 'v':
+                case FINISH_LEFT, FINISH_RIGHT, FINISH_DOWN, FINISH_UP:
                     PositionVector currentPositionCar = activeCar.getPosition();
                     PositionVector positionSpaceType =  activeCar.nextPosition();
                     ConfigSpecification.SpaceType spaceType = spaceTypeOnNextPosition;
                     if (passedFinishLineInCorrectWay(currentPositionCar,spaceType, positionSpaceType)) {
-                        gameHasWinner = true;
+                        setWinner();
                     } else {
                         activeCar.crash();
                     }
-                    activeCar.setPosition(activeCar.nextPosition());
-                    break;
+                    stopPosition = calculatedPath;
+                    break loop;
             }
+        }
+
+        if (activeCar.isCrashed() || getWinner() != indexCurrentCar) {
+            activeCar.setPosition(stopPosition);
+        } else {
+            activeCar.move();
         }
     }
 
@@ -232,21 +237,40 @@ public class Game implements GameSpecification {
     @Override
     public boolean willCarCrash(int carIndex, PositionVector position) {
         Car activeCar = track.getCar(carIndex);
-        int xPosition = activeCar.nextPosition().getX();
-        int yPosition = activeCar.nextPosition().getY();
+        int xPosition = position.getX();
+        int yPosition = position.getY();
         Config.SpaceType spaceType = track.getSpaceType(new PositionVector(xPosition, yPosition));
 
         if (spaceType == ConfigSpecification.SpaceType.WALL){
             return true;
         } else {
-            return willCarCrashWithAnotherCar(activeCar);
+            return willCarCrashWithAnotherCar(activeCar, position);
         }
     }
 
-    private boolean willCarCrashWithAnotherCar(Car activeCar) {
+    private boolean willCarCrashWithAnotherCar(Car activeCar, PositionVector position) {
+        boolean willCrash;
         for (Car car : track.getCars()) {
-            return car.getPosition().equals(activeCar.nextPosition());
+            willCrash = (activeCar.getId() != car.getId() && car.getPosition().equals(position));
+            if (willCrash) return willCrash;
         }
         return false;
+    }
+
+    private void checkIfOnlyOneCarNotCrashed() {
+        int crashCountTemp = 0;
+        for (Car car : getCars()) {
+            if (car.isCrashed()) {
+                crashCountTemp++;
+            }
+        }
+        if ((getCars().size() - crashCountTemp) == 1) {
+            setWinner();
+        }
+    }
+
+    private void setWinner() {
+        gameHasWinner = true;
+        indexWinner = getCurrentCarIndex();
     }
 }

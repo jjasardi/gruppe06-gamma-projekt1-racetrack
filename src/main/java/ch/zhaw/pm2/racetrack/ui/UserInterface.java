@@ -8,7 +8,7 @@ import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
 import java.io.File;
 
 /**
- *
+ * Interface which contains all the User Interface methods
  */
 public interface UserInterface {
 
@@ -18,12 +18,14 @@ public interface UserInterface {
     void printWelcomeText();
 
     /**
+     * Prints all the available @{@link ch.zhaw.pm2.racetrack.Track}
      * @param trackDirectory
      * @throws TracklistEmptyException
      */
     void printTrackList(File trackDirectory) throws TracklistEmptyException;
 
     /**
+     * Prints all the available @{@link ch.zhaw.pm2.racetrack.strategy.MoveStrategy}
      * @param strategyTypes
      */
     void printStrategyTypes(ConfigSpecification.StrategyType[] strategyTypes);
@@ -33,6 +35,7 @@ public interface UserInterface {
      */
     void printMoveList(File moveDirectory) throws MoveListEmptyException ;
 
+    //TODO finish javadoc
     /**
      * @param track
      */
@@ -55,7 +58,7 @@ public interface UserInterface {
     void printDirectionAppeal();
 
     /**
-     *
+     * Prints all the @{@link ch.zhaw.pm2.racetrack.logic.Config.DialogFeature}
      */
     void printUserDialogFeatures();
 

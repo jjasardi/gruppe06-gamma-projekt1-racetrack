@@ -15,14 +15,15 @@ public class Output {
     private final ConsoleView consoleView = new ConsoleView();
 
     /**
-     *
+     * Prints the welcome text for the game
      */
     public void outputWelcomeText() {
         consoleView.printWelcomeText();
     }
 
     /**
-     * @param trackDirectory
+     * Prints the appeal for the player to choose a @{@link Track}
+     * @param trackDirectory    directory of the @{@link Track}
      * @throws TracklistEmptyException
      */
     public void outputTrackList(File trackDirectory) throws TracklistEmptyException {
@@ -30,8 +31,8 @@ public class Output {
     }
 
     /**
-     *
-     * @param strategyTypes
+     * Executes the print of all available @{@link ch.zhaw.pm2.racetrack.strategy.MoveStrategy}
+     * @param strategyTypes array of all @{@link ch.zhaw.pm2.racetrack.strategy.MoveStrategy}
      */
     public void outputStrategyTypes(StrategyType[] strategyTypes) {
         consoleView.printStrategyTypes(strategyTypes);
@@ -54,7 +55,8 @@ public class Output {
     }
 
     /**
-     * @param moveDirections
+     * Executes the print of all possibles @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction}
+     * @param moveDirections    array of all @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction}
      */
     public void outputNextCommand() {
         consoleView.printNextCommand();

@@ -23,7 +23,8 @@ public class ConsoleView implements UserInterface {
     private final TextTerminal<?> textTerminal;
 
     /**
-     *
+     * Creates an object of class @{@link ConsoleInterface}
+     * which implements all the methods of the @{@link Input} and @{@link Output}
      */
     public ConsoleView() {
         textIO = TextIoFactory.getTextIO();
