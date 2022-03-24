@@ -120,6 +120,7 @@ public class GameTest {
 
     @Test
     public void carPassesFinishLineInCorrectWay() {
+        Car fourthCar = game.getCars().get(3);
         skipToCar(3);
         Car thirdCar = game.getTrack().getCar(3);
         thirdCar.setPosition(new PositionVector(16, 5));
@@ -127,7 +128,7 @@ public class GameTest {
         game.doCarTurn(Direction.DOWN_LEFT);
         game.doCarTurn(Direction.UP_LEFT);
         game.doCarTurn(Direction.RIGHT);
-
+        assertEquals(new PositionVector(17, 5), fourthCar.getPosition());
         assertEquals(3, game.getWinner());
     }
 
@@ -140,6 +141,15 @@ public class GameTest {
         assertTrue(firstCar.isCrashed());
         assertEquals(Game.NO_WINNER, game.getWinner());
         assertEquals(new PositionVector(17, 1), firstCar.getPosition());
+    }
+
+    @Test
+    public void carMovesOutsideBoundary() {
+        Car firstCar = game.getCars().get(0);
+        game.doCarTurn(Direction.RIGHT);
+        game.doCarTurn(Direction.RIGHT);
+        assertTrue(firstCar.isCrashed());
+        assertEquals(new PositionVector(21, 1), firstCar.getPosition());
     }
 
     private void skipToCar(int carIndex) {
