@@ -16,7 +16,7 @@ import java.util.Arrays;
 /**
  *
  */
-public class ConsoleInterface implements UserInterface {
+public class ConsoleView implements UserInterface {
 
     private final TextIO textIO;
     private final Config config;
@@ -25,7 +25,7 @@ public class ConsoleInterface implements UserInterface {
     /**
      *
      */
-    public ConsoleInterface() {
+    public ConsoleView() {
         textIO = TextIoFactory.getTextIO();
         config = new Config();
         textTerminal = textIO.getTextTerminal();
@@ -43,19 +43,19 @@ public class ConsoleInterface implements UserInterface {
     }
 
     @Override
-    public int askStrategy(ConfigSpecification.StrategyType[] strategyTypes) {
+    public int askMoveStrategy(ConfigSpecification.StrategyType[] strategyTypes) {
         return textIO.newIntInputReader().withMinVal(0).withMaxVal(strategyTypes.length - 1).read();
     }
 
     @Override
     public void printWelcomeText() {
-        textTerminal.println("Hallo und willkommen bei Racetrack");
-        textTerminal.println("Dieses Spiel macht allen Spass!");
+        textTerminal.println("Hello and welcome to Racetrack");
+        textTerminal.println("This game is fun for everybody!");
     }
 
     @Override
     public void printTrackList(File trackDirectory) throws TracklistEmptyException {
-        textTerminal.println("Waehle einen Track aus!");
+        textTerminal.println("Choose a track to play with!");
         String[] trackList = trackDirectory.list(txtFilter);
         if (trackList != null) {
             formatListPrinting(trackList);
@@ -66,7 +66,7 @@ public class ConsoleInterface implements UserInterface {
 
     @Override
     public void printStrategyTypes(ConfigSpecification.StrategyType[] strategyTypes) {
-        textTerminal.println("Welche Strategie willst du spielen?");
+        textTerminal.println("Which strategy do you want to play with?");
 
         //convert StrategyType enum values to Array
         String[] strategies = Arrays.stream(strategyTypes).map(Enum::name).toArray(String[]::new);
@@ -101,15 +101,19 @@ public class ConsoleInterface implements UserInterface {
 
     @Override
     public void printUserDialogFeatures() {
-        for (Config.DialogFeature dialogFeature : Config.DialogFeature.values()) {
-            textTerminal.println(String.valueOf(dialogFeature));
-        }
+        textTerminal.print("Acceleration Directions: \n" +
+                "1  2  3    1 = UP-LEFT     2 = UP      3 = UP-RIGHT\n" +
+                "4  5  6    4 = LEFT        5 = NONE    6 = RIGHT\n" +
+                "7  8  9    7 = DOWN-LEFT   8 = DOWN    9 = DOWN-RIGHT\n");
+        textTerminal.println("h for help");
+        textTerminal.println("t to show track");
+        textTerminal.println("q to quit game");
     }
 
     @Override
     public void printWinnerText(char carID) {
-        textTerminal.print("Das Auto " + carID + " hat das Spiel gewonnen!");
-        textTerminal.print("Gut gemacht! Gratuliere!");
+        textTerminal.print("The car " + carID + " wins!");
+        textTerminal.print("Good job! Congratulations!");
     }
 
     @Override
@@ -122,7 +126,7 @@ public class ConsoleInterface implements UserInterface {
      * @throws MoveListEmptyException
      */
     public void printMoveList(File moveDirectory) throws MoveListEmptyException {
-        textTerminal.println("Waehle eine Datei für deine Moves aus!");
+        textTerminal.println("Choose a file for the defined moves!");
         String[] moveList = moveDirectory.list(txtFilter);
         if (moveList != null) {
             formatListPrinting(moveList);
@@ -132,14 +136,11 @@ public class ConsoleInterface implements UserInterface {
     }
 
     /**
-     * @param moveDirections
+     *
      */
-    public void printNextMoveList(PositionVector.Direction[] moveDirections) {
-        //TODO text verbessern
-        textTerminal.println("Welche Richtung willst du fahren?");
-
-        String[] directions = Arrays.stream(moveDirections).map(Enum::name).toArray(String[]::new);
-        formatListPrinting(directions);
+    public void printNextCommand() {
+        textTerminal.println("Press a key!");
+        textTerminal.println("d: enter direction // h: help // t: show track // q: quit game");
     }
 
     private void formatListPrinting(String[] list) {
@@ -150,9 +151,39 @@ public class ConsoleInterface implements UserInterface {
 
     FilenameFilter txtFilter = new FilenameFilter() {
 
+        @Override
         public boolean accept(File f, String name)
         {
             return name.endsWith("txt");
         }
     };
+
+    /**
+     * @return
+     */
+    @Override
+    public char askChoosedOption() {
+        return textIO.newCharInputReader().read();
+    }
+
+    @Override
+    public void printDirectionAppeal() {
+        textTerminal.println("Enter a direction!");
+        textTerminal.println("Acceleration directions 1,2,3,4,5,6,7,8,9: ");
+    }
+
+    @Override
+    public PositionVector.Direction askDirection() {
+        return textIO.newEnumInputReader(PositionVector.Direction.class).read();
+    }
+
+    @Override
+    public void printDirections(PositionVector.Direction[] moveDirections) {
+
+    }
+
+    @Override
+    public void printCurrentCarID(char carID) {
+        textTerminal.println("Playing car: " +carID);
+    }
 }

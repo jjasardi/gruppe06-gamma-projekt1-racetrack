@@ -7,12 +7,16 @@ import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
 import ch.zhaw.pm2.racetrack.logic.Config;
 
 import java.io.File;
-import java.io.ObjectInputFilter;
 
 /**
  *
  */
 public interface UserInterface {
+
+    /**
+     *
+     */
+    void printWelcomeText();
 
     /**
      * @param trackList
@@ -25,12 +29,31 @@ public interface UserInterface {
      * @param strategyTypes
      * @return
      */
-    int askStrategy(ConfigSpecification.StrategyType[] strategyTypes);
+    int askMoveStrategy(ConfigSpecification.StrategyType[] strategyTypes);
+
+    /**
+     * @return
+     */
+    PositionVector.Direction askUserMoveDirection();
+
+    /**
+     * @param moveDirectory
+     * @return
+     */
+    File askSelectedMoveFile(File moveDirectory) throws MoveListEmptyException;
 
     /**
      *
+     * @return
      */
-    void printWelcomeText();
+    Config.DialogFeature askForDialogFeature();
+
+
+    /**
+     *
+     * @return
+     */
+    PositionVector.Direction askDirection();
 
     /**
      * @param trackDirectory
@@ -44,24 +67,6 @@ public interface UserInterface {
     void printStrategyTypes(ConfigSpecification.StrategyType[] strategyTypes);
 
     /**
-     * @return
-     */
-    PositionVector.Direction askUserMoveDirection();
-
-    /**
-     * @param moveDirectory
-     * @return
-     */
-    File askSelectedMoveFile(File moveDirectory) throws MoveListEmptyException;
-
-    Config.DialogFeature askForDialogFeature();
-
-    /**
-     *
-     */
-    void printUserDialogFeatures();
-
-    /**
      * @param carID
      */
     void printWinnerText(char carID);
@@ -70,4 +75,28 @@ public interface UserInterface {
      * @param track
      */
     void printGameState(String track);
+
+    /**
+     *
+     */
+    void printUserDialogFeatures();
+
+    char askChoosedOption();
+
+    /**
+     *
+     */
+    void printDirectionAppeal();
+
+    /**
+     *
+     * @param moveDirections
+     */
+    void printDirections(PositionVector.Direction[] moveDirections);
+
+    /**
+     *
+     * @param carID
+     */
+    void printCurrentCarID(char carID);
 }

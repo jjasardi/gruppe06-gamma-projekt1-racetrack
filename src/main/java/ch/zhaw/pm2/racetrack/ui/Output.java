@@ -14,13 +14,13 @@ import java.io.File;
  */
 
 public class Output {
-    private final ConsoleInterface consoleInterface = new ConsoleInterface();
+    private final ConsoleView consoleView = new ConsoleView();
 
     /**
      *
      */
     public void welcomeToRacetrack() {
-        consoleInterface.printWelcomeText();
+        consoleView.printWelcomeText();
     }
 
     /**
@@ -28,7 +28,7 @@ public class Output {
      * @throws TracklistEmptyException
      */
     public void outputTrackList(File trackDirectory) throws TracklistEmptyException {
-        consoleInterface.printTrackList(trackDirectory);
+        consoleView.printTrackList(trackDirectory);
     }
 
     /**
@@ -36,7 +36,7 @@ public class Output {
      * @throws MoveListEmptyException
      */
     public void outputMoveList(File moveDirectory) throws MoveListEmptyException {
-        consoleInterface.printMoveList(moveDirectory);
+        consoleView.printMoveList(moveDirectory);
     }
 
     /**
@@ -44,34 +44,37 @@ public class Output {
      * @param strategyTypes
      */
     public void outputStrategyTypes(StrategyType[] strategyTypes) {
-        consoleInterface.printStrategyTypes(strategyTypes);
+        consoleView.printStrategyTypes(strategyTypes);
     }
 
     /**
      * @param moveDirections
      */
-    public void outputNextMove(PositionVector.Direction[] moveDirections) {
-        consoleInterface.printNextMoveList(moveDirections);
+    public void outputNextCommand() {
+        consoleView.printNextCommand();
     }
 
-    /**
-     * @param track
-     */
-    public void outputGameState(String track) {
-        consoleInterface.printGameState(track);
-    }
-
-    /**
-     *
-     */
     public void outputUserDialogFeatures(){
-        consoleInterface.printUserDialogFeatures();
+        consoleView.printUserDialogFeatures();
     }
 
-    /**
-     * @param carID
-     */
     public void outputWinner(char carID){
-        consoleInterface.printWinnerText(carID);
+        consoleView.printWinnerText(carID);
+    }
+
+    public void outputGameState(String track){
+        consoleView.printGameState(track);
+    }
+
+    public void outputDirectionAppeal(){
+        consoleView.printDirectionAppeal();
+    }
+
+    public void outputNextMove(PositionVector.Direction[] moveDirections) {
+        consoleView.printDirections(moveDirections);
+    }
+
+    public void outputCurrentCarID(char carID){
+        consoleView.printCurrentCarID(carID);
     }
 }

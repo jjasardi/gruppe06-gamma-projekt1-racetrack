@@ -22,8 +22,7 @@ public class UserMoveStrategy implements MoveStrategy {
 
     @Override
     public Direction nextMove() {
-        Direction[] moveDirections = Direction.values();
-        output.outputNextMove(moveDirections);
-        return input.getUserMoveDirection();
+        output.outputDirectionAppeal();
+        return input.getChoosedDirection();
     }
 }

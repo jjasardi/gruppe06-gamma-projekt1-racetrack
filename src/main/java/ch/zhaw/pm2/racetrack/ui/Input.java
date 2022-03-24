@@ -13,7 +13,7 @@ import java.io.File;
  * This class is for all the input of the game.
  */
 public class Input {
-    private final ConsoleInterface consoleInterface = new ConsoleInterface();
+    private final ConsoleView consoleView = new ConsoleView();
     Config config;
     Output output;
 
@@ -32,12 +32,12 @@ public class Input {
      * @throws TracklistEmptyException
      */
     public File getSelectedTrackFile(File trackDirectory) throws TracklistEmptyException {
-        return consoleInterface.askTrackFile(trackDirectory);
+        return consoleView.askTrackFile(trackDirectory);
     }
 
     public MoveStrategy getSelectedMoveStrategy() throws MoveListEmptyException {
         StrategyType[] strategyTypes = StrategyType.values();
-        int selection = consoleInterface.askStrategy(strategyTypes);
+        int selection = consoleView.askMoveStrategy(strategyTypes);
 
         return mapStrategyTypeToMoveStrategy(strategyTypes[selection]);
     }
@@ -52,7 +52,7 @@ public class Input {
     }
 
     public Direction getUserMoveDirection() {
-        return consoleInterface.askUserMoveDirection();
+        return consoleView.askUserMoveDirection();
     }
 
     /**
@@ -60,10 +60,14 @@ public class Input {
      * @return
      */
     public File getSelectedMoveFile(File moveDirectory) throws MoveListEmptyException {
-        return consoleInterface.askSelectedMoveFile(moveDirectory);
+        return consoleView.askSelectedMoveFile(moveDirectory);
     }
 
-    public Config.DialogFeature getDialogFeature(){
-        return consoleInterface.askForDialogFeature();
+    public char getChoosedOption(){
+        return consoleView.askChoosedOption();
+    }
+
+    public Direction getChoosedDirection(){
+        return consoleView.askDirection();
     }
 }
