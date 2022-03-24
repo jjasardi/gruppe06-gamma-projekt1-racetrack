@@ -24,9 +24,10 @@ public class MoveListStrategy implements MoveStrategy {
     private int currentMoveIndex;
 
     /**
-     * @param input
-     * @param output
-     * @param config
+     * Creates an object of the class @{@link MoveListStrategy}
+     * @param input object of the acctual input @{@link Input}
+     * @param output object of the accutal output @{@link Output}
+     * @param config object of the accutal config @{@link Config}
      */
     public MoveListStrategy(Input input, Output output, Config config) throws MoveListEmptyException {
         this.config = config;
@@ -53,6 +54,10 @@ public class MoveListStrategy implements MoveStrategy {
         return null;
     }
 
+    /**
+     * Reads out the different moves in the given @{@link File}
+     * @param moveFile  file which conatins the moves of the @{@link ch.zhaw.pm2.racetrack.Car}
+     */
     private void readAllMoves(File moveFile) {
         try {
             Scanner scanner = new Scanner(moveFile);

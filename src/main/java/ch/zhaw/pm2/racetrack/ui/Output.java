@@ -17,14 +17,15 @@ public class Output {
     private final ConsoleInterface consoleInterface = new ConsoleInterface();
 
     /**
-     *
+     * Prints the welcome text for the game
      */
     public void welcomeToRacetrack() {
         consoleInterface.printWelcomeText();
     }
 
     /**
-     * @param trackDirectory
+     * Prints the appeal for the player to choose a @{@link Track}
+     * @param trackDirectory    directory of the @{@link Track}
      * @throws TracklistEmptyException
      */
     public void outputTrackList(File trackDirectory) throws TracklistEmptyException {
@@ -32,7 +33,9 @@ public class Output {
     }
 
     /**
-     * @param moveDirectory
+     * Executes the appeal for the player to choose a @{@link File} for
+     * the @{@link ch.zhaw.pm2.racetrack.strategy.MoveListStrategy}
+     * @param moveDirectory directory of the @{@link File}
      * @throws MoveListEmptyException
      */
     public void outputMoveList(File moveDirectory) throws MoveListEmptyException {
@@ -40,15 +43,16 @@ public class Output {
     }
 
     /**
-     *
-     * @param strategyTypes
+     * Executes the print of all available @{@link ch.zhaw.pm2.racetrack.strategy.MoveStrategy}
+     * @param strategyTypes array of all @{@link ch.zhaw.pm2.racetrack.strategy.MoveStrategy}
      */
     public void outputStrategyTypes(StrategyType[] strategyTypes) {
         consoleInterface.printStrategyTypes(strategyTypes);
     }
 
     /**
-     * @param moveDirections
+     * Executes the print of all possibles @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction}
+     * @param moveDirections    array of all @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction}
      */
     public void outputNextMove(PositionVector.Direction[] moveDirections) {
         consoleInterface.printNextMoveList(moveDirections);
