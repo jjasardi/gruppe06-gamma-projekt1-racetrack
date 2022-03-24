@@ -2,7 +2,6 @@ package ch.zhaw.pm2.racetrack.logic;
 
 import ch.zhaw.pm2.racetrack.Car;
 import ch.zhaw.pm2.racetrack.InvalidTrackFormatException;
-//import ch.zhaw.pm2.racetrack.PositionVector;
 import ch.zhaw.pm2.racetrack.Track;
 import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
@@ -54,6 +53,8 @@ public class RacetrackFlow {
                 break;
             case ('q'):
                 System.exit(0);
+            default:
+                throw new IllegalArgumentException();
         }
     }
 
@@ -63,7 +64,7 @@ public class RacetrackFlow {
     }
 
     private void initializeGame() throws TracklistEmptyException, FileNotFoundException, InvalidTrackFormatException {
-        output.welcomeToRacetrack();
+        output.outputWelcomeText();
         output.outputTrackList(config.getTrackDirectory());
         File selectedTrackFile = input.getSelectedTrackFile(config.getTrackDirectory());
         Track track = new Track(selectedTrackFile);
@@ -93,6 +94,6 @@ public class RacetrackFlow {
             }
             game.switchToNextActiveCar();
         }
-        output.outputWinner(game.getCarId(game.getWinner()));
+        output.outputWinnerText(game.getCarId(game.getWinner()));
     }
 }

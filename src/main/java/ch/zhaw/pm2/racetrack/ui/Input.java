@@ -51,20 +51,16 @@ public class Input {
         };
     }
 
-    public Direction getUserMoveDirection() {
-        return consoleView.askUserMoveDirection();
-    }
-
     /**
      * @param moveDirectory
      * @return
      */
     public File getSelectedMoveFile(File moveDirectory) throws MoveListEmptyException {
-        return consoleView.askSelectedMoveFile(moveDirectory);
+        return consoleView.askMoveFile(moveDirectory);
     }
 
     public char getChoosedOption(){
-        return consoleView.askChoosedOption();
+        return consoleView.askOption();
     }
 
     public Direction getChoosedDirection(){

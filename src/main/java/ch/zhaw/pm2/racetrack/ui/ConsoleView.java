@@ -32,22 +32,6 @@ public class ConsoleView implements UserInterface {
     }
 
     @Override
-    public File askTrackFile(File trackDirectory) throws TracklistEmptyException {
-        String[] trackList = trackDirectory.list(txtFilter);
-        if (trackList != null) {
-            int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(trackList.length - 1).read();
-            return new File(config.getTrackDirectory(), trackList[selection]);
-        } else {
-            throw new TracklistEmptyException();
-        }
-    }
-
-    @Override
-    public int askMoveStrategy(ConfigSpecification.StrategyType[] strategyTypes) {
-        return textIO.newIntInputReader().withMinVal(0).withMaxVal(strategyTypes.length - 1).read();
-    }
-
-    @Override
     public void printWelcomeText() {
         textTerminal.println("Hello and welcome to Racetrack");
         textTerminal.println("This game is fun for everybody!");
@@ -73,30 +57,49 @@ public class ConsoleView implements UserInterface {
         formatListPrinting(strategies);
     }
 
-    @Override
-    public PositionVector.Direction askUserMoveDirection() {
-        return textIO.newEnumInputReader(PositionVector.Direction.class).read();
-    }
-
     /**
      * @param moveDirectory
-     * @return
-     * @throws MoveListEmptyException
      */
     @Override
-    public File askSelectedMoveFile(File moveDirectory) throws MoveListEmptyException {
+    public void printMoveList(File moveDirectory) throws MoveListEmptyException {
+        textTerminal.println("Choose a file for the defined moves!");
         String[] moveList = moveDirectory.list(txtFilter);
         if (moveList != null) {
-            int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(moveList.length - 1).read();
-            return new File(config.getTrackDirectory(), moveList[selection]);
+            formatListPrinting(moveList);
         } else {
             throw new MoveListEmptyException();
         }
     }
 
+    private void formatListPrinting(String[] list) {
+        for (int i = 0; i < list.length; ++i) {
+            textTerminal.println(i + " : " + list[i]);
+        }
+    }
+
     @Override
-    public Config.DialogFeature askForDialogFeature() {
-        return textIO.newEnumInputReader(Config.DialogFeature.class).read();
+    public void printGameState(String track) {
+        textTerminal.print(track);
+    }
+
+    @Override
+    public void printCurrentCarID(char carID) {
+        textTerminal.println("Playing car: " +carID);
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void printNextCommand() {
+        textTerminal.println("Press a key!");
+        textTerminal.println("d: enter direction // h: help // t: show track // q: quit game");
+    }
+
+    @Override
+    public void printDirectionAppeal() {
+        textTerminal.println("Enter a direction!");
+        textTerminal.println("Acceleration directions 1,2,3,4,5,6,7,8,9: ");
     }
 
     @Override
@@ -117,39 +120,51 @@ public class ConsoleView implements UserInterface {
     }
 
     @Override
-    public void printGameState(String track) {
-        textTerminal.print(track);
+    public File askTrackFile(File trackDirectory) throws TracklistEmptyException {
+        String[] trackList = trackDirectory.list(txtFilter);
+        if (trackList != null) {
+            int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(trackList.length - 1).read();
+            return new File(config.getTrackDirectory(), trackList[selection]);
+        } else {
+            throw new TracklistEmptyException();
+        }
+    }
+
+    @Override
+    public int askMoveStrategy(ConfigSpecification.StrategyType[] strategyTypes) {
+        return textIO.newIntInputReader().withMinVal(0).withMaxVal(strategyTypes.length - 1).read();
     }
 
     /**
      * @param moveDirectory
+     * @return
      * @throws MoveListEmptyException
      */
-    public void printMoveList(File moveDirectory) throws MoveListEmptyException {
-        textTerminal.println("Choose a file for the defined moves!");
+    @Override
+    public File askMoveFile(File moveDirectory) throws MoveListEmptyException {
         String[] moveList = moveDirectory.list(txtFilter);
         if (moveList != null) {
-            formatListPrinting(moveList);
+            int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(moveList.length - 1).read();
+            return new File(config.getTrackDirectory(), moveList[selection]);
         } else {
             throw new MoveListEmptyException();
         }
     }
 
     /**
-     *
+     * @return
      */
-    public void printNextCommand() {
-        textTerminal.println("Press a key!");
-        textTerminal.println("d: enter direction // h: help // t: show track // q: quit game");
+    @Override
+    public char askOption() {
+        return textIO.newCharInputReader().read();
     }
 
-    private void formatListPrinting(String[] list) {
-        for (int i = 0; i < list.length; ++i) {
-            textTerminal.println(i + " : " + list[i]);
-        }
+    @Override
+    public PositionVector.Direction askDirection() {
+        return textIO.newEnumInputReader(PositionVector.Direction.class).read();
     }
 
-    FilenameFilter txtFilter = new FilenameFilter() {
+    private FilenameFilter txtFilter = new FilenameFilter() {
 
         @Override
         public boolean accept(File f, String name)
@@ -158,32 +173,4 @@ public class ConsoleView implements UserInterface {
         }
     };
 
-    /**
-     * @return
-     */
-    @Override
-    public char askChoosedOption() {
-        return textIO.newCharInputReader().read();
-    }
-
-    @Override
-    public void printDirectionAppeal() {
-        textTerminal.println("Enter a direction!");
-        textTerminal.println("Acceleration directions 1,2,3,4,5,6,7,8,9: ");
-    }
-
-    @Override
-    public PositionVector.Direction askDirection() {
-        return textIO.newEnumInputReader(PositionVector.Direction.class).read();
-    }
-
-    @Override
-    public void printDirections(PositionVector.Direction[] moveDirections) {
-
-    }
-
-    @Override
-    public void printCurrentCarID(char carID) {
-        textTerminal.println("Playing car: " +carID);
-    }
 }

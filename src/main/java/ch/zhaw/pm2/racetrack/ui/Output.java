@@ -1,7 +1,5 @@
 package ch.zhaw.pm2.racetrack.ui;
 
-import ch.zhaw.pm2.racetrack.PositionVector;
-import ch.zhaw.pm2.racetrack.Track;
 import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType;
@@ -19,7 +17,7 @@ public class Output {
     /**
      *
      */
-    public void welcomeToRacetrack() {
+    public void outputWelcomeText() {
         consoleView.printWelcomeText();
     }
 
@@ -32,6 +30,14 @@ public class Output {
     }
 
     /**
+     *
+     * @param strategyTypes
+     */
+    public void outputStrategyTypes(StrategyType[] strategyTypes) {
+        consoleView.printStrategyTypes(strategyTypes);
+    }
+
+    /**
      * @param moveDirectory
      * @throws MoveListEmptyException
      */
@@ -39,12 +45,12 @@ public class Output {
         consoleView.printMoveList(moveDirectory);
     }
 
-    /**
-     *
-     * @param strategyTypes
-     */
-    public void outputStrategyTypes(StrategyType[] strategyTypes) {
-        consoleView.printStrategyTypes(strategyTypes);
+    public void outputGameState(String track){
+        consoleView.printGameState(track);
+    }
+
+    public void outputCurrentCarID(char carID){
+        consoleView.printCurrentCarID(carID);
     }
 
     /**
@@ -54,27 +60,15 @@ public class Output {
         consoleView.printNextCommand();
     }
 
-    public void outputUserDialogFeatures(){
-        consoleView.printUserDialogFeatures();
-    }
-
-    public void outputWinner(char carID){
-        consoleView.printWinnerText(carID);
-    }
-
-    public void outputGameState(String track){
-        consoleView.printGameState(track);
-    }
-
     public void outputDirectionAppeal(){
         consoleView.printDirectionAppeal();
     }
 
-    public void outputNextMove(PositionVector.Direction[] moveDirections) {
-        consoleView.printDirections(moveDirections);
+    public void outputUserDialogFeatures(){
+        consoleView.printUserDialogFeatures();
     }
 
-    public void outputCurrentCarID(char carID){
-        consoleView.printCurrentCarID(carID);
+    public void outputWinnerText(char carID){
+        consoleView.printWinnerText(carID);
     }
 }
