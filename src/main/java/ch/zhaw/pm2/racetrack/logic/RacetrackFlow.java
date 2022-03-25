@@ -94,6 +94,7 @@ public class RacetrackFlow {
             }
             game.switchToNextActiveCar();
         }
+        output.outputGameState(gameTrack.toString());
         output.outputWinnerText(game.getCarId(game.getWinner()));
     }
 }
