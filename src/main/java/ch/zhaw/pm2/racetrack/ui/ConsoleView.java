@@ -146,7 +146,7 @@ public class ConsoleView implements UserInterface {
         String[] moveList = moveDirectory.list(txtFilter);
         if (moveList != null) {
             int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(moveList.length - 1).read();
-            return new File(config.getTrackDirectory(), moveList[selection]);
+            return new File(config.getMoveDirectory(), moveList[selection]);
         } else {
             throw new MoveListEmptyException();
         }
