@@ -133,7 +133,7 @@ public class Game implements GameSpecification {
             stopPosition = verifySpaceTypeForCalculatedPaths(activeCar, calculatedPaths);
         }
 
-        if (activeCar.isCrashed() || getWinner() != indexCurrentCar) {
+        if (activeCar.isCrashed() || getWinner() == indexCurrentCar) {
             activeCar.setPosition(stopPosition);
         } else {
             activeCar.move();
