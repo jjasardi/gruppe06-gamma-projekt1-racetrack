@@ -26,7 +26,7 @@ public class RacetrackFlow {
     private Game game;
 
     /**
-     *
+     * Creates a RacetrackFlow object
      */
     public RacetrackFlow() {
         config = new Config();
@@ -45,7 +45,6 @@ public class RacetrackFlow {
             case ('d'):
                 game.doCarTurn(carStrategy.nextMove());
                 break;
-
             case ('h'):
                 output.outputUserDialogFeatures();
                 break;
@@ -54,8 +53,10 @@ public class RacetrackFlow {
                 break;
             case ('q'):
                 System.exit(0);
+                break;
             default:
-                throw new IllegalArgumentException();
+                output.outputNextCommandRepeat();
+                nextCommand(input.getChoosedOption(), carStrategy);
         }
     }
 

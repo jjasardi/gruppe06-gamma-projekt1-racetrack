@@ -128,10 +128,6 @@ public class Car implements CarSpecification {
         return this.moveStrategy;
     }
 
-    public boolean getActiveStatus() {
-        return false;
-    }
-
     public char getId() {
         return id;
     }

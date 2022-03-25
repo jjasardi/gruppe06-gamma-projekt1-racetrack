@@ -18,9 +18,9 @@ public class Input {
     Output output;
 
     /**
-     * Creats an object of the class @{@link Input}
-     * @param output    current @{@link Output} object
-     * @param config    current @{@link Config} object
+     * Creates an object of the class @{@link Input}
+     * @param output    current {@link Output} object
+     * @param config    current {@link Config} object
      */
     public Input(Output output, Config config) {
         this.output = output;
@@ -28,10 +28,9 @@ public class Input {
     }
 
     /**
-     * Provides the by the player selected @{@link File} of @{@link ch.zhaw.pm2.racetrack.Track}
-     * @param trackDirectory    directory of the @{@link ch.zhaw.pm2.racetrack.Track}
-     * @return  the accutal file of @{@link ch.zhaw.pm2.racetrack.Track}
-     * @throws TracklistEmptyException
+     * Provides the by the player selected {@link File} of @{@link ch.zhaw.pm2.racetrack.Track}
+     * @param trackDirectory    directory of the {@link ch.zhaw.pm2.racetrack.Track}
+     * @return  the accutal file of {@link ch.zhaw.pm2.racetrack.Track}
      */
     public File getSelectedTrackFile(File trackDirectory) {
         try {
@@ -43,8 +42,8 @@ public class Input {
     }
 
     /**
-     * Provides the by the player selected @{@link MoveStrategy}
-     * @return  accutal @{@link MoveStrategy}
+     * Provides the by the player selected {@link MoveStrategy}
+     * @return  accutal {@link MoveStrategy}
      * @throws MoveListEmptyException
      */
     public MoveStrategy getSelectedMoveStrategy() throws MoveListEmptyException {
@@ -68,11 +67,12 @@ public class Input {
     }
 
     /**
+     * This method returns the selected move file.
      *
-     * @param moveDirectory
-     * @return
+     * @param moveDirectory directory where the move files are
+     * @return              selected move file
      */
-    public File getSelectedMoveFile(File moveDirectory) throws MoveListEmptyException {
+    public File getSelectedMoveFile(File moveDirectory) {
         try {
             return consoleView.askMoveFile(moveDirectory);
         } catch (MoveListEmptyException exception){
@@ -81,10 +81,20 @@ public class Input {
         return null;
     }
 
+    /**
+     * This method returns the selected options
+     *
+     * @return  selected option
+     */
     public char getChoosedOption(){
         return consoleView.askOption();
     }
 
+    /**
+     * This method returns the choosed direction
+     *
+     * @return selected direction
+     */
     public Direction getChoosedDirection(){
         return consoleView.askDirection();
     }

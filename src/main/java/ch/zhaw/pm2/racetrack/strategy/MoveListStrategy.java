@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- *
+ * This class reads the next moves frome a file.
  */
 public class MoveListStrategy implements MoveStrategy {
     private final Config config;
@@ -24,12 +24,12 @@ public class MoveListStrategy implements MoveStrategy {
     private int currentMoveIndex;
 
     /**
-     * Creates an object of the class @{@link MoveListStrategy}
-     * @param input object of the acctual input @{@link Input}
-     * @param output object of the accutal output @{@link Output}
-     * @param config object of the accutal config @{@link Config}
+     * Creates an object of the class {@link MoveListStrategy}
+     * @param input object of the acctual input {@link Input}
+     * @param output object of the accutal output {@link Output}
+     * @param config object of the accutal config {@link Config}
      */
-    public MoveListStrategy(Input input, Output output, Config config) throws MoveListEmptyException {
+    public MoveListStrategy(Input input, Output output, Config config) {
         this.config = config;
         this.output = output;
         this.input = input;
@@ -40,22 +40,22 @@ public class MoveListStrategy implements MoveStrategy {
         readAllMoves(moveFile);
     }
 
-    private File selectMoveListFile() throws MoveListEmptyException {
+    private File selectMoveListFile() {
         try {
-
             File moveDirectory = config.getMoveDirectory();
             output.outputMoveList(moveDirectory);
             return input.getSelectedMoveFile(moveDirectory);
 
         } catch (MoveListEmptyException exception) {
-            exception.printStackTrace();
+            output.outputErrorMessageMoveList();
+            selectMoveListFile();
         }
-        return null;
+       return null;
     }
 
     /**
-     * Reads out the different moves in the given @{@link File} and puts them in {@link MoveListStrategy#movesList}
-     * @param moveFile  file which contains the moves of the @{@link ch.zhaw.pm2.racetrack.Car}
+     * Reads out the different moves in the given {@link File} and puts them in {@link MoveListStrategy#movesList}
+     * @param moveFile  file which contains the moves of the {@link ch.zhaw.pm2.racetrack.Car}
      */
     private void readAllMoves(File moveFile) {
         try {
@@ -65,15 +65,15 @@ public class MoveListStrategy implements MoveStrategy {
                 movesList.add(direction);
             }
             scanner.close();
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (FileNotFoundException exception) {
+            System.err.println(exception.getMessage());
+            System.exit(0);
         }
     }
 
     @Override
     public Direction nextMove() {
-        if (currentMoveIndex < movesList.size()){
+        if (currentMoveIndex < movesList.size()) {
             Direction currentMove = movesList.get(currentMoveIndex);
             ++currentMoveIndex;
             return currentMove;

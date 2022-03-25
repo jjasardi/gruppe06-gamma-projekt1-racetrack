@@ -302,11 +302,7 @@ public class Track implements TrackSpecification {
         return string.toString();
     }
 
-    /**
-     * @param c
-     * @return
-     */
-    public static SpaceType charToSpaceType(char c) {
+    private static SpaceType charToSpaceType(char c) {
         SpaceType returnValue = null;
         for (SpaceType space : SpaceType.values()) {
             if (space.value == c) returnValue = space;
@@ -314,54 +310,30 @@ public class Track implements TrackSpecification {
         return returnValue;
     }
 
-    /**
-     * @param charAtPos
-     * @return
-     */
-    public static boolean isTrackChar(char charAtPos) {
+    private static boolean isTrackChar(char charAtPos) {
         return isFinishLine(charAtPos) || charAtPos == SpaceType.TRACK.getValue() || charAtPos == SpaceType.WALL.getValue();
     }
 
-    /**
-     * @param charAtPos
-     * @return
-     */
-    public static boolean isFinishLine(char charAtPos) {
+    private static boolean isFinishLine(char charAtPos) {
         return isFinishLineDown(charAtPos) ||
                 isFinishLineUp(charAtPos) ||
                 isFinishLineLeft(charAtPos) ||
                 isFinishLineRight(charAtPos);
     }
 
-    /**
-     * @param spaceType
-     * @return
-     */
-    public static boolean isFinishLineDown(char spaceType) {
+    private static boolean isFinishLineDown(char spaceType) {
         return spaceType == SpaceType.FINISH_DOWN.getValue();
     }
 
-    /**
-     * @param spaceType
-     * @return
-     */
-    public static boolean isFinishLineUp(char spaceType) {
+    private static boolean isFinishLineUp(char spaceType) {
         return spaceType == SpaceType.FINISH_UP.getValue();
     }
 
-    /**
-     * @param spaceType
-     * @return
-     */
-    public static boolean isFinishLineLeft(char spaceType) {
+    private static boolean isFinishLineLeft(char spaceType) {
         return spaceType == SpaceType.FINISH_LEFT.getValue();
     }
 
-    /**
-     * @param spaceType
-     * @return
-     */
-    public static boolean isFinishLineRight(char spaceType) {
+    private static boolean isFinishLineRight(char spaceType) {
         return spaceType == SpaceType.FINISH_RIGHT.getValue();
     }
 }

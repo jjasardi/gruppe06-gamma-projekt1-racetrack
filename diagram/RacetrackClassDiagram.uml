@@ -1,0 +1,1142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/cyril/Projekte IntelliJ/gruppe06-gamma-projekt1-racetrack/src/main</OriginalElement>
+  <nodes>
+    <node x="3214.009242238569" y="100.0">ch.zhaw.pm2.racetrack.given.ConfigSpecification</node>
+    <node x="1281.2108353758103" y="1472.0">ch.zhaw.pm2.racetrack.given.ConfigSpecification.SpaceType</node>
+    <node x="3207.9682904411716" y="3279.0">ch.zhaw.pm2.racetrack.ui.Output</node>
+    <node x="2473.625" y="986.0">ch.zhaw.pm2.racetrack.strategy.MoveListStrategy</node>
+    <node x="2247.625" y="997.0">ch.zhaw.pm2.racetrack.logic.Config.DialogFeature</node>
+    <node x="244.0" y="612.0">ch.zhaw.pm2.racetrack.logic.BresenhamAlgorithmus</node>
+    <node x="2555.134242238569" y="523.0">ch.zhaw.pm2.racetrack.logic.Config</node>
+    <node x="2581.3775020424773" y="1572.0">ch.zhaw.pm2.racetrack.strategy.PathFollowerMoveStrategy</node>
+    <node x="3418.9750306372634" y="1560.0">ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException</node>
+    <node x="1141.350030637264" y="1864.0">ch.zhaw.pm2.racetrack.Car</node>
+    <node x="1789.625" y="1064.0">ch.zhaw.pm2.racetrack.strategy.DoNotMoveStrategy</node>
+    <node x="1015.2108353758103" y="1507.0">ch.zhaw.pm2.racetrack.given.CarSpecification</node>
+    <node x="2082.884242238569" y="1344.0">ch.zhaw.pm2.racetrack.strategy.MoveStrategy</node>
+    <node x="667.0" y="2029.0">ch.zhaw.pm2.racetrack.exceptions.InvalidTrackFormatException</node>
+    <node x="1263.9358660130742" y="2410.0">ch.zhaw.pm2.racetrack.Track</node>
+    <node x="2117.676623774505" y="4100.0">ch.zhaw.pm2.racetrack.ConsoleApp</node>
+    <node x="1997.625" y="1041.0">ch.zhaw.pm2.racetrack.strategy.UserMoveStrategy</node>
+    <node x="3716.2250306372634" y="1516.0">ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType</node>
+    <node x="0.0" y="4223.0">ch.zhaw.pm2.racetrack.exceptions.InvalidFileFormatException</node>
+    <node x="2922.884242238569" y="1952.0">ch.zhaw.pm2.racetrack.ui.Input</node>
+    <node x="32.5" y="988.0">ch.zhaw.pm2.racetrack.given.GameSpecification</node>
+    <node x="1083.7592422385694" y="0.0">ch.zhaw.pm2.racetrack.PositionVector</node>
+    <node x="3841.125" y="1888.0">ch.zhaw.pm2.racetrack.ui.UserInterface</node>
+    <node x="2235.3842422385696" y="490.0">ch.zhaw.pm2.racetrack.PositionVector.Direction</node>
+    <node x="327.56086601307425" y="3180.0">ch.zhaw.pm2.racetrack.logic.Game</node>
+    <node x="3644.5932904411716" y="2498.0">ch.zhaw.pm2.racetrack.ui.ConsoleView</node>
+    <node x="1408.350030637264" y="1976.0">ch.zhaw.pm2.racetrack.given.TrackSpecification</node>
+    <node x="2059.676623774505" y="3772.0">ch.zhaw.pm2.racetrack.logic.RacetrackFlow</node>
+    <node x="3827.2250306372634" y="600.0">ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.DoNotMoveStrategy" target="ch.zhaw.pm2.racetrack.strategy.MoveStrategy" relationship="REALIZATION">
+      <point x="-62.66666666666663" y="39.0" />
+      <point x="1820.9583333333333" y="1252.0" />
+      <point x="1904.5092422385694" y="1252.0" />
+      <point x="1904.5092422385694" y="1322.0" />
+      <point x="2122.884242238569" y="1322.0" />
+      <point x="-40.0" y="-27.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Input" target="ch.zhaw.pm2.racetrack.strategy.DoNotMoveStrategy" relationship="CREATE">
+      <point x="-128.33333333333337" y="-128.0" />
+      <point x="2987.0509089052357" y="1842.0" />
+      <point x="2696.4682904411716" y="1842.0" />
+      <point x="2696.4682904411716" y="1832.0" />
+      <point x="2503.009242238569" y="1832.0" />
+      <point x="2503.009242238569" y="1282.0" />
+      <point x="1946.2916666666665" y="1282.0" />
+      <point x="62.66666666666663" y="39.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.given.GameSpecification" target="ch.zhaw.pm2.racetrack.PositionVector" relationship="DEPENDENCY">
+      <point x="0.0" y="-115.0" />
+      <point x="233.5" y="964.0" />
+      <point x="173.81086601307425" y="964.0" />
+      <point x="173.81086601307425" y="439.0" />
+      <point x="1592.2592422385694" y="439.0" />
+      <point x="1592.2592422385694" y="409.0" />
+      <point x="1297.5092422385694" y="409.0" />
+      <point x="42.75" y="194.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.PositionVector.Direction" target="ch.zhaw.pm2.racetrack.PositionVector" relationship="INNER_CLASS">
+      <point x="61.666666666666515" y="-161.0" />
+      <point x="2389.5509089052357" y="419.0" />
+      <point x="1383.0092422385694" y="419.0" />
+      <point x="128.25" y="194.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.MoveListStrategy" target="ch.zhaw.pm2.racetrack.ui.Output" relationship="DEPENDENCY">
+      <point x="99.0" y="117.0" />
+      <point x="2704.625" y="1252.0" />
+      <point x="2891.384242238569" y="1252.0" />
+      <point x="2891.384242238569" y="1292.0" />
+      <point x="3318.384242238569" y="1292.0" />
+      <point x="3318.384242238569" y="3128.0" />
+      <point x="3343.4682904411716" y="3128.0" />
+      <point x="0.0" y="-161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.Track" relationship="CREATE">
+      <point x="87.66666666666674" y="-139.0" />
+      <point x="2278.8432904411716" y="3751.0" />
+      <point x="4194.708333333333" y="3751.0" />
+      <point x="4194.708333333333" y="3721.0" />
+      <point x="4189.458333333333" y="3721.0" />
+      <point x="4189.458333333333" y="3148.0" />
+      <point x="1493.9358660130742" y="3148.0" />
+      <point x="92.0" y="348.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.DoNotMoveStrategy" target="ch.zhaw.pm2.racetrack.PositionVector.Direction" relationship="DEPENDENCY">
+      <point x="0.0" y="-39.0" />
+      <point x="1883.625" y="934.0" />
+      <point x="2048.3842422385696" y="934.0" />
+      <point x="2048.3842422385696" y="834.0" />
+      <point x="2281.6342422385696" y="834.0" />
+      <point x="-46.25" y="161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.Track" target="ch.zhaw.pm2.racetrack.PositionVector" relationship="CREATE">
+      <point x="-103.5" y="-348.0" />
+      <point x="1298.4358660130742" y="2388.0" />
+      <point x="1037.8108660130742" y="2388.0" />
+      <point x="1037.8108660130742" y="2328.0" />
+      <point x="930.5" y="2328.0" />
+      <point x="930.5" y="469.0" />
+      <point x="1036.2592422385694" y="469.0" />
+      <point x="1036.2592422385694" y="419.0" />
+      <point x="1126.5092422385694" y="419.0" />
+      <point x="-128.25" y="194.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.Game" target="ch.zhaw.pm2.racetrack.given.GameSpecification" relationship="REALIZATION">
+      <point x="-61.25" y="-260.0" />
+      <point x="511.31086601307425" y="3148.0" />
+      <point x="233.5" y="3148.0" />
+      <point x="0.0" y="115.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.ConsoleView" target="ch.zhaw.pm2.racetrack.PositionVector" relationship="DEPENDENCY">
+      <point x="-97.5" y="-260.0" />
+      <point x="3677.0932904411716" y="2388.0" />
+      <point x="3507.8432904411716" y="2388.0" />
+      <point x="3507.8432904411716" y="2318.0" />
+      <point x="3408.4750306372634" y="2318.0" />
+      <point x="3408.4750306372634" y="439.0" />
+      <point x="1592.2592422385694" y="439.0" />
+      <point x="1592.2592422385694" y="409.0" />
+      <point x="1297.5092422385694" y="409.0" />
+      <point x="42.75" y="194.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Output" target="ch.zhaw.pm2.racetrack.ui.ConsoleView" relationship="TO_ONE">
+      <point x="-90.33333333333326" y="-161.0" />
+      <point x="3253.134957107838" y="3158.0" />
+      <point x="2476.009242238569" y="3158.0" />
+      <point x="2476.009242238569" y="3138.0" />
+      <point x="3687.9266237745046" y="3138.0" />
+      <point x="-86.66666666666669" y="260.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Input" target="ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException" relationship="DEPENDENCY">
+      <point x="128.33333333333337" y="-128.0" />
+      <point x="3243.7175755719027" y="1822.0" />
+      <point x="2891.384242238569" y="1822.0" />
+      <point x="2891.384242238569" y="1802.0" />
+      <point x="2912.384242238569" y="1802.0" />
+      <point x="2912.384242238569" y="1782.0" />
+      <point x="3473.7250306372634" y="1782.0" />
+      <point x="-54.75" y="51.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.logic.Game" relationship="CREATE">
+      <point x="87.66666666666674" y="-139.0" />
+      <point x="2278.8432904411716" y="3751.0" />
+      <point x="4194.708333333333" y="3751.0" />
+      <point x="4194.708333333333" y="3721.0" />
+      <point x="695.060866013074" y="3721.0" />
+      <point x="122.5" y="260.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.ConsoleView" target="ch.zhaw.pm2.racetrack.PositionVector.Direction" relationship="DEPENDENCY">
+      <point x="-97.5" y="-260.0" />
+      <point x="3677.0932904411716" y="2388.0" />
+      <point x="3507.8432904411716" y="2388.0" />
+      <point x="3507.8432904411716" y="2318.0" />
+      <point x="3345.384242238569" y="2318.0" />
+      <point x="3345.384242238569" y="934.0" />
+      <point x="2048.384242238569" y="934.0" />
+      <point x="2048.3842422385696" y="834.0" />
+      <point x="2281.6342422385696" y="834.0" />
+      <point x="-46.25" y="161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.logic.Config" relationship="TO_ONE">
+      <point x="-87.66666666666674" y="-139.0" />
+      <point x="2103.509957107838" y="3751.0" />
+      <point x="55.6000306372639" y="3751.0" />
+      <point x="55.6000306372639" y="3741.0" />
+      <point x="0.0" y="3741.0" />
+      <point x="0.0" y="944.0" />
+      <point x="2940.125" y="944.0" />
+      <point x="2940.125" y="884.0" />
+      <point x="2686.384242238569" y="884.0" />
+      <point x="26.25" y="128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.Game" target="ch.zhaw.pm2.racetrack.PositionVector.Direction" relationship="DEPENDENCY">
+      <point x="61.25" y="-260.0" />
+      <point x="633.8108660130742" y="3158.0" />
+      <point x="854.3016237745048" y="3158.0" />
+      <point x="854.3016237745048" y="3138.0" />
+      <point x="919.5" y="3138.0" />
+      <point x="919.5" y="934.0" />
+      <point x="2048.3842422385696" y="934.0" />
+      <point x="2048.3842422385696" y="834.0" />
+      <point x="2281.6342422385696" y="834.0" />
+      <point x="-46.25" y="161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.Game" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification.SpaceType" relationship="DEPENDENCY">
+      <point x="61.25" y="-260.0" />
+      <point x="633.8108660130742" y="3158.0" />
+      <point x="854.3016237745048" y="3158.0" />
+      <point x="854.3016237745048" y="3138.0" />
+      <point x="919.5" y="3138.0" />
+      <point x="919.5" y="1832.0" />
+      <point x="1375.7108353758103" y="1832.0" />
+      <point x="0.0" y="139.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.Game" target="ch.zhaw.pm2.racetrack.PositionVector" relationship="CREATE">
+      <point x="-183.75" y="-260.0" />
+      <point x="388.81086601307425" y="3158.0" />
+      <point x="22.0" y="3158.0" />
+      <point x="22.0" y="469.0" />
+      <point x="1036.2592422385694" y="469.0" />
+      <point x="1036.2592422385694" y="419.0" />
+      <point x="1126.5092422385694" y="419.0" />
+      <point x="-128.25" y="194.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Input" target="ch.zhaw.pm2.racetrack.strategy.PathFollowerMoveStrategy" relationship="CREATE">
+      <point x="-128.33333333333337" y="-128.0" />
+      <point x="2987.0509089052357" y="1842.0" />
+      <point x="2696.4682904411716" y="1842.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.Game" target="ch.zhaw.pm2.racetrack.Track" relationship="TO_ONE">
+      <point x="183.75" y="-260.0" />
+      <point x="756.3108660130742" y="3148.0" />
+      <point x="1401.9358660130742" y="3148.0" />
+      <point x="0.0" y="348.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.Car" target="ch.zhaw.pm2.racetrack.PositionVector.Direction" relationship="DEPENDENCY">
+      <point x="92.25" y="-216.0" />
+      <point x="1356.600030637264" y="1842.0" />
+      <point x="1305.100030637264" y="1842.0" />
+      <point x="1305.100030637264" y="1792.0" />
+      <point x="983.2108353758103" y="1792.0" />
+      <point x="983.2108353758103" y="934.0" />
+      <point x="2048.3842422385696" y="934.0" />
+      <point x="2048.3842422385696" y="834.0" />
+      <point x="2281.6342422385696" y="834.0" />
+      <point x="-46.25" y="161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.UserInterface" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType" relationship="DEPENDENCY">
+      <point x="0.0" y="-192.0" />
+      <point x="3971.125" y="1782.0" />
+      <point x="3816.7250306372634" y="1782.0" />
+      <point x="0.0" y="95.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Output" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType" relationship="DEPENDENCY">
+      <point x="0.0" y="-161.0" />
+      <point x="3343.4682904411716" y="3128.0" />
+      <point x="4111.625" y="3128.0" />
+      <point x="4111.625" y="1842.0" />
+      <point x="3816.7250306372634" y="1842.0" />
+      <point x="0.0" y="95.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Input" target="ch.zhaw.pm2.racetrack.ui.Output" relationship="DEPENDENCY">
+      <point x="0.0" y="128.0" />
+      <point x="3115.384242238569" y="3128.0" />
+      <point x="3343.4682904411716" y="3128.0" />
+      <point x="0.0" y="-161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.strategy.MoveStrategy" relationship="DEPENDENCY">
+      <point x="0.0" y="-139.0" />
+      <point x="2191.176623774505" y="3731.0" />
+      <point x="2162.884242238569" y="3731.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.Track" target="ch.zhaw.pm2.racetrack.exceptions.InvalidTrackFormatException" relationship="CREATE">
+      <point x="-103.5" y="-348.0" />
+      <point x="1298.4358660130742" y="2388.0" />
+      <point x="1037.8108660130742" y="2388.0" />
+      <point x="1037.8108660130742" y="2328.0" />
+      <point x="848.5" y="2328.0" />
+      <point x="60.5" y="51.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Input" target="ch.zhaw.pm2.racetrack.logic.Config" relationship="DEPENDENCY">
+      <point x="128.33333333333337" y="-128.0" />
+      <point x="3243.7175755719027" y="1822.0" />
+      <point x="2891.384242238569" y="1822.0" />
+      <point x="2891.384242238569" y="1792.0" />
+      <point x="2880.884242238569" y="1792.0" />
+      <point x="2880.884242238569" y="954.0" />
+      <point x="1692.8358353758103" y="954.0" />
+      <point x="1692.8358353758103" y="844.0" />
+      <point x="2581.384242238569" y="844.0" />
+      <point x="-78.75" y="128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.UserInterface" target="ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException" relationship="DEPENDENCY">
+      <point x="0.0" y="-192.0" />
+      <point x="3971.125" y="1792.0" />
+      <point x="2912.384242238569" y="1792.0" />
+      <point x="2912.384242238569" y="1782.0" />
+      <point x="3473.7250306372634" y="1782.0" />
+      <point x="-54.75" y="51.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.UserMoveStrategy" target="ch.zhaw.pm2.racetrack.ui.Output" relationship="TO_ONE">
+      <point x="28.75" y="62.0" />
+      <point x="2141.375" y="1242.0" />
+      <point x="2274.634242238569" y="1242.0" />
+      <point x="2274.634242238569" y="1322.0" />
+      <point x="2253.384242238569" y="1322.0" />
+      <point x="2253.384242238569" y="3138.0" />
+      <point x="2476.009242238569" y="3138.0" />
+      <point x="2476.009242238569" y="3158.0" />
+      <point x="3253.134957107838" y="3158.0" />
+      <point x="-90.33333333333326" y="-161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.MoveListStrategy" target="ch.zhaw.pm2.racetrack.ui.Input" relationship="TO_ONE">
+      <point x="-33.0" y="117.0" />
+      <point x="2572.625" y="1252.0" />
+      <point x="2622.884242238569" y="1252.0" />
+      <point x="2622.884242238569" y="1312.0" />
+      <point x="2869.884242238569" y="1312.0" />
+      <point x="2869.884242238569" y="1832.0" />
+      <point x="3115.384242238569" y="1832.0" />
+      <point x="0.0" y="-128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Input" target="ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException" relationship="DEPENDENCY">
+      <point x="128.33333333333337" y="-128.0" />
+      <point x="3243.7175755719027" y="1822.0" />
+      <point x="2891.384242238569" y="1822.0" />
+      <point x="2891.384242238569" y="1792.0" />
+      <point x="2901.884242238569" y="1792.0" />
+      <point x="2901.884242238569" y="924.0" />
+      <point x="3995.2250306372634" y="924.0" />
+      <point x="56.0" y="51.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.Car" relationship="DEPENDENCY">
+      <point x="0.0" y="-139.0" />
+      <point x="2191.176623774505" y="3731.0" />
+      <point x="10.999999999999545" y="3731.0" />
+      <point x="11.0" y="2348.0" />
+      <point x="380.06086601307425" y="2348.0" />
+      <point x="380.06086601307425" y="2338.0" />
+      <point x="1182.350030637264" y="2338.0" />
+      <point x="-82.0" y="216.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.given.GameSpecification" target="ch.zhaw.pm2.racetrack.PositionVector.Direction" relationship="DEPENDENCY">
+      <point x="0.0" y="-115.0" />
+      <point x="233.5" y="964.0" />
+      <point x="173.81086601307425" y="964.0" />
+      <point x="173.81086601307425" y="924.0" />
+      <point x="2048.3842422385696" y="924.0" />
+      <point x="2048.3842422385696" y="834.0" />
+      <point x="2281.6342422385696" y="834.0" />
+      <point x="-46.25" y="161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.MoveListStrategy" target="ch.zhaw.pm2.racetrack.logic.Config" relationship="TO_ONE">
+      <point x="66.0" y="-117.0" />
+      <point x="2671.625" y="964.0" />
+      <point x="2636.8525326797408" y="964.0" />
+      <point x="2636.8525326797408" y="894.0" />
+      <point x="2940.125" y="894.0" />
+      <point x="2940.125" y="884.0" />
+      <point x="2686.384242238569" y="884.0" />
+      <point x="26.25" y="128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Input" target="ch.zhaw.pm2.racetrack.ui.ConsoleView" relationship="CREATE">
+      <point x="128.33333333333337" y="128.0" />
+      <point x="3243.7175755719027" y="2328.0" />
+      <point x="3669.9750306372634" y="2328.0" />
+      <point x="3669.9750306372634" y="2348.0" />
+      <point x="3676.875" y="2348.0" />
+      <point x="3676.875" y="2368.0" />
+      <point x="3807.0932904411716" y="2368.0" />
+      <point x="32.5" y="-260.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.MoveStrategy" target="ch.zhaw.pm2.racetrack.PositionVector.Direction" relationship="DEPENDENCY">
+      <point x="40.0" y="-27.0" />
+      <point x="2202.884242238569" y="1312.0" />
+      <point x="1914.7592422385694" y="1312.0" />
+      <point x="1914.7592422385694" y="1282.0" />
+      <point x="1779.125" y="1282.0" />
+      <point x="1779.125" y="934.0" />
+      <point x="2048.3842422385696" y="934.0" />
+      <point x="2048.3842422385696" y="834.0" />
+      <point x="2281.6342422385696" y="834.0" />
+      <point x="-46.25" y="161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.MoveStrategy" target="ch.zhaw.pm2.racetrack.strategy.MoveListStrategy" relationship="DEPENDENCY">
+      <point x="40.0" y="-27.0" />
+      <point x="2202.884242238569" y="1312.0" />
+      <point x="1914.7592422385694" y="1312.0" />
+      <point x="1914.7592422385694" y="1302.0" />
+      <point x="2891.384242238569" y="1302.0" />
+      <point x="2891.384242238569" y="1252.0" />
+      <point x="2704.625" y="1252.0" />
+      <point x="99.0" y="117.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.Game" target="ch.zhaw.pm2.racetrack.Track" relationship="DEPENDENCY">
+      <point x="61.25" y="-260.0" />
+      <point x="633.8108660130742" y="3158.0" />
+      <point x="854.3016237745048" y="3158.0" />
+      <point x="854.3016237745048" y="3138.0" />
+      <point x="1309.9358660130742" y="3138.0" />
+      <point x="-92.0" y="348.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Input" target="ch.zhaw.pm2.racetrack.strategy.UserMoveStrategy" relationship="CREATE">
+      <point x="-128.33333333333337" y="-128.0" />
+      <point x="2987.0509089052357" y="1842.0" />
+      <point x="2696.4682904411716" y="1842.0" />
+      <point x="2696.4682904411716" y="1832.0" />
+      <point x="2513.009242238569" y="1832.0" />
+      <point x="2513.009242238569" y="1272.0" />
+      <point x="2198.875" y="1272.0" />
+      <point x="86.25" y="62.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.Track" target="ch.zhaw.pm2.racetrack.Car" relationship="TO_MANY">
+      <point x="34.5" y="-348.0" />
+      <point x="1436.4358660130742" y="2388.0" />
+      <point x="1592.0516237745048" y="2388.0" />
+      <point x="1592.0516237745048" y="2318.0" />
+      <point x="1346.350030637264" y="2318.0" />
+      <point x="82.0" y="216.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.UserInterface" target="ch.zhaw.pm2.racetrack.PositionVector.Direction" relationship="DEPENDENCY">
+      <point x="0.0" y="-192.0" />
+      <point x="3971.125" y="1772.0" />
+      <point x="3937.875" y="1772.0" />
+      <point x="3937.875" y="934.0" />
+      <point x="2048.3842422385696" y="934.0" />
+      <point x="2048.3842422385696" y="834.0" />
+      <point x="2281.6342422385696" y="834.0" />
+      <point x="-46.25" y="161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.given.CarSpecification" target="ch.zhaw.pm2.racetrack.strategy.MoveStrategy" relationship="DEPENDENCY">
+      <point x="0.0" y="-104.0" />
+      <point x="1138.2108353758103" y="1450.0" />
+      <point x="994.2108353758103" y="1450.0" />
+      <point x="994.2108353758103" y="1430.0" />
+      <point x="2162.884242238569" y="1430.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.Car" target="ch.zhaw.pm2.racetrack.strategy.MoveStrategy" relationship="TO_ONE">
+      <point x="-30.75" y="-216.0" />
+      <point x="1233.600030637264" y="1842.0" />
+      <point x="972.2108353758103" y="1842.0" />
+      <point x="972.2108353758103" y="1420.0" />
+      <point x="2109.5509089052357" y="1420.0" />
+      <point x="-53.33333333333337" y="27.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.ConsoleView" target="ch.zhaw.pm2.racetrack.ui.Output" relationship="DEPENDENCY">
+      <point x="0.0" y="260.0" />
+      <point x="3774.5932904411716" y="3128.0" />
+      <point x="3343.4682904411716" y="3128.0" />
+      <point x="0.0" y="-161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.Track" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification.SpaceType" relationship="CREATE">
+      <point x="-103.5" y="-348.0" />
+      <point x="1298.4358660130742" y="2388.0" />
+      <point x="1037.8108660130742" y="2388.0" />
+      <point x="1037.8108660130742" y="2328.0" />
+      <point x="1397.850030637264" y="2328.0" />
+      <point x="1397.850030637264" y="1822.0" />
+      <point x="1312.7108353758103" y="1822.0" />
+      <point x="-63.0" y="139.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.PositionVector.Direction" target="ch.zhaw.pm2.racetrack.PositionVector" relationship="TO_ONE">
+      <point x="0.0" y="-161.0" />
+      <point x="2327.8842422385696" y="459.0" />
+      <point x="1057.7592422385692" y="459.0" />
+      <point x="1057.7592422385694" y="409.0" />
+      <point x="1212.0092422385694" y="409.0" />
+      <point x="-42.75" y="194.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.Car" target="ch.zhaw.pm2.racetrack.PositionVector" relationship="CREATE">
+      <point x="-92.25" y="-216.0" />
+      <point x="1172.100030637264" y="1812.0" />
+      <point x="950.7108353758103" y="1812.0" />
+      <point x="950.7108353758103" y="469.0" />
+      <point x="1036.2592422385694" y="469.0" />
+      <point x="1036.2592422385694" y="419.0" />
+      <point x="1126.5092422385694" y="419.0" />
+      <point x="-128.25" y="194.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.MoveStrategy" target="ch.zhaw.pm2.racetrack.strategy.UserMoveStrategy" relationship="DEPENDENCY">
+      <point x="40.0" y="-27.0" />
+      <point x="2202.884242238569" y="1312.0" />
+      <point x="1914.7592422385694" y="1312.0" />
+      <point x="1914.7592422385694" y="1292.0" />
+      <point x="2072.3842422385696" y="1292.0" />
+      <point x="2072.3842422385696" y="1242.0" />
+      <point x="2083.875" y="1242.0" />
+      <point x="-28.75" y="62.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Output" target="ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException" relationship="DEPENDENCY">
+      <point x="0.0" y="-161.0" />
+      <point x="3343.4682904411716" y="3128.0" />
+      <point x="2912.384242238569" y="3128.0" />
+      <point x="2912.384242238569" y="1782.0" />
+      <point x="3473.7250306372634" y="1782.0" />
+      <point x="-54.75" y="51.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.ui.Output" relationship="CREATE">
+      <point x="87.66666666666674" y="-139.0" />
+      <point x="2278.8432904411716" y="3751.0" />
+      <point x="4194.708333333333" y="3751.0" />
+      <point x="4194.708333333333" y="3721.0" />
+      <point x="3411.2182904411716" y="3721.0" />
+      <point x="67.75" y="161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.ui.Input" relationship="TO_ONE">
+      <point x="-87.66666666666674" y="-139.0" />
+      <point x="2103.509957107838" y="3751.0" />
+      <point x="55.6000306372639" y="3751.0" />
+      <point x="55.6000306372639" y="3741.0" />
+      <point x="0.0" y="3741.0" />
+      <point x="0.0" y="2368.0" />
+      <point x="2481.009242238569" y="2368.0" />
+      <point x="2481.009242238569" y="2348.0" />
+      <point x="2987.0509089052357" y="2348.0" />
+      <point x="-128.33333333333334" y="128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.logic.Game" relationship="TO_ONE">
+      <point x="-87.66666666666674" y="-139.0" />
+      <point x="2103.509957107838" y="3751.0" />
+      <point x="55.6000306372639" y="3751.0" />
+      <point x="55.6000306372639" y="3741.0" />
+      <point x="450.06086601307425" y="3741.0" />
+      <point x="-122.5" y="260.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.UserMoveStrategy" target="ch.zhaw.pm2.racetrack.ui.Output" relationship="DEPENDENCY">
+      <point x="-28.75" y="62.0" />
+      <point x="2083.875" y="1242.0" />
+      <point x="2072.3842422385696" y="1242.0" />
+      <point x="2072.3842422385696" y="1262.0" />
+      <point x="2492.009242238569" y="1262.0" />
+      <point x="2492.009242238569" y="3128.0" />
+      <point x="3343.4682904411716" y="3128.0" />
+      <point x="0.0" y="-161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.MoveListStrategy" target="ch.zhaw.pm2.racetrack.logic.Config" relationship="DEPENDENCY">
+      <point x="-66.0" y="-117.0" />
+      <point x="2539.625" y="964.0" />
+      <point x="2626.8525326797408" y="964.0" />
+      <point x="2626.8525326797408" y="874.0" />
+      <point x="1692.8358353758103" y="874.0" />
+      <point x="1692.8358353758103" y="844.0" />
+      <point x="2581.384242238569" y="844.0" />
+      <point x="-78.75" y="128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.MoveListStrategy" target="ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException" relationship="DEPENDENCY">
+      <point x="-66.0" y="-117.0" />
+      <point x="2539.625" y="964.0" />
+      <point x="2626.8525326797408" y="964.0" />
+      <point x="2626.8525326797408" y="904.0" />
+      <point x="3995.2250306372634" y="904.0" />
+      <point x="56.0" y="51.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.Game" target="ch.zhaw.pm2.racetrack.Car" relationship="DEPENDENCY">
+      <point x="61.25" y="-260.0" />
+      <point x="633.8108660130742" y="3158.0" />
+      <point x="854.3016237745048" y="3158.0" />
+      <point x="854.3016237745048" y="3138.0" />
+      <point x="380.06086601307425" y="3138.0" />
+      <point x="380.06086601307425" y="2338.0" />
+      <point x="1182.350030637264" y="2338.0" />
+      <point x="-82.0" y="216.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.logic.Config" relationship="CREATE">
+      <point x="87.66666666666674" y="-139.0" />
+      <point x="2278.8432904411716" y="3751.0" />
+      <point x="4194.708333333333" y="3751.0" />
+      <point x="4194.708333333333" y="3721.0" />
+      <point x="4199.958333333333" y="3721.0" />
+      <point x="4199.958333333333" y="914.0" />
+      <point x="4005.2250306372634" y="914.0" />
+      <point x="4005.2250306372634" y="874.0" />
+      <point x="2738.8842422385696" y="874.0" />
+      <point x="78.75" y="128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.Track" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification" relationship="DEPENDENCY">
+      <point x="103.5" y="-348.0" />
+      <point x="1505.4358660130742" y="2378.0" />
+      <point x="1740.25" y="2378.0" />
+      <point x="1740.25" y="429.0" />
+      <point x="3686.884242238569" y="429.0" />
+      <point x="3686.884242238569" y="419.0" />
+      <point x="3389.009242238569" y="419.0" />
+      <point x="70.0" y="94.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.Track" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification.SpaceType" relationship="TO_ONE">
+      <point x="34.5" y="-348.0" />
+      <point x="1436.4358660130742" y="2388.0" />
+      <point x="1592.0516237745048" y="2388.0" />
+      <point x="1592.0516237745048" y="2318.0" />
+      <point x="1724.0" y="2318.0" />
+      <point x="1724.0" y="1802.0" />
+      <point x="1438.7108353758103" y="1802.0" />
+      <point x="63.0" y="139.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.Track" target="ch.zhaw.pm2.racetrack.given.TrackSpecification" relationship="REALIZATION">
+      <point x="-34.5" y="-348.0" />
+      <point x="1367.4358660130742" y="2358.0" />
+      <point x="1546.350030637264" y="2358.0" />
+      <point x="0.0" y="104.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.ui.Input" relationship="CREATE">
+      <point x="87.66666666666674" y="-139.0" />
+      <point x="2278.8432904411716" y="3751.0" />
+      <point x="4194.708333333333" y="3751.0" />
+      <point x="4194.708333333333" y="3721.0" />
+      <point x="4199.958333333333" y="3721.0" />
+      <point x="4199.958333333333" y="2338.0" />
+      <point x="3669.9750306372634" y="2338.0" />
+      <point x="3669.9750306372634" y="2328.0" />
+      <point x="3243.7175755719027" y="2328.0" />
+      <point x="128.33333333333337" y="128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.MoveListStrategy" target="ch.zhaw.pm2.racetrack.PositionVector.Direction" relationship="DEPENDENCY">
+      <point x="-66.0" y="-117.0" />
+      <point x="2539.625" y="964.0" />
+      <point x="2626.8525326797408" y="964.0" />
+      <point x="2626.8525326797408" y="864.0" />
+      <point x="2048.3842422385696" y="864.0" />
+      <point x="2048.3842422385696" y="834.0" />
+      <point x="2281.6342422385696" y="834.0" />
+      <point x="-46.25" y="161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Input" target="ch.zhaw.pm2.racetrack.ui.ConsoleView" relationship="TO_ONE">
+      <point x="-128.33333333333337" y="128.0" />
+      <point x="2987.0509089052357" y="2348.0" />
+      <point x="2481.009242238569" y="2348.0" />
+      <point x="2481.009242238569" y="2358.0" />
+      <point x="3659.4750306372634" y="2358.0" />
+      <point x="3659.4750306372634" y="2378.0" />
+      <point x="3742.0932904411716" y="2378.0" />
+      <point x="-32.5" y="-260.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.ConsoleView" target="ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException" relationship="CREATE">
+      <point x="32.5" y="-260.0" />
+      <point x="3807.0932904411716" y="2368.0" />
+      <point x="3676.875" y="2368.0" />
+      <point x="3676.875" y="2358.0" />
+      <point x="3690.9750306372634" y="2358.0" />
+      <point x="3690.9750306372634" y="894.0" />
+      <point x="3883.2250306372634" y="894.0" />
+      <point x="-56.0" y="51.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.BresenhamAlgorithmus" target="ch.zhaw.pm2.racetrack.PositionVector" relationship="CREATE">
+      <point x="0.0" y="-39.0" />
+      <point x="445.0" y="469.0" />
+      <point x="1036.2592422385694" y="469.0" />
+      <point x="1036.2592422385694" y="419.0" />
+      <point x="1126.5092422385694" y="419.0" />
+      <point x="-128.25" y="194.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.Track" target="ch.zhaw.pm2.racetrack.logic.Config" relationship="DEPENDENCY">
+      <point x="103.5" y="-348.0" />
+      <point x="1505.4358660130742" y="2378.0" />
+      <point x="1740.25" y="2378.0" />
+      <point x="1740.25" y="2358.0" />
+      <point x="1735.0" y="2358.0" />
+      <point x="1735.0" y="954.0" />
+      <point x="1692.8358353758103" y="954.0" />
+      <point x="1692.8358353758103" y="844.0" />
+      <point x="2581.384242238569" y="844.0" />
+      <point x="-78.75" y="128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.UserInterface" target="ch.zhaw.pm2.racetrack.PositionVector" relationship="DEPENDENCY">
+      <point x="0.0" y="-192.0" />
+      <point x="3971.125" y="1772.0" />
+      <point x="4061.7250306372634" y="1772.0" />
+      <point x="4061.7250306372634" y="439.0" />
+      <point x="1592.2592422385694" y="439.0" />
+      <point x="1592.2592422385694" y="409.0" />
+      <point x="1297.5092422385694" y="409.0" />
+      <point x="42.75" y="194.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.given.CarSpecification" target="ch.zhaw.pm2.racetrack.PositionVector.Direction" relationship="DEPENDENCY">
+      <point x="0.0" y="-104.0" />
+      <point x="1138.2108353758103" y="1450.0" />
+      <point x="994.2108353758103" y="1450.0" />
+      <point x="994.2108353758103" y="934.0" />
+      <point x="2048.3842422385696" y="934.0" />
+      <point x="2048.3842422385696" y="834.0" />
+      <point x="2281.6342422385696" y="834.0" />
+      <point x="-46.25" y="161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.Car" target="ch.zhaw.pm2.racetrack.given.CarSpecification" relationship="REALIZATION">
+      <point x="30.75" y="-216.0" />
+      <point x="1295.100030637264" y="1802.0" />
+      <point x="1076.7108353758103" y="1802.0" />
+      <point x="-61.5" y="104.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.MoveListStrategy" target="ch.zhaw.pm2.racetrack.strategy.MoveStrategy" relationship="REALIZATION">
+      <point x="-99.0" y="117.0" />
+      <point x="2506.625" y="1252.0" />
+      <point x="1904.5092422385694" y="1252.0" />
+      <point x="1904.5092422385694" y="1322.0" />
+      <point x="2122.884242238569" y="1322.0" />
+      <point x="-40.0" y="-27.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification" relationship="DEPENDENCY">
+      <point x="0.0" y="-139.0" />
+      <point x="2191.176623774505" y="3731.0" />
+      <point x="4178.458333333333" y="3731.0" />
+      <point x="4178.458333333333" y="429.0" />
+      <point x="3686.884242238569" y="429.0" />
+      <point x="3686.884242238569" y="419.0" />
+      <point x="3389.009242238569" y="419.0" />
+      <point x="70.0" y="94.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Input" target="ch.zhaw.pm2.racetrack.strategy.MoveListStrategy" relationship="CREATE">
+      <point x="-128.33333333333337" y="-128.0" />
+      <point x="2987.0509089052357" y="1842.0" />
+      <point x="2696.4682904411716" y="1842.0" />
+      <point x="2696.4682904411716" y="1832.0" />
+      <point x="2858.884242238569" y="1832.0" />
+      <point x="2858.884242238569" y="1292.0" />
+      <point x="2638.625" y="1292.0" />
+      <point x="33.0" y="117.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.given.TrackSpecification" target="ch.zhaw.pm2.racetrack.PositionVector" relationship="DEPENDENCY">
+      <point x="0.0" y="-104.0" />
+      <point x="1546.350030637264" y="1782.0" />
+      <point x="1575.5" y="1782.0" />
+      <point x="1575.5" y="439.0" />
+      <point x="1592.2592422385694" y="439.0" />
+      <point x="1592.2592422385694" y="409.0" />
+      <point x="1297.5092422385694" y="409.0" />
+      <point x="42.75" y="194.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.Game" target="ch.zhaw.pm2.racetrack.logic.Config" relationship="DEPENDENCY">
+      <point x="61.25" y="-260.0" />
+      <point x="633.8108660130742" y="3158.0" />
+      <point x="854.3016237745048" y="3158.0" />
+      <point x="854.3016237745048" y="3138.0" />
+      <point x="919.5" y="3138.0" />
+      <point x="919.5" y="954.0" />
+      <point x="1692.8358353758103" y="954.0" />
+      <point x="1692.8358353758103" y="844.0" />
+      <point x="2581.384242238569" y="844.0" />
+      <point x="-78.75" y="128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Input" target="ch.zhaw.pm2.racetrack.strategy.MoveStrategy" relationship="DEPENDENCY">
+      <point x="128.33333333333337" y="-128.0" />
+      <point x="3243.7175755719027" y="1822.0" />
+      <point x="2891.384242238569" y="1822.0" />
+      <point x="2891.384242238569" y="1792.0" />
+      <point x="2880.884242238569" y="1792.0" />
+      <point x="2880.884242238569" y="1440.0" />
+      <point x="2162.884242238569" y="1440.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.ConsoleView" target="ch.zhaw.pm2.racetrack.ui.UserInterface" relationship="REALIZATION">
+      <point x="97.5" y="-260.0" />
+      <point x="3872.0932904411716" y="2388.0" />
+      <point x="3971.125" y="2388.0" />
+      <point x="0.0" y="192.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.given.TrackSpecification" target="ch.zhaw.pm2.racetrack.given.CarSpecification" relationship="DEPENDENCY">
+      <point x="0.0" y="-104.0" />
+      <point x="1546.350030637264" y="1782.0" />
+      <point x="1199.7108353758103" y="1782.0" />
+      <point x="61.5" y="104.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.ConsoleView" target="ch.zhaw.pm2.racetrack.logic.Config" relationship="CREATE">
+      <point x="32.5" y="-260.0" />
+      <point x="3807.0932904411716" y="2368.0" />
+      <point x="3676.875" y="2368.0" />
+      <point x="3676.875" y="2358.0" />
+      <point x="3690.9750306372634" y="2358.0" />
+      <point x="3690.9750306372634" y="914.0" />
+      <point x="4005.2250306372634" y="914.0" />
+      <point x="4005.2250306372634" y="874.0" />
+      <point x="2738.8842422385696" y="874.0" />
+      <point x="78.75" y="128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.ConsoleView" target="ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException" relationship="CREATE">
+      <point x="32.5" y="-260.0" />
+      <point x="3807.0932904411716" y="2368.0" />
+      <point x="3676.875" y="2368.0" />
+      <point x="3676.875" y="2358.0" />
+      <point x="3680.4750306372634" y="2358.0" />
+      <point x="3680.4750306372634" y="1802.0" />
+      <point x="3583.2250306372634" y="1802.0" />
+      <point x="54.75" y="51.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType" relationship="DEPENDENCY">
+      <point x="0.0" y="-139.0" />
+      <point x="2191.176623774505" y="3731.0" />
+      <point x="4157.458333333333" y="3731.0" />
+      <point x="4157.458333333333" y="1842.0" />
+      <point x="3816.7250306372634" y="1842.0" />
+      <point x="0.0" y="95.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.Game" target="ch.zhaw.pm2.racetrack.logic.BresenhamAlgorithmus" relationship="DEPENDENCY">
+      <point x="61.25" y="-260.0" />
+      <point x="633.8108660130742" y="3158.0" />
+      <point x="854.3016237745048" y="3158.0" />
+      <point x="854.3016237745048" y="3138.0" />
+      <point x="445.0" y="3138.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Output" target="ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException" relationship="DEPENDENCY">
+      <point x="0.0" y="-161.0" />
+      <point x="3343.4682904411716" y="3128.0" />
+      <point x="4113.875" y="3128.0" />
+      <point x="4113.875" y="924.0" />
+      <point x="3995.2250306372634" y="924.0" />
+      <point x="56.0" y="51.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Output" target="ch.zhaw.pm2.racetrack.ui.ConsoleView" relationship="CREATE">
+      <point x="90.33333333333326" y="-161.0" />
+      <point x="3433.801623774505" y="3158.0" />
+      <point x="3861.259957107838" y="3158.0" />
+      <point x="86.66666666666674" y="260.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.MoveListStrategy" target="ch.zhaw.pm2.racetrack.ui.Output" relationship="TO_ONE">
+      <point x="-33.0" y="117.0" />
+      <point x="2572.625" y="1252.0" />
+      <point x="2622.884242238569" y="1252.0" />
+      <point x="2622.884242238569" y="1312.0" />
+      <point x="2469.009242238569" y="1312.0" />
+      <point x="2469.009242238569" y="3138.0" />
+      <point x="2476.009242238569" y="3138.0" />
+      <point x="2476.009242238569" y="3158.0" />
+      <point x="3253.134957107838" y="3158.0" />
+      <point x="-90.33333333333326" y="-161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.UserMoveStrategy" target="ch.zhaw.pm2.racetrack.ui.Input" relationship="TO_ONE">
+      <point x="28.75" y="62.0" />
+      <point x="2141.375" y="1242.0" />
+      <point x="2274.634242238569" y="1242.0" />
+      <point x="2274.634242238569" y="1322.0" />
+      <point x="2869.884242238569" y="1322.0" />
+      <point x="2869.884242238569" y="1832.0" />
+      <point x="3115.384242238569" y="1832.0" />
+      <point x="0.0" y="-128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification" relationship="INNER_CLASS">
+      <point x="0.0" y="-95.0" />
+      <point x="3816.7250306372634" y="449.0" />
+      <point x="2581.5092422385696" y="449.0" />
+      <point x="2581.509242238569" y="409.0" />
+      <point x="3249.009242238569" y="409.0" />
+      <point x="-70.0" y="94.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Input" target="ch.zhaw.pm2.racetrack.PositionVector.Direction" relationship="DEPENDENCY">
+      <point x="128.33333333333337" y="-128.0" />
+      <point x="3243.7175755719027" y="1822.0" />
+      <point x="2891.384242238569" y="1822.0" />
+      <point x="2891.384242238569" y="1792.0" />
+      <point x="2901.884242238569" y="1792.0" />
+      <point x="2901.884242238569" y="934.0" />
+      <point x="2048.3842422385696" y="934.0" />
+      <point x="2048.3842422385696" y="834.0" />
+      <point x="2281.6342422385696" y="834.0" />
+      <point x="-46.25" y="161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ConsoleApp" target="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" relationship="CREATE">
+      <point x="0.0" y="-39.0" />
+      <point x="0.0" y="139.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.MoveListStrategy" target="ch.zhaw.pm2.racetrack.PositionVector.Direction" relationship="TO_MANY">
+      <point x="66.0" y="-117.0" />
+      <point x="2671.625" y="964.0" />
+      <point x="2636.8525326797408" y="964.0" />
+      <point x="2636.8525326797408" y="854.0" />
+      <point x="2374.1342422385696" y="854.0" />
+      <point x="46.25" y="161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.given.TrackSpecification" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification.SpaceType" relationship="DEPENDENCY">
+      <point x="0.0" y="-104.0" />
+      <point x="1546.350030637264" y="1812.0" />
+      <point x="1375.7108353758103" y="1812.0" />
+      <point x="0.0" y="139.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.exceptions.InvalidTrackFormatException" relationship="DEPENDENCY">
+      <point x="0.0" y="-139.0" />
+      <point x="2191.176623774505" y="3731.0" />
+      <point x="10.999999999999545" y="3731.0" />
+      <point x="11.0" y="2358.0" />
+      <point x="727.5" y="2358.0" />
+      <point x="-60.5" y="51.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.PositionVector.Direction" target="ch.zhaw.pm2.racetrack.PositionVector" relationship="CREATE">
+      <point x="-61.66666666666674" y="-161.0" />
+      <point x="2266.2175755719027" y="469.0" />
+      <point x="1036.2592422385692" y="469.0" />
+      <point x="1036.2592422385694" y="419.0" />
+      <point x="1126.5092422385694" y="419.0" />
+      <point x="-128.25" y="194.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.ui.Output" relationship="TO_ONE">
+      <point x="-87.66666666666674" y="-139.0" />
+      <point x="2103.509957107838" y="3751.0" />
+      <point x="55.6000306372639" y="3751.0" />
+      <point x="55.6000306372639" y="3741.0" />
+      <point x="3275.7182904411716" y="3741.0" />
+      <point x="-67.75" y="161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.UserMoveStrategy" target="ch.zhaw.pm2.racetrack.ui.Input" relationship="DEPENDENCY">
+      <point x="-28.75" y="62.0" />
+      <point x="2083.875" y="1242.0" />
+      <point x="2072.3842422385696" y="1242.0" />
+      <point x="2072.3842422385696" y="1262.0" />
+      <point x="2880.884242238569" y="1262.0" />
+      <point x="2880.884242238569" y="1792.0" />
+      <point x="2891.384242238569" y="1792.0" />
+      <point x="2891.384242238569" y="1822.0" />
+      <point x="3243.7175755719027" y="1822.0" />
+      <point x="128.33333333333337" y="-128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.given.ConfigSpecification.SpaceType" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification" relationship="INNER_CLASS">
+      <point x="0.0" y="-139.0" />
+      <point x="1375.7108353758103" y="449.0" />
+      <point x="2581.509242238569" y="449.0" />
+      <point x="2581.509242238569" y="409.0" />
+      <point x="3249.009242238569" y="409.0" />
+      <point x="-70.0" y="94.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Input" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType" relationship="DEPENDENCY">
+      <point x="128.33333333333337" y="-128.0" />
+      <point x="3243.7175755719027" y="1822.0" />
+      <point x="2891.384242238569" y="1822.0" />
+      <point x="2891.384242238569" y="1812.0" />
+      <point x="3816.7250306372634" y="1812.0" />
+      <point x="0.0" y="95.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.MoveStrategy" target="ch.zhaw.pm2.racetrack.strategy.DoNotMoveStrategy" relationship="DEPENDENCY">
+      <point x="40.0" y="-27.0" />
+      <point x="2202.884242238569" y="1312.0" />
+      <point x="1914.7592422385694" y="1312.0" />
+      <point x="1914.7592422385694" y="1282.0" />
+      <point x="1883.625" y="1282.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.ConsoleView" target="ch.zhaw.pm2.racetrack.ui.Input" relationship="DEPENDENCY">
+      <point x="-97.5" y="-260.0" />
+      <point x="3677.0932904411716" y="2388.0" />
+      <point x="3507.8432904411716" y="2388.0" />
+      <point x="3507.8432904411716" y="2378.0" />
+      <point x="3115.384242238569" y="2378.0" />
+      <point x="2.8421709430404007E-14" y="128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.Track" target="ch.zhaw.pm2.racetrack.Car" relationship="CREATE">
+      <point x="-103.5" y="-348.0" />
+      <point x="1298.4358660130742" y="2388.0" />
+      <point x="1037.8108660130742" y="2388.0" />
+      <point x="1037.8108660130742" y="2328.0" />
+      <point x="1264.350030637264" y="2328.0" />
+      <point x="0.0" y="216.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.ConsoleView" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification.StrategyType" relationship="DEPENDENCY">
+      <point x="-97.5" y="-260.0" />
+      <point x="3677.0932904411716" y="2388.0" />
+      <point x="3507.8432904411716" y="2388.0" />
+      <point x="3507.8432904411716" y="2318.0" />
+      <point x="3648.4750306372634" y="2318.0" />
+      <point x="3648.4750306372634" y="1842.0" />
+      <point x="3816.7250306372634" y="1842.0" />
+      <point x="0.0" y="95.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.UserMoveStrategy" target="ch.zhaw.pm2.racetrack.strategy.MoveStrategy" relationship="REALIZATION">
+      <point x="-86.25" y="62.0" />
+      <point x="2026.375" y="1252.0" />
+      <point x="1904.5092422385694" y="1252.0" />
+      <point x="1904.5092422385694" y="1322.0" />
+      <point x="2122.884242238569" y="1322.0" />
+      <point x="-40.0" y="-27.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.UserInterface" target="ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException" relationship="DEPENDENCY">
+      <point x="0.0" y="-192.0" />
+      <point x="3971.125" y="1772.0" />
+      <point x="3995.2250306372634" y="1772.0" />
+      <point x="56.0" y="51.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.PathFollowerMoveStrategy" target="ch.zhaw.pm2.racetrack.PositionVector.Direction" relationship="DEPENDENCY">
+      <point x="57.25" y="-39.0" />
+      <point x="2753.1275020424773" y="1430.0" />
+      <point x="2809.375" y="1430.0" />
+      <point x="2809.375" y="934.0" />
+      <point x="2048.3842422385696" y="934.0" />
+      <point x="2048.3842422385696" y="834.0" />
+      <point x="2281.6342422385696" y="834.0" />
+      <point x="-46.25" y="161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.UserInterface" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification" relationship="DEPENDENCY">
+      <point x="0.0" y="-192.0" />
+      <point x="3971.125" y="1772.0" />
+      <point x="4061.7250306372634" y="1772.0" />
+      <point x="4061.7250306372634" y="429.0" />
+      <point x="3686.884242238569" y="429.0" />
+      <point x="3686.884242238569" y="419.0" />
+      <point x="3389.009242238569" y="419.0" />
+      <point x="70.0" y="94.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.Car" target="ch.zhaw.pm2.racetrack.strategy.MoveStrategy" relationship="DEPENDENCY">
+      <point x="92.25" y="-216.0" />
+      <point x="1356.600030637264" y="1842.0" />
+      <point x="1305.100030637264" y="1842.0" />
+      <point x="1305.100030637264" y="1792.0" />
+      <point x="1004.7108353758103" y="1792.0" />
+      <point x="1004.7108353758103" y="1440.0" />
+      <point x="2162.884242238569" y="1440.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.ConsoleView" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification" relationship="DEPENDENCY">
+      <point x="-97.5" y="-260.0" />
+      <point x="3677.0932904411716" y="2388.0" />
+      <point x="3507.8432904411716" y="2388.0" />
+      <point x="3507.8432904411716" y="2318.0" />
+      <point x="3648.4750306372634" y="2318.0" />
+      <point x="3648.4750306372634" y="429.0" />
+      <point x="3686.884242238569" y="429.0" />
+      <point x="3686.884242238569" y="419.0" />
+      <point x="3389.009242238569" y="419.0" />
+      <point x="70.0" y="94.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.ConsoleView" target="ch.zhaw.pm2.racetrack.logic.Config" relationship="TO_ONE">
+      <point x="-32.5" y="-260.0" />
+      <point x="3742.0932904411716" y="2378.0" />
+      <point x="3659.4750306372634" y="2378.0" />
+      <point x="3659.4750306372634" y="944.0" />
+      <point x="2940.125" y="944.0" />
+      <point x="2940.125" y="884.0" />
+      <point x="2686.384242238569" y="884.0" />
+      <point x="26.25" y="128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException" relationship="DEPENDENCY">
+      <point x="0.0" y="-139.0" />
+      <point x="2191.176623774505" y="3731.0" />
+      <point x="4157.458333333333" y="3731.0" />
+      <point x="4157.458333333333" y="924.0" />
+      <point x="3995.2250306372634" y="924.0" />
+      <point x="56.0" y="51.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.given.TrackSpecification" target="ch.zhaw.pm2.racetrack.logic.Config" relationship="DEPENDENCY">
+      <point x="0.0" y="-104.0" />
+      <point x="1546.350030637264" y="1782.0" />
+      <point x="1602.3358353758103" y="1782.0" />
+      <point x="1602.3358353758103" y="954.0" />
+      <point x="1692.8358353758103" y="954.0" />
+      <point x="1692.8358353758103" y="844.0" />
+      <point x="2581.384242238569" y="844.0" />
+      <point x="-78.75" y="128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.Config" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification" relationship="REALIZATION">
+      <point x="0.0" y="-128.0" />
+      <point x="2660.134242238569" y="419.0" />
+      <point x="3319.009242238569" y="419.0" />
+      <point x="0.0" y="94.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.Game" target="ch.zhaw.pm2.racetrack.given.ConfigSpecification" relationship="DEPENDENCY">
+      <point x="61.25" y="-260.0" />
+      <point x="633.8108660130742" y="3158.0" />
+      <point x="854.3016237745048" y="3158.0" />
+      <point x="854.3016237745048" y="3138.0" />
+      <point x="656.5" y="3138.0" />
+      <point x="656.5" y="429.0" />
+      <point x="3686.884242238569" y="429.0" />
+      <point x="3686.884242238569" y="419.0" />
+      <point x="3389.009242238569" y="419.0" />
+      <point x="70.0" y="94.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.UserMoveStrategy" target="ch.zhaw.pm2.racetrack.PositionVector.Direction" relationship="DEPENDENCY">
+      <point x="0.0" y="-62.0" />
+      <point x="2112.625" y="934.0" />
+      <point x="2048.3842422385696" y="934.0" />
+      <point x="2048.3842422385696" y="834.0" />
+      <point x="2281.6342422385696" y="834.0" />
+      <point x="-46.25" y="161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.PathFollowerMoveStrategy" target="ch.zhaw.pm2.racetrack.strategy.MoveStrategy" relationship="REALIZATION">
+      <point x="-57.25" y="-39.0" />
+      <point x="2638.6275020424773" y="1430.0" />
+      <point x="2216.2175755719027" y="1430.0" />
+      <point x="53.33333333333337" y="27.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.given.CarSpecification" target="ch.zhaw.pm2.racetrack.PositionVector" relationship="DEPENDENCY">
+      <point x="0.0" y="-104.0" />
+      <point x="1138.2108353758103" y="1450.0" />
+      <point x="994.2108353758103" y="1450.0" />
+      <point x="994.2108353758103" y="439.0" />
+      <point x="1592.2592422385694" y="439.0" />
+      <point x="1592.2592422385694" y="409.0" />
+      <point x="1297.5092422385694" y="409.0" />
+      <point x="42.75" y="194.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.Config.DialogFeature" target="ch.zhaw.pm2.racetrack.logic.Config" relationship="INNER_CLASS">
+      <point x="0.0" y="-106.0" />
+      <point x="2350.625" y="884.0" />
+      <point x="2633.884242238569" y="884.0" />
+      <point x="-26.25" y="128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.strategy.MoveListStrategy" target="ch.zhaw.pm2.racetrack.ui.Input" relationship="DEPENDENCY">
+      <point x="99.0" y="117.0" />
+      <point x="2704.625" y="1252.0" />
+      <point x="2891.384242238569" y="1252.0" />
+      <point x="2891.384242238569" y="1822.0" />
+      <point x="3243.7175755719027" y="1822.0" />
+      <point x="128.33333333333337" y="-128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Input" target="ch.zhaw.pm2.racetrack.ui.Output" relationship="TO_ONE">
+      <point x="-128.33333333333337" y="128.0" />
+      <point x="2987.0509089052357" y="2348.0" />
+      <point x="2481.009242238569" y="2348.0" />
+      <point x="2481.009242238569" y="3138.0" />
+      <point x="2476.009242238569" y="3138.0" />
+      <point x="2476.009242238569" y="3158.0" />
+      <point x="3253.134957107838" y="3158.0" />
+      <point x="-90.33333333333326" y="-161.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.logic.RacetrackFlow" target="ch.zhaw.pm2.racetrack.strategy.UserMoveStrategy" relationship="DEPENDENCY">
+      <point x="0.0" y="-139.0" />
+      <point x="2191.176623774505" y="3731.0" />
+      <point x="2072.3842422385696" y="3731.0" />
+      <point x="2072.3842422385696" y="1242.0" />
+      <point x="2083.875" y="1242.0" />
+      <point x="-28.75" y="62.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.ui.Input" target="ch.zhaw.pm2.racetrack.logic.Config" relationship="TO_ONE">
+      <point x="-2.8421709430404007E-14" y="-128.0" />
+      <point x="3115.384242238569" y="1832.0" />
+      <point x="2869.884242238569" y="1832.0" />
+      <point x="2869.884242238569" y="944.0" />
+      <point x="2940.125" y="944.0" />
+      <point x="2940.125" y="884.0" />
+      <point x="2686.384242238569" y="884.0" />
+      <point x="26.25" y="128.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.racetrack.Car" target="ch.zhaw.pm2.racetrack.PositionVector" relationship="TO_ONE">
+      <point x="-30.75" y="-216.0" />
+      <point x="1233.600030637264" y="1842.0" />
+      <point x="972.2108353758103" y="1842.0" />
+      <point x="972.2108353758103" y="1822.0" />
+      <point x="961.7108353758103" y="1822.0" />
+      <point x="961.7108353758103" y="459.0" />
+      <point x="1057.7592422385694" y="459.0" />
+      <point x="1057.7592422385694" y="409.0" />
+      <point x="1212.0092422385694" y="409.0" />
+      <point x="-42.75" y="194.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.55" showDependencies="true" x="1673.3636363636363" y="428.81818181818176" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

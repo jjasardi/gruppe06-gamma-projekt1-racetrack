@@ -24,7 +24,8 @@ public class Game implements GameSpecification {
     private int indexWinner = NO_WINNER;
 
     /**
-     * @param track
+     * Creates a Game object
+     * @param track  object from the {@link Track} class
      */
     public Game(Track track) {
         this.track = track;
@@ -233,7 +234,7 @@ public class Game implements GameSpecification {
      */
     @Override
     public List<PositionVector> calculatePath(PositionVector startPosition, PositionVector endPosition) {
-        return BresenhamAlgorithmus.calculatePath(startPosition, endPosition);
+        return BresenhamAlgorithm.calculatePath(startPosition, endPosition);
     }
 
     /**
