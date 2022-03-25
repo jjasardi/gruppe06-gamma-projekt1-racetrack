@@ -54,8 +54,8 @@ public class MoveListStrategy implements MoveStrategy {
     }
 
     /**
-     * Reads out the different moves in the given @{@link File}
-     * @param moveFile  file which conatins the moves of the @{@link ch.zhaw.pm2.racetrack.Car}
+     * Reads out the different moves in the given @{@link File} and puts them in {@link MoveListStrategy#movesList}
+     * @param moveFile  file which contains the moves of the @{@link ch.zhaw.pm2.racetrack.Car}
      */
     private void readAllMoves(File moveFile) {
         try {

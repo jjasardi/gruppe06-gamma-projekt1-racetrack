@@ -15,7 +15,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- *
+ * This class represents the the different phases of the game and is controlling
+ * the game. It starts the game and goes through all the different phases until
+ * one player wins the game.
  */
 public class RacetrackFlow {
 
