@@ -19,7 +19,7 @@ public interface UserInterface {
 
     /**
      * Prints all the available @{@link ch.zhaw.pm2.racetrack.Track}
-     * @param trackDirectory
+     * @param trackDirectory The directory where all the tracks files are
      * @throws TracklistEmptyException
      */
     void printTrackList(File trackDirectory) throws TracklistEmptyException;
@@ -31,12 +31,15 @@ public interface UserInterface {
     void printStrategyTypes(ConfigSpecification.StrategyType[] strategyTypes);
 
     /**
-     *
+     * Prints all the available @{@link ch.zhaw.pm2.racetrack.MoveListStrategy}
+     * @param moveDirectory The directory where all the move files are
+     * @throws MoveListEmptyException
      */
     void printMoveList(File moveDirectory) throws MoveListEmptyException ;
 
     //TODO finish javadoc
     /**
+     * prints the current game state
      * @param track
      */
     void printGameState(String track);
