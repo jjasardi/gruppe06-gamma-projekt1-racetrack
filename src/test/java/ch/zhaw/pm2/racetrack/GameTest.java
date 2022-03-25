@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class GameTest {
+class GameTest {
     private Game game;
     private File trackFile;
     private Track track;
@@ -31,13 +31,13 @@ public class GameTest {
     }
 
     @Test
-    public void switchPlayerNoCarCrashed() {
+    void switchCarNoCarCrashed() {
         game.switchToNextActiveCar();
         assertEquals(1, game.getCurrentCarIndex());
     }
 
     @Test
-    public void switchPlayerTwoCarsCrashed() {
+    void switchCarTwoCarsCrashed() {
         game.getCars().get(1).crash();
         game.getCars().get(2).crash();
         game.switchToNextActiveCar();
@@ -45,14 +45,14 @@ public class GameTest {
     }
 
     @Test
-    public void carMovesToFreePosition() {
+    void carMovesToFreePosition() {
         Car firstCar = game.getCars().get(0);
         game.doCarTurn(Direction.RIGHT);
         assertEquals(new PositionVector(20, 1), firstCar.getPosition());
     }
 
     @Test
-    public void carCrashesToWall() {
+    void carCrashesToWall() {
         Car firstCar = game.getCars().get(0);
         game.doCarTurn(Direction.UP);
 
@@ -61,7 +61,7 @@ public class GameTest {
     }
 
     @Test
-    public void carCrashesIntoRunningCar() {
+    void carCrashesIntoRunningCar() {
         Car firstCar = game.getCars().get(0);
         Car secondCar = game.getCars().get(1);
         Car thirdCar = game.getCars().get(2);
@@ -79,7 +79,7 @@ public class GameTest {
     }
 
     @Test
-    public void carCrashesIntoCarOnThePath() {
+    void carCrashesIntoCarOnThePath() {
         Car firstCar = game.getCars().get(0);
         Car secondCar = game.getCars().get(1);
         Car thirdCar = game.getCars().get(2);
@@ -93,7 +93,7 @@ public class GameTest {
     }
 
     @Test
-    public void carCrashesIntoCrashedCar() {
+    void carCrashesIntoCrashedCar() {
         Car thirdCar = game.getCars().get(2);
         thirdCar.crash();
         Car secondCar = game.getCars().get(1);
@@ -106,7 +106,7 @@ public class GameTest {
     }
 
     @Test
-    public void carNotMovingAfterCarCrashesIntoIt() {
+    void carNotMovingAfterCarCrashesIntoIt() {
         Car secondCar = game.getCars().get(1);
         skipToCar(2);
         game.doCarTurn(Direction.UP);
@@ -116,7 +116,7 @@ public class GameTest {
     }
 
     @Test
-    public void allCarsCrashedExceptOne() {
+    void allCarsCrashedExceptOne() {
         game.doCarTurn(Direction.NONE);
         game.switchToNextActiveCar();
         game.doCarTurn(Direction.DOWN);
@@ -130,7 +130,7 @@ public class GameTest {
     }
 
     @Test
-    public void carPassesFinishLineInCorrectWay() {
+    void carPassesFinishLineInCorrectWay() {
         Car fourthCar = game.getCars().get(3);
         skipToCar(3);
         fourthCar.setPosition(new PositionVector(16, 5));
@@ -140,7 +140,7 @@ public class GameTest {
     }
 
     @Test
-    public void carPassesFinishLineInWrongWay() {
+    void carPassesFinishLineInWrongWay() {
         Car firstCar = game.getCars().get(0);
         game.doCarTurn(Direction.LEFT);
         game.doCarTurn(Direction.LEFT);
@@ -151,7 +151,7 @@ public class GameTest {
     }
 
     @Test
-    public void carMovesOutsideBoundary() {
+    void carMovesOutsideBoundary() {
         Car firstCar = game.getCars().get(0);
         game.doCarTurn(Direction.RIGHT);
         game.doCarTurn(Direction.RIGHT);
