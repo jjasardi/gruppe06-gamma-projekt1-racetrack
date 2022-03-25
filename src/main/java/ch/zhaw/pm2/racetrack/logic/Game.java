@@ -129,7 +129,8 @@ public class Game implements GameSpecification {
         List<PositionVector> calculatedPaths = calculatePath(activeCar.getPosition(), activeCar.nextPosition());
         PositionVector stopPosition = activeCar.nextPosition();
 
-        loop: for (PositionVector calculatedPath : calculatedPaths) {
+        loop: for (int i = 1; i < calculatedPaths.size(); i++) {
+            PositionVector calculatedPath = calculatedPaths.get(i);
             ConfigSpecification.SpaceType spaceTypeOnNextPosition = track.getSpaceType(calculatedPath);
             switch (spaceTypeOnNextPosition) {
                 case WALL:
