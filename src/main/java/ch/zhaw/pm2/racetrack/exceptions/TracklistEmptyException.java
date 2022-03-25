@@ -12,4 +12,9 @@ public class TracklistEmptyException extends Exception {
     public TracklistEmptyException(String errorMessage) {
         super(errorMessage);
     }
+
+    @Override
+    public String getMessage() {
+        return super.getMessage();
+    }
 }

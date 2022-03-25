@@ -68,6 +68,11 @@ public interface UserInterface {
     void printWinnerText(char carID);
 
     /**
+     *
+     */
+    void printErrorMessageTrackFormat();
+
+    /**
      * @param trackList
      * @return
      * @throws TracklistEmptyException

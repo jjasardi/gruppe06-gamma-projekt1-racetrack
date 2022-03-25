@@ -1,6 +1,7 @@
 package ch.zhaw.pm2.racetrack.logic;
 
 import ch.zhaw.pm2.racetrack.Car;
+import ch.zhaw.pm2.racetrack.exceptions.InvalidFileFormatException;
 import ch.zhaw.pm2.racetrack.exceptions.InvalidTrackFormatException;
 import ch.zhaw.pm2.racetrack.Track;
 import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
@@ -27,14 +28,14 @@ public class RacetrackFlow {
     /**
      *
      */
-    public RacetrackFlow() throws MoveListEmptyException, FileNotFoundException, InvalidTrackFormatException, TracklistEmptyException {
+    public RacetrackFlow() {
         config = new Config();
         output = new Output();
         input = new Input(output, config);
         startGame();
     }
 
-    private void startGame() throws MoveListEmptyException, FileNotFoundException, InvalidTrackFormatException, TracklistEmptyException {
+    private void startGame() {
         setup();
         run();
     }
@@ -58,23 +59,35 @@ public class RacetrackFlow {
         }
     }
 
-    private void setup() throws FileNotFoundException, InvalidTrackFormatException, TracklistEmptyException, MoveListEmptyException {
+    private void setup()  {
         initializeGame();
         setStrategies();
     }
 
-    private void initializeGame() throws TracklistEmptyException, FileNotFoundException, InvalidTrackFormatException {
+    private void initializeGame()  {
         output.outputWelcomeText();
         output.outputTrackList(config.getTrackDirectory());
-        File selectedTrackFile = input.getSelectedTrackFile(config.getTrackDirectory());
-        Track track = new Track(selectedTrackFile);
-        game = new Game(track);
+        try {
+            File selectedTrackFile = input.getSelectedTrackFile(config.getTrackDirectory());
+            Track track = new Track(selectedTrackFile);
+            game = new Game(track);
+        } catch (InvalidTrackFormatException exception) {
+            output.outputErrorMessageTrackFormat();
+
+        } catch (FileNotFoundException exception) {
+            System.err.println("File not found!");
+            System.exit(0);
+        }
     }
 
-    private void setStrategies() throws MoveListEmptyException {
-        for (Car car : game.getTrack().getCars()) {
-            output.outputStrategyTypes(ConfigSpecification.StrategyType.values());
-            car.setMoveStrategy(input.getSelectedMoveStrategy());
+    private void setStrategies() {
+        try {
+            for (Car car : game.getTrack().getCars()) {
+                output.outputStrategyTypes(ConfigSpecification.StrategyType.values());
+                car.setMoveStrategy(input.getSelectedMoveStrategy());
+            }
+        } catch (MoveListEmptyException exception){
+            exception.getMessage();
         }
     }
 

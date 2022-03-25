@@ -33,8 +33,13 @@ public class Input {
      * @return  the accutal file of @{@link ch.zhaw.pm2.racetrack.Track}
      * @throws TracklistEmptyException
      */
-    public File getSelectedTrackFile(File trackDirectory) throws TracklistEmptyException {
-        return consoleView.askTrackFile(trackDirectory);
+    public File getSelectedTrackFile(File trackDirectory) {
+        try {
+            return consoleView.askTrackFile(trackDirectory);
+        } catch (TracklistEmptyException exception){
+            System.err.println(exception.getMessage());
+        }
+        return null;
     }
 
     /**
@@ -43,13 +48,17 @@ public class Input {
      * @throws MoveListEmptyException
      */
     public MoveStrategy getSelectedMoveStrategy() throws MoveListEmptyException {
-        StrategyType[] strategyTypes = StrategyType.values();
-        int selection = consoleView.askMoveStrategy(strategyTypes);
-
-        return mapStrategyTypeToMoveStrategy(strategyTypes[selection]);
+        try {
+            StrategyType[] strategyTypes = StrategyType.values();
+            int selection = consoleView.askMoveStrategy(strategyTypes);
+            return bindStrategyTypeToMoveStrategy(strategyTypes[selection]);
+        } catch (MoveListEmptyException exception) {
+            System.err.println(exception.getMessage());
+        }
+        return null;
     }
 
-    private MoveStrategy mapStrategyTypeToMoveStrategy(StrategyType strategyType) throws MoveListEmptyException {
+    private MoveStrategy bindStrategyTypeToMoveStrategy(StrategyType strategyType) throws MoveListEmptyException {
         return switch (strategyType) {
             case DO_NOT_MOVE -> new DoNotMoveStrategy();
             case USER -> new UserMoveStrategy(this, output);
@@ -64,7 +73,12 @@ public class Input {
      * @return
      */
     public File getSelectedMoveFile(File moveDirectory) throws MoveListEmptyException {
-        return consoleView.askMoveFile(moveDirectory);
+        try {
+            return consoleView.askMoveFile(moveDirectory);
+        } catch (MoveListEmptyException exception){
+            System.err.println(exception.getMessage());
+        }
+        return null;
     }
 
     public char getChoosedOption(){

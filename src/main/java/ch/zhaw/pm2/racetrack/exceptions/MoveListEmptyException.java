@@ -12,4 +12,9 @@ public class MoveListEmptyException extends Exception {
     public MoveListEmptyException(String errorMessage) {
         super(errorMessage);
     }
+
+    @Override
+    public String getMessage() {
+        return super.getMessage();
+    }
 }
