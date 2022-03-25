@@ -1,7 +1,6 @@
 package ch.zhaw.pm2.racetrack.strategy;
 
 import ch.zhaw.pm2.racetrack.PositionVector.Direction;
-import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
 import ch.zhaw.pm2.racetrack.logic.Config;
 import ch.zhaw.pm2.racetrack.ui.Input;
 import ch.zhaw.pm2.racetrack.ui.Output;
@@ -41,16 +40,9 @@ public class MoveListStrategy implements MoveStrategy {
     }
 
     private File selectMoveListFile() {
-        try {
-            File moveDirectory = config.getMoveDirectory();
-            output.outputMoveList(moveDirectory);
-            return input.getSelectedMoveFile(moveDirectory);
-
-        } catch (MoveListEmptyException exception) {
-            output.outputErrorMessageMoveList();
-            selectMoveListFile();
-        }
-       return null;
+        File moveDirectory = config.getMoveDirectory();
+        output.outputMoveList(moveDirectory);
+        return input.getSelectedMoveFile(moveDirectory);
     }
 
     /**
