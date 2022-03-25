@@ -124,7 +124,12 @@ public class ConsoleView implements UserInterface {
      */
     @Override
     public void printErrorMessageTrackFormat() {
-        textTerminal.print("\nThe choosed track does not require the format guidelines!\n\n");
+        textTerminal.print("\nThe choosed track does not fit the required format guidelines!\n\n");
+    }
+
+    @Override
+    public void printErrorMessageMoveList() {
+        textTerminal.print("\nThe choosed Move List file is empty!\n\n");
     }
 
     @Override
