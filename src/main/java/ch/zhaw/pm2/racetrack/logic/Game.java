@@ -128,21 +128,33 @@ public class Game implements GameSpecification {
 
         List<PositionVector> calculatedPaths = calculatePath(activeCar.getPosition(), activeCar.nextPosition());
         PositionVector stopPosition = activeCar.nextPosition();
+        if (verifySpaceTypeForCalculatedPaths(activeCar, calculatedPaths) != null) {
+            stopPosition = verifySpaceTypeForCalculatedPaths(activeCar, calculatedPaths);
+        }
 
-        loop: for (int i = 1; i < calculatedPaths.size(); i++) {
+        if (activeCar.isCrashed() || getWinner() != indexCurrentCar) {
+            activeCar.setPosition(stopPosition);
+        } else {
+            activeCar.move();
+        }
+    }
+
+    private PositionVector verifySpaceTypeForCalculatedPaths(Car activeCar, List<PositionVector> calculatedPaths) {
+        PositionVector stopPosition = null;
+        for (int i = 1; i < calculatedPaths.size(); i++) {
             PositionVector calculatedPath = calculatedPaths.get(i);
             ConfigSpecification.SpaceType spaceTypeOnNextPosition = track.getSpaceType(calculatedPath);
             switch (spaceTypeOnNextPosition) {
                 case WALL:
                     activeCar.crash();
                     stopPosition = calculatedPath;
-                    break loop;
+                    return stopPosition;
 
                 case TRACK:
                     if (willCarCrash(indexCurrentCar, calculatedPath)) {
                         activeCar.crash();
                         stopPosition = calculatedPath;
-                        break loop;
+                        return stopPosition;
                     }
                     break;
 
@@ -156,15 +168,10 @@ public class Game implements GameSpecification {
                         activeCar.crash();
                     }
                     stopPosition = calculatedPath;
-                    break loop;
+                    return stopPosition;
             }
         }
-
-        if (activeCar.isCrashed() || getWinner() != indexCurrentCar) {
-            activeCar.setPosition(stopPosition);
-        } else {
-            activeCar.move();
-        }
+        return stopPosition;
     }
 
     private boolean passedFinishLineInCorrectWay(PositionVector currentPositionCar, ConfigSpecification.SpaceType spaceType, PositionVector positionSpaceType) {
