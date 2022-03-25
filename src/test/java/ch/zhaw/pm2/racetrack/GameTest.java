@@ -133,11 +133,7 @@ public class GameTest {
     public void carPassesFinishLineInCorrectWay() {
         Car fourthCar = game.getCars().get(3);
         skipToCar(3);
-        Car thirdCar = game.getTrack().getCar(3);
-        thirdCar.setPosition(new PositionVector(16, 5));
-        game.doCarTurn(Direction.RIGHT);
-        game.doCarTurn(Direction.DOWN_LEFT);
-        game.doCarTurn(Direction.UP_LEFT);
+        fourthCar.setPosition(new PositionVector(16, 5));
         game.doCarTurn(Direction.RIGHT);
         assertEquals(new PositionVector(17, 5), fourthCar.getPosition());
         assertEquals(3, game.getWinner());

@@ -4,7 +4,6 @@ import ch.zhaw.pm2.racetrack.exceptions.InvalidTrackFormatException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification.SpaceType;
 import ch.zhaw.pm2.racetrack.given.TrackSpecification;
-import ch.zhaw.pm2.racetrack.logic.Config;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -105,11 +104,12 @@ public class Track implements TrackSpecification {
         while (scanner.hasNext()) {
             trackStringList.add(scanner.nextLine());
         }
+        scanner.close();
     }
 
     private boolean isRectangular() throws InvalidTrackFormatException {
         boolean isRectangle = true;
-        if (trackStringList.size() == 0) {
+        if (trackStringList.isEmpty()) {
             isRectangle = false;
         } else {
             width = trackStringList.get(height).length();
@@ -130,8 +130,8 @@ public class Track implements TrackSpecification {
                 if (!(isTrackChar(c) || c == '*')) nonTrackChars++;
             }
         }
-        if (!(nonTrackChars > 0)) throw new InvalidTrackFormatException("Track has no cars.");
-        if (!(nonTrackChars <= Config.MAX_CARS)) throw new InvalidTrackFormatException("Track has too many cars.");
+        if ((nonTrackChars <= 0)) throw new InvalidTrackFormatException("Track has no cars.");
+        if ((nonTrackChars > ConfigSpecification.MAX_CARS)) throw new InvalidTrackFormatException("Track has too many cars.");
         return nonTrackChars > 0 && nonTrackChars <= ConfigSpecification.MAX_CARS;
     }
 
@@ -173,7 +173,8 @@ public class Track implements TrackSpecification {
     }
 
     private void convertStringToTrack() {
-        int x = 0, y = 0;
+        int x = 0;
+        int y = 0;
         for (String line : trackStringList) {
             for (char c : line.toCharArray()) {
                 if (isTrackChar(c)) {
@@ -199,7 +200,7 @@ public class Track implements TrackSpecification {
      * @return {@link Config.SpaceType}
      */
     @Override
-    public Config.SpaceType getSpaceType(PositionVector position) {
+    public ConfigSpecification.SpaceType getSpaceType(PositionVector position) {
         if (position.getX() >= 0 && position.getX() <= width && position.getY() >= 0 && position.getY() <= height) {
             return trackGrid[position.getX()][position.getY()];
         } else {
@@ -266,7 +267,7 @@ public class Track implements TrackSpecification {
      * @return character representing position (x,y) on the track
      */
     @Override
-    public char getCharAtPosition(int y, int x, Config.SpaceType currentSpace) {
+    public char getCharAtPosition(int y, int x, ConfigSpecification.SpaceType currentSpace) {
         if (x > width || y > height) {
             System.err.println("Parameter Value out of Bound");
             throw new UnsupportedOperationException();

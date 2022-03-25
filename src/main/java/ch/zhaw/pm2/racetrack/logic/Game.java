@@ -247,7 +247,7 @@ public class Game implements GameSpecification {
         Car activeCar = track.getCar(carIndex);
         int xPosition = position.getX();
         int yPosition = position.getY();
-        Config.SpaceType spaceType = track.getSpaceType(new PositionVector(xPosition, yPosition));
+        ConfigSpecification.SpaceType spaceType = track.getSpaceType(new PositionVector(xPosition, yPosition));
 
         if (spaceType == ConfigSpecification.SpaceType.WALL){
             return true;
