@@ -117,9 +117,4 @@ public class Output {
     public void outputErrorMessageTrackFormat() {
         consoleView.printErrorMessageTrackFormat();
     }
-
-    /**
-     * Executes the print of the error message of the {@link MoveListEmptyException}
-     */
-    public void outputErrorMessageMoveList() {consoleView.printErrorMessageMoveList();}
 }

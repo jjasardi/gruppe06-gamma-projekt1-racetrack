@@ -4,6 +4,7 @@ import ch.zhaw.pm2.racetrack.exceptions.InvalidTrackFormatException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification.SpaceType;
 import ch.zhaw.pm2.racetrack.given.TrackSpecification;
+import ch.zhaw.pm2.racetrack.logic.Config;
 
 import java.io.File;
 import java.io.FileNotFoundException;
