@@ -10,12 +10,14 @@ import ch.zhaw.pm2.racetrack.PositionVector.Direction;
 class CarTest {
     private Car car;
 
-
     @BeforeEach
     public void setUp() {
         car = new Car('1', new PositionVector());
     }
 
+    /**
+     * car moves with negative acceleration
+     */
     @Test
     void negativeAcceleration() {
         car.accelerate(Direction.UP_LEFT);
@@ -23,6 +25,9 @@ class CarTest {
         assertEquals(new PositionVector(), car.getPosition());
     }
 
+    /**
+     * car moves with no acceleration
+     */
     @Test
     void noAcceleration() {
         car.accelerate(Direction.NONE);
@@ -30,6 +35,9 @@ class CarTest {
         assertEquals(new PositionVector(), car.getPosition());
     }
 
+    /**
+     * car moves with positive acceleration
+     */
     @Test
     void positiveAcceleration() {
         car.accelerate(Direction.DOWN_RIGHT);
@@ -37,12 +45,18 @@ class CarTest {
         assertEquals(new PositionVector(), car.getPosition());
     }
 
+    /**
+     * car moves with no velocity
+     */
     @Test
     void moveWithNoVelocity() {
         car.move();
         assertEquals(new PositionVector(), car.getPosition());
     }
 
+    /**
+     * car moves with velocity
+     */
     @Test
     void moveWithVelocity() {
         car.accelerate(Direction.RIGHT);
