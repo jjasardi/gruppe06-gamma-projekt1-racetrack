@@ -14,7 +14,8 @@ public class UserMoveStrategy implements MoveStrategy {
 
     /**
      * Creates an object of class @{@link UserMoveStrategy}
-     * @param input the current @{@link Input} object
+     * @param input     the current {@link Input} object
+     * @param output    the current {@link Output} object
      */
     public UserMoveStrategy(Input input, Output output) {
         this.input = input;

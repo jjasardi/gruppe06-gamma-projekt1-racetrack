@@ -14,7 +14,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- *
+ * This class represents the the different phases of the game and is controlling
+ * the game. It starts the game and goes through all the different phases until
+ * one player wins the game.
  */
 public class RacetrackFlow {
 
@@ -24,7 +26,7 @@ public class RacetrackFlow {
     private Game game;
 
     /**
-     *
+     * Creates a RacetrackFlow object
      */
     public RacetrackFlow() {
         config = new Config();
@@ -39,21 +41,12 @@ public class RacetrackFlow {
     }
 
     private void nextCommand(char pressedKey, MoveStrategy carStrategy) {
-        switch (pressedKey){
-            case ('d'):
-                game.doCarTurn(carStrategy.nextMove());
-                break;
-
-            case ('h'):
-                output.outputUserDialogFeatures();
-                break;
-            case ('t'):
-                output.outputGameState(game.getTrack().toString());
-                break;
-            case ('q'):
-                System.exit(0);
-            default:
-                throw new IllegalArgumentException();
+        switch (pressedKey) {
+            case ('d') -> game.doCarTurn(carStrategy.nextMove());
+            case ('h') -> output.outputUserDialogFeatures();
+            case ('t') -> output.outputGameState(game.getTrack().toString());
+            case ('q') -> System.exit(0);
+            default -> throw new IllegalArgumentException();
         }
     }
 
