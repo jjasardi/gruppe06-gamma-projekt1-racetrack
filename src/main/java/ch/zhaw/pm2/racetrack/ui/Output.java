@@ -67,7 +67,6 @@ public class Output {
     /**
      * Executes the print of all possibles @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction}
      *
-     * @param moveDirections array of all @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction}
      */
     public void outputNextCommand() {
         consoleView.printNextCommand();

@@ -34,8 +34,7 @@ public class ConsoleView implements UserInterface {
 
     @Override
     public void printWelcomeText() {
-        textTerminal.println("Hello and welcome to Racetrack");
-        textTerminal.println("This game is fun for everybody!");
+        textTerminal.println("Hello and welcome to Racetrack!\n");
     }
 
     @Override
@@ -125,7 +124,7 @@ public class ConsoleView implements UserInterface {
      */
     @Override
     public void printErrorMessageTrackFormat() {
-        textTerminal.print("The choosed track does not require the format guidelines!");
+        textTerminal.print("\nThe choosed track does not require the format guidelines!\n\n");
     }
 
     @Override
