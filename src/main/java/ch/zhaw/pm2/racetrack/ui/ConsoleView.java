@@ -34,8 +34,7 @@ public class ConsoleView implements UserInterface {
 
     @Override
     public void printWelcomeText() {
-        textTerminal.println("Hello and welcome to Racetrack");
-        textTerminal.println("This game is fun for everybody!");
+        textTerminal.println("Hello and welcome to Racetrack!\n");
     }
 
     @Override
@@ -45,7 +44,7 @@ public class ConsoleView implements UserInterface {
         if (trackList != null) {
             formatListPrinting(trackList);
         } else {
-            throw new TracklistEmptyException();
+            throw new TracklistEmptyException("No Track file found in directory!");
         }
     }
 
@@ -68,7 +67,7 @@ public class ConsoleView implements UserInterface {
         if (moveList != null) {
             formatListPrinting(moveList);
         } else {
-            throw new MoveListEmptyException();
+            throw new MoveListEmptyException("No Move List file found in directory!");
         }
     }
 
@@ -120,15 +119,23 @@ public class ConsoleView implements UserInterface {
         textTerminal.print("Good job! Congratulations!");
     }
 
+    /**
+     *
+     */
+    @Override
+    public void printErrorMessageTrackFormat() {
+        textTerminal.print("\nThe choosed track does not require the format guidelines!\n\n");
+    }
+
     @Override
     public File askTrackFile(File trackDirectory) throws TracklistEmptyException {
-        String[] trackList = trackDirectory.list(txtFilter);
-        if (trackList != null) {
-            int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(trackList.length - 1).read();
-            return new File(config.getTrackDirectory(), trackList[selection]);
-        } else {
-            throw new TracklistEmptyException();
-        }
+            String[] trackList = trackDirectory.list(txtFilter);
+            if (trackList != null) {
+                int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(trackList.length - 1).read();
+                return new File(config.getTrackDirectory(), trackList[selection]);
+            } else {
+                throw new TracklistEmptyException("No Track file found in directory!");
+            }
     }
 
     @Override
@@ -148,7 +155,7 @@ public class ConsoleView implements UserInterface {
             int selection = textIO.newIntInputReader().withMinVal(0).withMaxVal(moveList.length - 1).read();
             return new File(config.getMoveDirectory(), moveList[selection]);
         } else {
-            throw new MoveListEmptyException();
+            throw new MoveListEmptyException("No Move List file found in directory!");
         }
     }
 

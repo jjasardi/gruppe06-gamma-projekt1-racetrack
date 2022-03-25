@@ -114,6 +114,7 @@ public class Car implements CarSpecification {
      * Set move strategy
      * @param moveStrategy
      */
+    @Override
     public void setMoveStrategy(MoveStrategy moveStrategy) {
         this.moveStrategy = moveStrategy;
     }
@@ -122,6 +123,7 @@ public class Car implements CarSpecification {
      * Get current move strategy
      * @return MoveStrategy
      */
+    @Override
     public MoveStrategy getMoveStrategy() {
         return this.moveStrategy;
     }

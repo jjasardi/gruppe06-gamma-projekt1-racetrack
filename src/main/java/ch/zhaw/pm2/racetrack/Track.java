@@ -67,7 +67,7 @@ public class Track implements TrackSpecification {
     private List<Car> cars;
     private int sizeX = 0;
     private int sizeY = 0;
-    private final SpaceType[][] raceTrackGrid;
+    private final SpaceType[][] trackGrid;
     private final List<String> trackStringList = new ArrayList<>();
 
     /**
@@ -87,7 +87,7 @@ public class Track implements TrackSpecification {
             System.err.println(e.getMessage());
         }
         if (!isValidTrack()) ;
-        raceTrackGrid = new SpaceType[sizeX][sizeY];
+        trackGrid = new SpaceType[sizeX][sizeY];
         convertStringToTrack();
     }
 
@@ -108,11 +108,15 @@ public class Track implements TrackSpecification {
 
     private boolean isRectangular() throws InvalidTrackFormatException {
         boolean isRectangle = true;
-        sizeX = trackStringList.get(sizeY).length();
-        sizeY++;
-        while (sizeY < trackStringList.size() && isRectangle) {
-            isRectangle = trackStringList.get(sizeY).length() == sizeX;
+        if (trackStringList.size() == 0) {
+            isRectangle = false;
+        } else {
+            sizeX = trackStringList.get(sizeY).length();
             sizeY++;
+            while (sizeY < trackStringList.size() && isRectangle) {
+                isRectangle = trackStringList.get(sizeY).length() == sizeX;
+                sizeY++;
+            }
         }
         if (!isRectangle) throw new InvalidTrackFormatException("Track is not a rectangle.");
         return isRectangle;
@@ -172,11 +176,11 @@ public class Track implements TrackSpecification {
         for (String line : trackStringList) {
             for (char c : line.toCharArray()) {
                 if (isTrackChar(c)) {
-                    raceTrackGrid[x][y] = charToSpaceType(c);
+                    trackGrid[x][y] = charToSpaceType(c);
                 } else if (c == '*') {
-                    raceTrackGrid[x][y] = SpaceType.TRACK;
+                    trackGrid[x][y] = SpaceType.TRACK;
                 } else {
-                    raceTrackGrid[x][y] = SpaceType.TRACK;
+                    trackGrid[x][y] = SpaceType.TRACK;
                     cars.add(new Car(c, new PositionVector(x, y)));
                 }
                 x++;
@@ -196,7 +200,7 @@ public class Track implements TrackSpecification {
     @Override
     public Config.SpaceType getSpaceType(PositionVector position) {
         if (position.getX() >= 0 && position.getX() <= sizeX && position.getY() >= 0 && position.getY() <= sizeY) {
-            return raceTrackGrid[position.getX()][position.getY()];
+            return trackGrid[position.getX()][position.getY()];
         } else {
             return SpaceType.WALL;
         }

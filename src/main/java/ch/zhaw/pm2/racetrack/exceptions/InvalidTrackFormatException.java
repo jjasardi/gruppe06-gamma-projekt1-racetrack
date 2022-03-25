@@ -13,4 +13,9 @@ public class InvalidTrackFormatException extends Exception {
     public InvalidTrackFormatException(String errorMessage) {
         super(errorMessage);
     }
+
+    @Override
+    public String getMessage() {
+        return super.getMessage();
+    }
 }

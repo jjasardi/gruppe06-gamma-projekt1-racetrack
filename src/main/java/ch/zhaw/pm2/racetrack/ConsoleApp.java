@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
  * This is the Main class of the game Racetrack
  */
 public class ConsoleApp {
-    public static void main(String[] args) throws TracklistEmptyException, FileNotFoundException, InvalidTrackFormatException, MoveListEmptyException {
+    public static void main(String[] args) {
          new RacetrackFlow();
     }
 }
