@@ -96,6 +96,12 @@ public class Output {
     }
 
     /**
+     * Executes the print of the message to repeat the command entry if
+     * the entry was invalid
+     */
+    public void outputNextCommandRepeat() { consoleView.printNextCommandRepeat(); }
+
+    /**
      * Excutes the print of the winner text.
      *
      * @param carID char representing carID

@@ -41,12 +41,22 @@ public class RacetrackFlow {
     }
 
     private void nextCommand(char pressedKey, MoveStrategy carStrategy) {
-        switch (pressedKey) {
-            case ('d') -> game.doCarTurn(carStrategy.nextMove());
-            case ('h') -> output.outputUserDialogFeatures();
-            case ('t') -> output.outputGameState(game.getTrack().toString());
-            case ('q') -> System.exit(0);
-            default -> throw new IllegalArgumentException();
+        switch (pressedKey){
+            case ('d'):
+                game.doCarTurn(carStrategy.nextMove());
+                break;
+            case ('h'):
+                output.outputUserDialogFeatures();
+                break;
+            case ('t'):
+                output.outputGameState(game.getTrack().toString());
+                break;
+            case ('q'):
+                System.exit(0);
+                break;
+            default:
+                output.outputNextCommandRepeat();
+                nextCommand(input.getChoosedOption(), carStrategy);
         }
     }
 

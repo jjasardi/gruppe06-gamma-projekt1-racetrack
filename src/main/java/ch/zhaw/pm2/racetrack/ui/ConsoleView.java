@@ -144,7 +144,13 @@ public class ConsoleView implements UserInterface {
         textTerminal.println("t to show track");
         textTerminal.println("q to quit game");
     }
-
+    /**
+     * Prints the text to enter the command again.
+     */
+    @Override
+    public void printNextCommandRepeat() {
+        textTerminal.println("Please enter a valid key! (press h for help!)");
+    }
     /**
      * This method prints the winner text.
      *

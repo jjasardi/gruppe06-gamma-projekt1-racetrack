@@ -70,6 +70,11 @@ public interface UserInterface {
     void printUserDialogFeatures();
 
     /**
+     * Prints the text to enter the command again.
+     */
+    void printNextCommandRepeat();
+
+    /**
      * This method prints the winner text.
      *
      * @param carID char representing the carID
