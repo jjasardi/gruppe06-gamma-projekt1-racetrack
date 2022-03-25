@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * This class implements the Bresenham algorithm.
  */
-public class BresenhamAlgorithmus {
+class BresenhamAlgorithm {
     /**
      * Returns all of the grid positions in the path between two positions, for use in determining line of sight.
      * Determine the 'pixels/positions' on a raster/grid using Bresenham's line algorithm.

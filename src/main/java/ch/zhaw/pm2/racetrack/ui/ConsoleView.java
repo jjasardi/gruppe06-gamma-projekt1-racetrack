@@ -14,7 +14,7 @@ import java.io.FilenameFilter;
 import java.util.Arrays;
 
 /**
- *
+ * This class is used for the user interaction.
  */
 public class ConsoleView implements UserInterface {
 
@@ -23,8 +23,8 @@ public class ConsoleView implements UserInterface {
     private final TextTerminal<?> textTerminal;
 
     /**
-     * Creates an object of class @{@link ConsoleView}
-     * which implements all the methods of the @{@link Input} and @{@link Output}
+     * Creates an object of class {@link ConsoleView}
+     * which implements all the methods of the {@link Input} and {@link Output}
      */
     public ConsoleView() {
         textIO = TextIoFactory.getTextIO();
@@ -32,11 +32,20 @@ public class ConsoleView implements UserInterface {
         textTerminal = textIO.getTextTerminal();
     }
 
+    /**
+     * This method prints the welcome text.
+     */
     @Override
     public void printWelcomeText() {
         textTerminal.println("Hello and welcome to Racetrack!\n");
     }
 
+    /**
+     * This method prints the track list.
+     *
+     * @param trackDirectory The directory where all the tracks files are
+     * @throws TracklistEmptyException  exception when track list is empty
+     */
     @Override
     public void printTrackList(File trackDirectory) throws TracklistEmptyException {
         textTerminal.println("Choose a track to play with!");
@@ -48,6 +57,11 @@ public class ConsoleView implements UserInterface {
         }
     }
 
+    /**
+     * This method prints the strategy types.
+     *
+     * @param strategyTypes list of strategy types
+     */
     @Override
     public void printStrategyTypes(ConfigSpecification.StrategyType[] strategyTypes) {
         textTerminal.println("Which strategy do you want to play with?");
@@ -58,7 +72,9 @@ public class ConsoleView implements UserInterface {
     }
 
     /**
-     * @param moveDirectory
+     * This method prints the move list.
+     *
+     * @param moveDirectory list of move list
      */
     @Override
     public void printMoveList(File moveDirectory) throws MoveListEmptyException {
@@ -77,18 +93,28 @@ public class ConsoleView implements UserInterface {
         }
     }
 
+    /**
+     * This method prints the actual game state.
+     *
+     * @param track current {@link ch.zhaw.pm2.racetrack.Track} object
+     */
     @Override
     public void printGameState(String track) {
         textTerminal.print(track);
     }
 
+    /**
+     * This method prints the ID of the current car.
+     *
+     * @param carID char representing the carID
+     */
     @Override
     public void printCurrentCarID(char carID) {
         textTerminal.println("Playing car: " +carID);
     }
 
     /**
-     *
+     * This method prints the next command.
      */
     @Override
     public void printNextCommand() {
@@ -96,12 +122,18 @@ public class ConsoleView implements UserInterface {
         textTerminal.println("d: enter direction // h: help // t: show track // q: quit game");
     }
 
+    /**
+     * This method prints the direction appeal text.
+     */
     @Override
     public void printDirectionAppeal() {
         textTerminal.println("Enter a direction!");
         textTerminal.println("Acceleration directions 1,2,3,4,5,6,7,8,9: ");
     }
 
+    /**
+     * This method prints the user dialog feature.
+     */
     @Override
     public void printUserDialogFeatures() {
         textTerminal.print("Acceleration Directions: \n" +
@@ -113,6 +145,11 @@ public class ConsoleView implements UserInterface {
         textTerminal.println("q to quit game");
     }
 
+    /**
+     * This method prints the winner text.
+     *
+     * @param carID char representing the carID
+     */
     @Override
     public void printWinnerText(char carID) {
         textTerminal.print("The car " + carID + " wins!");
@@ -120,13 +157,20 @@ public class ConsoleView implements UserInterface {
     }
 
     /**
-     *
+     * This method prints the error message track format.
      */
     @Override
     public void printErrorMessageTrackFormat() {
         textTerminal.print("\nThe choosed track does not require the format guidelines!\n\n");
     }
 
+    /**
+     * This method asks the user for the track file.
+     *
+     * @param trackDirectory            directory where the track files are
+     * @return                          new generated track file
+     * @throws TracklistEmptyException  exception when the track list is empty
+     */
     @Override
     public File askTrackFile(File trackDirectory) throws TracklistEmptyException {
             String[] trackList = trackDirectory.list(txtFilter);
@@ -138,15 +182,23 @@ public class ConsoleView implements UserInterface {
             }
     }
 
+    /**
+     * This method asks the user for the move strategy.
+     *
+     * @param strategyTypes list with the strategy types
+     * @return              selected strategy type
+     */
     @Override
     public int askMoveStrategy(ConfigSpecification.StrategyType[] strategyTypes) {
         return textIO.newIntInputReader().withMinVal(0).withMaxVal(strategyTypes.length - 1).read();
     }
 
     /**
-     * @param moveDirectory
-     * @return
-     * @throws MoveListEmptyException
+     * This method asks for the move file.
+     *
+     * @param moveDirectory             directory where the move files are
+     * @return                          new generated move file
+     * @throws MoveListEmptyException   exception when the move file is empty
      */
     @Override
     public File askMoveFile(File moveDirectory) throws MoveListEmptyException {
@@ -160,13 +212,20 @@ public class ConsoleView implements UserInterface {
     }
 
     /**
-     * @return
+     * This methods asks the user for the next option.
+     *
+     * @return  selected option
      */
     @Override
     public char askOption() {
         return textIO.newCharInputReader().read();
     }
 
+    /**
+     * This method asks for the direction
+     *
+     * @return the selected direction
+     */
     @Override
     public PositionVector.Direction askDirection() {
         return textIO.newEnumInputReader(PositionVector.Direction.class).read();
