@@ -1,8 +1,6 @@
 package ch.zhaw.pm2.racetrack.strategy;
 
-import ch.zhaw.pm2.racetrack.PositionVector;
-
-import static ch.zhaw.pm2.racetrack.PositionVector.Direction;
+import ch.zhaw.pm2.racetrack.PositionVector.Direction;
 
 /**
  * Do not accelerate in any direction.

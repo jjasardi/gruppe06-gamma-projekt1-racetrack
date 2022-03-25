@@ -1,6 +1,6 @@
 package ch.zhaw.pm2.racetrack.given;
 
-import ch.zhaw.pm2.racetrack.Config;
+import ch.zhaw.pm2.racetrack.logic.Config;
 import ch.zhaw.pm2.racetrack.PositionVector;
 
 /**

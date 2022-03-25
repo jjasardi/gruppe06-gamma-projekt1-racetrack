@@ -1,4 +1,4 @@
-package ch.zhaw.pm2.racetrack;
+package ch.zhaw.pm2.racetrack.logic;
 
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
 
@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.Objects;
 
 public class Config implements ConfigSpecification {
-
     // Directory containing the track files
     private File trackDirectory = new File("tracks");
 
@@ -43,5 +42,17 @@ public class Config implements ConfigSpecification {
         this.trackDirectory = trackDirectory;
     }
 
+    public enum DialogFeature{
+        HELP ('h'),
+        SHOW_TRACK ('t'),
+        QUIT ('q');
 
+        private final char sign;
+
+        private DialogFeature(char sign) {
+            this.sign = sign;
+        }
+
+        public char getSign() {return  sign;}
+    }
 }

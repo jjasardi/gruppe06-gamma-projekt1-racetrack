@@ -57,8 +57,7 @@ public class Car implements CarSpecification {
      */
     @Override
     public void setPosition(final PositionVector position) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        this.position = position;
     }
 
     /**
@@ -69,8 +68,7 @@ public class Car implements CarSpecification {
      */
     @Override
     public PositionVector nextPosition() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return PositionVector.add(this.position, this.velocity);
     }
 
     /**
@@ -83,8 +81,7 @@ public class Car implements CarSpecification {
      */
     @Override
     public void accelerate(PositionVector.Direction acceleration) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        this.velocity = PositionVector.add(this.velocity, acceleration.vector);
     }
 
     /**
@@ -92,8 +89,7 @@ public class Car implements CarSpecification {
      */
     @Override
     public void move() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        this.position = PositionVector.add(this.position, this.velocity);
     }
 
     /**
@@ -101,8 +97,7 @@ public class Car implements CarSpecification {
      */
     @Override
     public void crash() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        this.crashed = true;
     }
 
     /**
@@ -112,14 +107,14 @@ public class Car implements CarSpecification {
      */
     @Override
     public boolean isCrashed() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return crashed;
     }
 
     /**
      * Set move strategy
      * @param moveStrategy
      */
+    @Override
     public void setMoveStrategy(MoveStrategy moveStrategy) {
         this.moveStrategy = moveStrategy;
     }
@@ -128,7 +123,20 @@ public class Car implements CarSpecification {
      * Get current move strategy
      * @return MoveStrategy
      */
+    @Override
     public MoveStrategy getMoveStrategy() {
         return this.moveStrategy;
+    }
+
+    public char getId() {
+        return id;
+    }
+
+    public PositionVector getPosition() {
+        return position;
+    }
+
+    public PositionVector getVelocity() {
+        return velocity;
     }
 }

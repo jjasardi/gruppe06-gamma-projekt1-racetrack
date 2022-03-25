@@ -1,9 +1,18 @@
 package ch.zhaw.pm2.racetrack;
 
+import ch.zhaw.pm2.racetrack.exceptions.InvalidTrackFormatException;
+import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
+import ch.zhaw.pm2.racetrack.given.ConfigSpecification.SpaceType;
 import ch.zhaw.pm2.racetrack.given.TrackSpecification;
+import ch.zhaw.pm2.racetrack.logic.Config;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * This class represents the racetrack board.
@@ -54,44 +63,152 @@ import java.io.FileNotFoundException;
 public class Track implements TrackSpecification {
 
     public static final char CRASH_INDICATOR = 'X';
+    private static final char NO_FINISH_LINE = 'F';
 
-    // TODO: Add necessary variables
+    private List<Car> cars;
+    private int width = 0;
+    private int height = 0;
+    private final SpaceType[][] trackGrid;
+    private final List<String> trackStringList = new ArrayList<>();
 
     /**
      * Initialize a Track from the given track file.
      *
      * @param trackFile Reference to a file containing the track data
      * @throws FileNotFoundException       if the given track file could not be found
-     * @throws InvalidTrackFormatException if the track file contains invalid data (no tracklines, ...)
+     * @throws InvalidTrackFormatException if the track file contains invalid data (no tracklines, no
      */
     public Track(File trackFile) throws FileNotFoundException, InvalidTrackFormatException {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        cars = new ArrayList<>();
+        if (!trackFile.exists())
+            throw new FileNotFoundException();
+        try {
+            scanFile(trackFile);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+        if (!isTrackValid()) ;
+        trackGrid = new SpaceType[width][height];
+        convertStringToTrack();
     }
 
-    /**
-     * Return the type of space at the given position.
-     * If the location is outside the track bounds, it is considered a wall.
-     *
-     * @param position The coordinates of the position to examine
-     * @return The type of track position at the given location
-     */
-    @Override
-    public Config.SpaceType getSpaceType(PositionVector position) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+    public List<Car> getCars() {
+        return cars;
     }
 
+    private boolean isTrackValid() throws InvalidTrackFormatException {
+        return isRectangular() && hasValidCharacters() && hasFinishLines() && hasValidCarID();
+    }
+
+    private void scanFile(File trackFile) throws IOException {
+        Scanner scanner = new Scanner(trackFile, StandardCharsets.UTF_8);
+        while (scanner.hasNext()) {
+            trackStringList.add(scanner.nextLine());
+        }
+        scanner.close();
+    }
+
+    private boolean isRectangular() throws InvalidTrackFormatException {
+        boolean isRectangle = true;
+        if (trackStringList.isEmpty()) {
+            isRectangle = false;
+        } else {
+            width = trackStringList.get(height).length();
+            height++;
+            while (height < trackStringList.size() && isRectangle) {
+                isRectangle = trackStringList.get(height).length() == width;
+                height++;
+            }
+        }
+        if (!isRectangle) throw new InvalidTrackFormatException("Track is not a rectangle.");
+        return isRectangle;
+    }
+
+    private boolean hasValidCharacters() throws InvalidTrackFormatException {
+        int nonTrackChars = 0;
+        for (String line : trackStringList) {
+            for (char c : line.toCharArray()) {
+                if (!(isTrackChar(c) || c == '*')) nonTrackChars++;
+            }
+        }
+        if ((nonTrackChars <= 0)) throw new InvalidTrackFormatException("Track has no cars.");
+        if ((nonTrackChars > ConfigSpecification.MAX_CARS)) throw new InvalidTrackFormatException("Track has too many cars.");
+        return nonTrackChars > 0 && nonTrackChars <= ConfigSpecification.MAX_CARS;
+    }
+
+    private boolean hasFinishLines() throws InvalidTrackFormatException {
+        boolean hasfinishLine = false;
+        char finishLineDirection = NO_FINISH_LINE;
+        for (String line : trackStringList) {
+            for (char c : line.toCharArray()) {
+                if (isFinishLine(c)) {
+                    if (finishLineDirection == NO_FINISH_LINE) {
+                        finishLineDirection = c;
+                        hasfinishLine = true;
+                    }
+                    hasfinishLine = hasfinishLine && finishLineDirection == c;
+                }
+            }
+        }
+        if (finishLineDirection == NO_FINISH_LINE) throw new InvalidTrackFormatException("Track has no finish line.");
+        if (!hasfinishLine) throw new InvalidTrackFormatException("Track has multiple finish lines.");
+        return hasfinishLine;
+    }
+
+    private boolean hasValidCarID() throws InvalidTrackFormatException {
+        List<Character> chars = new ArrayList<>();
+        chars.add(CRASH_INDICATOR);
+        for (String line : trackStringList) {
+            for (char c : line.toCharArray()) {
+                if (!(isTrackChar(c) || c == '*')) {
+                    for (Character takenCarIDs : chars) {
+                        if (c == takenCarIDs) {
+                            throw new InvalidTrackFormatException("Car :" + c + " has an invalid ID.");
+                        }
+                    }
+                    chars.add(c);
+                }
+            }
+        }
+        return true;
+    }
+
+    private void convertStringToTrack() {
+        int x = 0;
+        int y = 0;
+        for (String line : trackStringList) {
+            for (char c : line.toCharArray()) {
+                if (isTrackChar(c)) {
+                    trackGrid[x][y] = charToSpaceType(c);
+                } else if (c == '*') {
+                    trackGrid[x][y] = SpaceType.TRACK;
+                } else {
+                    trackGrid[x][y] = SpaceType.TRACK;
+                    cars.add(new Car(c, new PositionVector(x, y)));
+                }
+                x++;
+            }
+            x = 0;
+            y++;
+        }
+    }
+
+
     /**
-     * Return the number of cars.
+     * Returns the {@link Config.SpaceType} from a given {@link PositionVector}
      *
-     * @return Number of cars
+     * @param position position to retrieve {@link Config.SpaceType} from
+     * @return {@link Config.SpaceType}
      */
     @Override
-    public int getCarCount() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+    public ConfigSpecification.SpaceType getSpaceType(PositionVector position) {
+        if (position.getX() >= 0 && position.getX() <= width && position.getY() >= 0 && position.getY() <= height) {
+            return trackGrid[position.getX()][position.getY()];
+        } else {
+            return SpaceType.WALL;
+        }
     }
+
 
     /**
      * Get instance of specified car.
@@ -101,8 +218,17 @@ public class Track implements TrackSpecification {
      */
     @Override
     public Car getCar(int carIndex) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return cars.get(carIndex);
+    }
+
+    /**
+     * Return the number of cars.
+     *
+     * @return Number of cars
+     */
+    @Override
+    public int getCarCount() {
+        return cars.size();
     }
 
     /**
@@ -113,8 +239,7 @@ public class Track implements TrackSpecification {
      */
     @Override
     public char getCarId(int carIndex) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return cars.get(carIndex).getId();
     }
 
     /**
@@ -125,20 +250,12 @@ public class Track implements TrackSpecification {
      */
     @Override
     public PositionVector getCarPos(int carIndex) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return cars.get(carIndex).getPosition();
     }
 
-    /**
-     * Get the velocity of the specified car.
-     *
-     * @param carIndex The zero-based carIndex number
-     * @return A PositionVector containing the car's current velocity
-     */
     @Override
     public PositionVector getCarVelocity(int carIndex) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        return cars.get(carIndex).getVelocity();
     }
 
     /**
@@ -151,19 +268,73 @@ public class Track implements TrackSpecification {
      * @return character representing position (x,y) on the track
      */
     @Override
-    public char getCharAtPosition(int y, int x, Config.SpaceType currentSpace) {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+    public char getCharAtPosition(int y, int x, ConfigSpecification.SpaceType currentSpace) {
+        if (x > width || y > height) {
+            System.err.println("Parameter Value out of Bound");
+            throw new UnsupportedOperationException();
+        }
+        char charAtPos = currentSpace.value;
+        for (Car car : cars) {
+            if (car.getPosition().getY() == y && car.getPosition().getX() == x) {
+                if (car.isCrashed()) {
+                    charAtPos = CRASH_INDICATOR;
+                } else {
+                    charAtPos = car.getId();
+                }
+            }
+        }
+        return charAtPos;
     }
 
     /**
-     * Return a String representation of the track, including the car locations.
+     * Returns a String representation of the given track
      *
-     * @return A String representation of the track
+     * @return string of the given track
      */
     @Override
     public String toString() {
-        // TODO: implementation
-        throw new UnsupportedOperationException();
+        StringBuilder string = new StringBuilder();
+        for (int currentY = 0; currentY < height; currentY++) {
+            for (int currentX = 0; currentX < width; currentX++) {
+                string.append(getCharAtPosition(currentY, currentX, getSpaceType(new PositionVector(currentX, currentY))));
+            }
+            string.append("\n");
+        }
+        return string.toString();
+    }
+
+    private static SpaceType charToSpaceType(char c) {
+        SpaceType returnValue = null;
+        for (SpaceType space : SpaceType.values()) {
+            if (space.value == c) returnValue = space;
+        }
+        return returnValue;
+    }
+
+    private static boolean isTrackChar(char charAtPos) {
+        return isFinishLine(charAtPos) || charAtPos == SpaceType.TRACK.getValue() || charAtPos == SpaceType.WALL.getValue();
+    }
+
+    private static boolean isFinishLine(char charAtPos) {
+        return isFinishLineDown(charAtPos) ||
+                isFinishLineUp(charAtPos) ||
+                isFinishLineLeft(charAtPos) ||
+                isFinishLineRight(charAtPos);
+    }
+
+    private static boolean isFinishLineDown(char spaceType) {
+        return spaceType == SpaceType.FINISH_DOWN.getValue();
+    }
+
+    private static boolean isFinishLineUp(char spaceType) {
+        return spaceType == SpaceType.FINISH_UP.getValue();
+    }
+
+    private static boolean isFinishLineLeft(char spaceType) {
+        return spaceType == SpaceType.FINISH_LEFT.getValue();
+    }
+
+    private static boolean isFinishLineRight(char spaceType) {
+        return spaceType == SpaceType.FINISH_RIGHT.getValue();
     }
 }
