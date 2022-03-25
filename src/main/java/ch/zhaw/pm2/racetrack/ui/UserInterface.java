@@ -82,6 +82,11 @@ public interface UserInterface {
     void printErrorMessageTrackFormat();
 
     /**
+     * Prints the error message if the Move List file is empty
+     */
+    void printErrorMessageMoveList();
+
+    /**
      * This method asks the user for the track file.
      *
      * @param trackDirectory            directory where the track files are
