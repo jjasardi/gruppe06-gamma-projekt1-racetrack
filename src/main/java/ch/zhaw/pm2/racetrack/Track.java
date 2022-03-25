@@ -63,10 +63,11 @@ import java.util.Scanner;
 public class Track implements TrackSpecification {
 
     public static final char CRASH_INDICATOR = 'X';
+    private static final char NO_FINISH_LINE = 'F';
 
     private List<Car> cars;
-    private int sizeX = 0;
-    private int sizeY = 0;
+    private int width = 0;
+    private int height = 0;
     private final SpaceType[][] trackGrid;
     private final List<String> trackStringList = new ArrayList<>();
 
@@ -86,8 +87,8 @@ public class Track implements TrackSpecification {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-        if (!isValidTrack()) ;
-        trackGrid = new SpaceType[sizeX][sizeY];
+        if (!isTrackValid()) ;
+        trackGrid = new SpaceType[width][height];
         convertStringToTrack();
     }
 
@@ -95,8 +96,8 @@ public class Track implements TrackSpecification {
         return cars;
     }
 
-    private boolean isValidTrack() throws InvalidTrackFormatException {
-        return isRectangular() && hasValidCharacters() && hasFinishLines() && validCarID();
+    private boolean isTrackValid() throws InvalidTrackFormatException {
+        return isRectangular() && hasValidCharacters() && hasFinishLines() && hasValidCarID();
     }
 
     private void scanFile(File trackFile) throws IOException {
@@ -111,11 +112,11 @@ public class Track implements TrackSpecification {
         if (trackStringList.size() == 0) {
             isRectangle = false;
         } else {
-            sizeX = trackStringList.get(sizeY).length();
-            sizeY++;
-            while (sizeY < trackStringList.size() && isRectangle) {
-                isRectangle = trackStringList.get(sizeY).length() == sizeX;
-                sizeY++;
+            width = trackStringList.get(height).length();
+            height++;
+            while (height < trackStringList.size() && isRectangle) {
+                isRectangle = trackStringList.get(height).length() == width;
+                height++;
             }
         }
         if (!isRectangle) throw new InvalidTrackFormatException("Track is not a rectangle.");
@@ -130,17 +131,17 @@ public class Track implements TrackSpecification {
             }
         }
         if (!(nonTrackChars > 0)) throw new InvalidTrackFormatException("Track has no cars.");
-        if (!(nonTrackChars <= Config.MAX_CARS)) throw new InvalidTrackFormatException("Track has nto many cars.");
+        if (!(nonTrackChars <= Config.MAX_CARS)) throw new InvalidTrackFormatException("Track has too many cars.");
         return nonTrackChars > 0 && nonTrackChars <= ConfigSpecification.MAX_CARS;
     }
 
     private boolean hasFinishLines() throws InvalidTrackFormatException {
         boolean hasfinishLine = false;
-        char finishLineDirection = 'N';
+        char finishLineDirection = NO_FINISH_LINE;
         for (String line : trackStringList) {
             for (char c : line.toCharArray()) {
                 if (isFinishLine(c)) {
-                    if (finishLineDirection == 'N') {
+                    if (finishLineDirection == NO_FINISH_LINE) {
                         finishLineDirection = c;
                         hasfinishLine = true;
                     }
@@ -148,12 +149,12 @@ public class Track implements TrackSpecification {
                 }
             }
         }
-        if (finishLineDirection == 'N') throw new InvalidTrackFormatException("Track has no finishline.");
-        if (!hasfinishLine) throw new InvalidTrackFormatException("Track has multiple finishlines.");
+        if (finishLineDirection == NO_FINISH_LINE) throw new InvalidTrackFormatException("Track has no finish line.");
+        if (!hasfinishLine) throw new InvalidTrackFormatException("Track has multiple finish lines.");
         return hasfinishLine;
     }
 
-    private boolean validCarID() throws InvalidTrackFormatException {
+    private boolean hasValidCarID() throws InvalidTrackFormatException {
         List<Character> chars = new ArrayList<>();
         chars.add(CRASH_INDICATOR);
         for (String line : trackStringList) {
@@ -161,7 +162,7 @@ public class Track implements TrackSpecification {
                 if (!(isTrackChar(c) || c == '*')) {
                     for (Character takenCarIDs : chars) {
                         if (c == takenCarIDs) {
-                            throw new InvalidTrackFormatException("Car :" + c + " has a invalid ID.");
+                            throw new InvalidTrackFormatException("Car :" + c + " has an invalid ID.");
                         }
                     }
                     chars.add(c);
@@ -199,7 +200,7 @@ public class Track implements TrackSpecification {
      */
     @Override
     public Config.SpaceType getSpaceType(PositionVector position) {
-        if (position.getX() >= 0 && position.getX() <= sizeX && position.getY() >= 0 && position.getY() <= sizeY) {
+        if (position.getX() >= 0 && position.getX() <= width && position.getY() >= 0 && position.getY() <= height) {
             return trackGrid[position.getX()][position.getY()];
         } else {
             return SpaceType.WALL;
@@ -266,7 +267,7 @@ public class Track implements TrackSpecification {
      */
     @Override
     public char getCharAtPosition(int y, int x, Config.SpaceType currentSpace) {
-        if (x > sizeX || y > sizeY) {
+        if (x > width || y > height) {
             System.err.println("Parameter Value out of Bound");
             throw new UnsupportedOperationException();
         }
@@ -291,8 +292,8 @@ public class Track implements TrackSpecification {
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
-        for (int currentY = 0; currentY < sizeY; currentY++) {
-            for (int currentX = 0; currentX < sizeX; currentX++) {
+        for (int currentY = 0; currentY < height; currentY++) {
+            for (int currentX = 0; currentX < width; currentX++) {
                 string.append(getCharAtPosition(currentY, currentX, getSpaceType(new PositionVector(currentX, currentY))));
             }
             string.append("\n");
