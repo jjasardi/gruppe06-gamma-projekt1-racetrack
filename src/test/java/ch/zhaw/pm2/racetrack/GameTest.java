@@ -30,12 +30,18 @@ class GameTest {
         game = new Game(track);
     }
 
+    /**
+     * Test if {@link Game} switches to the right {@link Car} when no cars are crashed
+     */
     @Test
     void switchCarNoCarCrashed() {
         game.switchToNextActiveCar();
         assertEquals(1, game.getCurrentCarIndex());
     }
 
+    /**
+     * Test if {@link Game} switches to right {@link Car} when two cars are crashed
+     */
     @Test
     void switchCarTwoCarsCrashed() {
         game.getCars().get(1).crash();
@@ -44,6 +50,9 @@ class GameTest {
         assertEquals(3, game.getCurrentCarIndex());
     }
 
+    /**
+     * Test if position of car is right after it moves to a position that is not occupied
+     */
     @Test
     void carMovesToFreePosition() {
         Car firstCar = game.getCars().get(0);
@@ -51,6 +60,13 @@ class GameTest {
         assertEquals(new PositionVector(20, 1), firstCar.getPosition());
     }
 
+    /**
+     * When {@link Car} moves into a SpaceType, test if
+     * <ul>
+     *   <li> {@link Car} is marked as crash</li>
+     *   <li> {@link Car} has moved to collision position</li>
+     * </ul>
+     */
     @Test
     void carCrashesToWall() {
         Car firstCar = game.getCars().get(0);
@@ -60,6 +76,14 @@ class GameTest {
         assertEquals(new PositionVector(19, 0), firstCar.getPosition());
     }
 
+    /**
+     * When one {@link Car} moves into another not-crashed {@link Car}, test if
+     * <ul>
+     *   <li>the {@link Car}, in which the other {@link Car} moved is not crashed</li>
+     *   <li> {@link Car} that moved is crashed</li>
+     *   <li> {@link Car} has moved to collision position</li>
+     * </ul>
+     */
     @Test
     void carCrashesIntoRunningCar() {
         Car firstCar = game.getCars().get(0);
@@ -78,6 +102,14 @@ class GameTest {
         assertEquals(secondCar.getPosition(), thirdCar.getPosition());
     }
 
+    /**
+     * When one {@link Car} moves into another {@link Car}, that's on his startPosition-endPosition path test if
+     * <ul>
+     *   <li>the {@link Car}, that moved is crashed</li>
+     *   <li>the {@link Car}, that was on the path is not crashed</li>
+     *   <li>crashed {@link Car} has moved to collision position</li>
+     * </ul>
+     */
     @Test
     void carCrashesIntoCarOnThePath() {
         Car firstCar = game.getCars().get(0);
@@ -92,6 +124,13 @@ class GameTest {
         assertEquals(secondCar.getPosition(), firstCar.getPosition());
     }
 
+    /**
+     * When one {@link Car} moves into another crashed {@link Car}, test if
+     * <ul>
+     *   <li> the {@link Car}, that moved is crashed</li>
+     *   <li> {@link Car} has moved to collision position</li>
+     * </ul>
+     */
     @Test
     void carCrashesIntoCrashedCar() {
         Car thirdCar = game.getCars().get(2);
@@ -105,6 +144,12 @@ class GameTest {
         assertEquals(thirdCar.getPosition(), secondCar.getPosition());
     }
 
+    /**
+     * When one {@link Car} doesn't change his position after another {@link Car} has crashed into it, test if
+     * <ul>
+     *   <li>the {@link Car}, that doesn't move is not crashed</li>
+     * </ul>
+     */
     @Test
     void carNotMovingAfterCarCrashesIntoIt() {
         Car secondCar = game.getCars().get(1);
@@ -115,6 +160,12 @@ class GameTest {
         assertFalse(secondCar.isCrashed());
     }
 
+    /**
+     * When all {@link Car} crash except one, test if
+     * <ul>
+     *   <li>the winner of the {@link Game} is the remainig {@link Car}</li>
+     * </ul>
+     */
     @Test
     void allCarsCrashedExceptOne() {
         game.doCarTurn(Direction.NONE);
@@ -129,6 +180,13 @@ class GameTest {
         assertEquals(game.getCurrentCarIndex(), game.getWinner());
     }
 
+    /**
+     * When one {@link Car} passes the finish line in the correct way, test if
+     * <ul>
+     *   <li>the {@link Car} moves to the win position</li>
+     *   <li>the {@link Car} is the winner of the {@link Game}</li>
+     * </ul>
+     */
     @Test
     void carPassesFinishLineInCorrectWay() {
         Car fourthCar = game.getCars().get(3);
@@ -139,6 +197,14 @@ class GameTest {
         assertEquals(3, game.getWinner());
     }
 
+    /**
+     * When one {@link Car} passes the finish line in the wrong way, test if
+     * <ul>
+     *   <li>the {@link Car} is marked as crashed</li>
+     *   <li>the {@link Car} is not the winner of the game</li>
+     *   <li>the {@link Car} moves to the collision position</li>
+     * </ul>
+     */
     @Test
     void carPassesFinishLineInWrongWay() {
         Car firstCar = game.getCars().get(0);
@@ -150,6 +216,13 @@ class GameTest {
         assertEquals(new PositionVector(17, 1), firstCar.getPosition());
     }
 
+    /**
+     * When one {@link Car} moves to a coordinate that's outside coordinate boundaries, test if
+     * <ul>
+     *   <li>the {@link Car} is marked as crashed</li>
+     *   <li>the {@link Car} moves to the collision position</li>
+     * </ul>
+     */
     @Test
     void carMovesOutsideBoundary() {
         Car firstCar = game.getCars().get(0);
