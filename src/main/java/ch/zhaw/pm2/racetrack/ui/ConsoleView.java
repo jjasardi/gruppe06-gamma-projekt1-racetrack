@@ -23,7 +23,7 @@ public class ConsoleView implements UserInterface {
     private final TextTerminal<?> textTerminal;
 
     /**
-     * Creates an object of class @{@link ConsoleInterface}
+     * Creates an object of class @{@link ConsoleView}
      * which implements all the methods of the @{@link Input} and @{@link Output}
      */
     public ConsoleView() {
