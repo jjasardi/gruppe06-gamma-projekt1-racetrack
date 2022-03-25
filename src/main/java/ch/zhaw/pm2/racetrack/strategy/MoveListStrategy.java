@@ -40,7 +40,6 @@ public class MoveListStrategy implements MoveStrategy {
         readAllMoves(moveFile);
     }
 
-    //TODO ev. output entfernen und in RacetrackFlow aufrufen
     private File selectMoveListFile() throws MoveListEmptyException {
         try {
 
@@ -78,7 +77,7 @@ public class MoveListStrategy implements MoveStrategy {
             Direction currentMove = movesList.get(currentMoveIndex);
             ++currentMoveIndex;
             return currentMove;
-        } else{
+        } else {
             return Direction.NONE;
         }
     }

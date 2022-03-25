@@ -1,4 +1,4 @@
-package ch.zhaw.pm2.racetrack;
+package ch.zhaw.pm2.racetrack.exceptions;
 
 /**
  *

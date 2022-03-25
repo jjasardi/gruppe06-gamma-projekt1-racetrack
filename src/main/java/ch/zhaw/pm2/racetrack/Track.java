@@ -1,5 +1,6 @@
 package ch.zhaw.pm2.racetrack;
 
+import ch.zhaw.pm2.racetrack.exceptions.InvalidTrackFormatException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification.SpaceType;
 import ch.zhaw.pm2.racetrack.given.TrackSpecification;
@@ -68,8 +69,6 @@ public class Track implements TrackSpecification {
     private int sizeY = 0;
     private final SpaceType[][] raceTrackGrid;
     private final List<String> trackStringList = new ArrayList<>();
-    private static List<PositionVector> waypoints = new ArrayList<>();
-    private boolean showWaypoints = true;
 
     /**
      * Initialize a Track from the given track file.
@@ -268,14 +267,6 @@ public class Track implements TrackSpecification {
             throw new UnsupportedOperationException();
         }
         char charAtPos = currentSpace.value;
-        if (showWaypoints) {
-            for (PositionVector position : waypoints) {
-                if (position.getX() == x && position.getY() == y) {
-                    charAtPos = '*';
-                    break;
-                }
-            }
-        }
         for (Car car : cars) {
             if (car.getPosition().getY() == y && car.getPosition().getX() == x) {
                 if (car.isCrashed()) {

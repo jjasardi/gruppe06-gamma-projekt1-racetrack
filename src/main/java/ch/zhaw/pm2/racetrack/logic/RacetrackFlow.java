@@ -1,7 +1,7 @@
 package ch.zhaw.pm2.racetrack.logic;
 
 import ch.zhaw.pm2.racetrack.Car;
-import ch.zhaw.pm2.racetrack.InvalidTrackFormatException;
+import ch.zhaw.pm2.racetrack.exceptions.InvalidTrackFormatException;
 import ch.zhaw.pm2.racetrack.Track;
 import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
 import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;

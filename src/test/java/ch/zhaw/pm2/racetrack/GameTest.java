@@ -1,6 +1,7 @@
 package ch.zhaw.pm2.racetrack;
 
 import ch.zhaw.pm2.racetrack.PositionVector.Direction;
+import ch.zhaw.pm2.racetrack.exceptions.InvalidTrackFormatException;
 import ch.zhaw.pm2.racetrack.logic.Game;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
