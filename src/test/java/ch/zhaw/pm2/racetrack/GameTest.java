@@ -106,6 +106,16 @@ public class GameTest {
     }
 
     @Test
+    public void carNotMovingAfterCarCrashesIntoIt() {
+        Car secondCar = game.getCars().get(1);
+        skipToCar(2);
+        game.doCarTurn(Direction.UP);
+        skipToCar(1);
+        game.doCarTurn(Direction.NONE);
+        assertFalse(secondCar.isCrashed());
+    }
+
+    @Test
     public void allCarsCrashedExceptOne() {
         game.doCarTurn(Direction.NONE);
         game.switchToNextActiveCar();
