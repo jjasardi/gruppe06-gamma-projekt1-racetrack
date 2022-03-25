@@ -1,11 +1,9 @@
 package ch.zhaw.pm2.racetrack.logic;
 
 import ch.zhaw.pm2.racetrack.Car;
-import ch.zhaw.pm2.racetrack.exceptions.InvalidFileFormatException;
-import ch.zhaw.pm2.racetrack.exceptions.InvalidTrackFormatException;
 import ch.zhaw.pm2.racetrack.Track;
+import ch.zhaw.pm2.racetrack.exceptions.InvalidTrackFormatException;
 import ch.zhaw.pm2.racetrack.exceptions.MoveListEmptyException;
-import ch.zhaw.pm2.racetrack.exceptions.TracklistEmptyException;
 import ch.zhaw.pm2.racetrack.given.ConfigSpecification;
 import ch.zhaw.pm2.racetrack.strategy.MoveStrategy;
 import ch.zhaw.pm2.racetrack.strategy.UserMoveStrategy;
@@ -73,7 +71,7 @@ public class RacetrackFlow {
             game = new Game(track);
         } catch (InvalidTrackFormatException exception) {
             output.outputErrorMessageTrackFormat();
-
+            initializeGame();
         } catch (FileNotFoundException exception) {
             System.err.println("File not found!");
             System.exit(0);
