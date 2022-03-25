@@ -22,10 +22,9 @@ public class Output {
     }
 
     /**
-     * Prints the appeal for the player to choose a @{@link Track}
+     * Prints the appeal for the player to choose a {@link ch.zhaw.pm2.racetrack.Track}
      *
-     * @param trackDirectory directory of the @{@link Track}
-     * @throws TracklistEmptyException
+     * @param trackDirectory directory of the {@link ch.zhaw.pm2.racetrack.Track}
      */
     public void outputTrackList(File trackDirectory) {
         try {
@@ -36,17 +35,18 @@ public class Output {
     }
 
     /**
-     * Executes the print of all available @{@link ch.zhaw.pm2.racetrack.strategy.MoveStrategy}
+     * Executes the print of all available {@link ch.zhaw.pm2.racetrack.strategy.MoveStrategy}
      *
-     * @param strategyTypes array of all @{@link ch.zhaw.pm2.racetrack.strategy.MoveStrategy}
+     * @param strategyTypes array of all {@link ch.zhaw.pm2.racetrack.strategy.MoveStrategy}
      */
     public void outputStrategyTypes(StrategyType[] strategyTypes) {
         consoleView.printStrategyTypes(strategyTypes);
     }
 
     /**
-     * @param moveDirectory
-     * @throws MoveListEmptyException
+     * This method calls the print move list method
+     *
+     * @param moveDirectory directory where the move files are
      */
     public void outputMoveList(File moveDirectory) {
         try {
@@ -56,34 +56,58 @@ public class Output {
         }
     }
 
+    /**
+     * This method calls the method for the printing the game state.
+     *
+     * @param track current {@link ch.zhaw.pm2.racetrack.Track} object
+     */
     public void outputGameState(String track) {
         consoleView.printGameState(track);
     }
 
+    /**
+     * This method executes the id of the current car
+     *
+     * @param carID char representig car ID
+     */
     public void outputCurrentCarID(char carID) {
         consoleView.printCurrentCarID(carID);
     }
 
     /**
      * Executes the print of all possibles @{@link ch.zhaw.pm2.racetrack.PositionVector.Direction}
-     *
      */
     public void outputNextCommand() {
         consoleView.printNextCommand();
     }
 
+    /**
+     * Executes the print of the direction appeal.
+     */
     public void outputDirectionAppeal() {
         consoleView.printDirectionAppeal();
     }
 
+    /**
+     * Executes the print of the user dialog features.
+     */
     public void outputUserDialogFeatures() {
         consoleView.printUserDialogFeatures();
     }
 
+    /**
+     * Excutes the print of the winner text.
+     *
+     * @param carID char representing carID
+     */
     public void outputWinnerText(char carID) {
         consoleView.printWinnerText(carID);
     }
 
+    /**
+     * Executes the print of the error message of {@link ch.zhaw.pm2.racetrack.exceptions.InvalidTrackFormatException}.
+     *
+     */
     public void outputErrorMessageTrackFormat() {
         consoleView.printErrorMessageTrackFormat();
     }
